@@ -1,0 +1,22 @@
+<img
+  src="/assets/svg/sidebar-logo.svg"
+  alt=""
+  class="ml16 mb20"
+>
+
+<nav>
+  <ul class="main-menu-list">
+    @for (menuItem of menuItems; track menuItem){
+      <li>
+        <button class="menu-item">
+          <svg class="menu-item__svg" [icon]="menuItem.icon"></svg>
+          <span>{{ menuItem.label }}</span>
+        </button>
+      </li>
+    }
+  </ul>
+</nav>
+
+<p class="medium-text mb20">Подписчики</p>
+
+<tt-subscriber-card></tt-subscriber-card>
