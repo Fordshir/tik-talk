@@ -1,17 +1,18 @@
 <img
   src="/assets/svg/sidebar-logo.svg"
   alt=""
-  class="ml16 mb20"
+  class="ml16 mb20 sidebar__logo"
+  [routerLink]="['/']"
 >
 
 <nav>
   <ul class="main-menu-list">
     @for (menuItem of menuItems; track menuItem){
       <li>
-        <button class="menu-item">
+        <a class="menu-item" [routerLink]="[menuItem.link]">
           <svg class="menu-item__svg" [icon]="menuItem.icon"></svg>
           <span>{{ menuItem.label }}</span>
-        </button>
+        </a>
       </li>
     }
   </ul>

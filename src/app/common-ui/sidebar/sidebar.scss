@@ -5,6 +5,10 @@
   background: var(--dark-color);
 }
 
+.sidebar__logo {
+  cursor: pointer;
+}
+
 .main-menu-list {
   display: grid;
   grid-gap: 8px;
@@ -24,6 +28,7 @@
   font-size: 14px;
   line-height: 24px;
   font-weight: 700;
+  text-decoration: none;
   width: 100%;
   text-align: left;
   border-radius: 2px;
@@ -87,4 +92,9 @@
 .settings-btn-svg {
   width: 13px;
   height: 13px;
+  color: var(--primary-color);
+
+  &:hover {
+    color: var(--light-color);
+  }
 }
