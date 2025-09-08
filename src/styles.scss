@@ -7,7 +7,7 @@
   --primary-color: #AE7AFF;
   --gray-color: #5F646D;
   --dark-hover-color: #161616;
-  --light-transparent-color: rgba(255, 255, 255, 0,75)
+  --light-transparent-color: rgba(255, 255, 255, 0.75)
 }
 
 *,
@@ -41,15 +41,30 @@ body{
 
 .btn{
   width: 100%;
-  background: var(--primary-color);
-  color: var(--dark-color);
   padding: 10px 20px;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
+  background: var(--primary-color);
+  color: var(--dark-color);
   cursor: pointer;
   border-radius: 4px;
   border: 1px solid var(--dark-color);
+}
+
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--primary-color);
+  color: var(--dark-color);
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid var(--dark-color);
+}
+
+.svg16 {
+  width: 16px;
+  height: 16px;
 }
 
 .btn-shadow {

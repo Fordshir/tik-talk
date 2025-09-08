@@ -1,3 +1,7 @@
 <tt-post-input></tt-post-input>
 
-<tt-post></tt-post>
+@for (post of feed(); track post.id) {
+  <tt-post
+    [post]="post"
+  ></tt-post>
+}
