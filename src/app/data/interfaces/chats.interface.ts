@@ -25,3 +25,8 @@ export interface lastMessageRes {
   userFrom: Profile
   message: string | null
 }
+
+export interface GroupedMessages {
+  date: string;         // форматированная дата, например `2023-09-18`
+  messages: Message[];
+}

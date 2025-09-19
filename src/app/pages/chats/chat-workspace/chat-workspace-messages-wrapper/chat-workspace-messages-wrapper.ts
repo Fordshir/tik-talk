@@ -20,7 +20,7 @@ export class ChatWorkspaceMessagesWrapper {
   chatsService = inject(ChatsService)
   chat = input.required<Chat>()
 
-  messages = this.chatsService.getGroupedMessages()
+  messages = this.chatsService.activeChatMessages
 
   async onSendMessage(messageText: string) {
     if (messageText.trim() === '') return;
