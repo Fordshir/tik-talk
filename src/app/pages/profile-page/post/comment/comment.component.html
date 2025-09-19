@@ -7,7 +7,7 @@
   <div class="comment-body">
     <header class="comment-header">
       <span class="medium-text">{{ comment.author.username }}</span>
-      <span class="medium-text">{{ comment.createdAt | timeAgo }}</span>
+      <span class="medium-text comment-time">{{ comment.createdAt | timeAgo }}</span>
     </header>
 
     <div class="comment-text">

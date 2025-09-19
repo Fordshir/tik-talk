@@ -1,16 +1,23 @@
 import {Component, effect, inject, ViewChild} from '@angular/core';
 import {ProfileHeader} from '../../common-ui/profile-header/profile-header';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ProfileService} from '../../data/services/profile';
 import {firstValueFrom} from 'rxjs';
 import {AvatarUpload} from './avatar-upload/avatar-upload';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {AsyncPipe} from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {SvgIcon} from '../../common-ui/svg-icon/svg-icon';
 
 @Component({
   selector: 'tt-settings-page',
   imports: [
     ProfileHeader,
     ReactiveFormsModule,
-    AvatarUpload
+    AvatarUpload,
+    AsyncPipe,
+    RouterLink,
+    SvgIcon
   ],
   templateUrl: './settings-page.html',
   styleUrl: './settings-page.scss'
@@ -18,6 +25,7 @@ import {AvatarUpload} from './avatar-upload/avatar-upload';
 export class SettingsPage {
   fb = inject(FormBuilder);
   profileService = inject(ProfileService);
+  profile$ = toObservable(this.profileService.me)
 
   @ViewChild (AvatarUpload) avatarUploader!: AvatarUpload
 

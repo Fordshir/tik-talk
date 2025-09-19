@@ -1,5 +1,11 @@
 :host {
   display: grid;
   grid-gap: 16px;
-  overflow-y: scroll;
 }
+
+.post-area {
+  overflow-y: scroll;
+  display: grid;
+  grid-gap: 16px;
+}
+

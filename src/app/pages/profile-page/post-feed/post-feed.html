@@ -1,7 +1,11 @@
-<tt-post-input></tt-post-input>
-
-@for (post of feed(); track post.id) {
-  <tt-post
-    [post]="post"
-  ></tt-post>
-}
+<tt-post-input
+  (created)="onCreatePost($event)"
+  [profile]="profile()"
+></tt-post-input>
+<ng-scrollbar>
+  @for (post of feed; track post.id) {
+    <tt-post
+      [post]="post"
+    ></tt-post>
+  }
+</ng-scrollbar>

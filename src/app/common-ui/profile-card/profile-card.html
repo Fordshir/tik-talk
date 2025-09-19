@@ -3,6 +3,7 @@
   <div class="avatar-name">
     <img
       [src]="profile.avatarUrl | imgUrl"
+      [routerLink]="['/profile', profile.id]"
       alt="avatar"
       class="profile-card__avatar"
     >

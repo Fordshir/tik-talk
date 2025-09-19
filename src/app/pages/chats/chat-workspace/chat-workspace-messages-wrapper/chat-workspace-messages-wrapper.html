@@ -1,0 +1,15 @@
+<ng-scrollbar>
+  <div class="messages-wrapper">
+    @for (groupedMessage of messages; track groupedMessage) {
+      <div class="last-message-date">{{ groupedMessage[0] }}</div>
+      @for (message of groupedMessage[1]; track message.id) {
+        <tt-chat-workspace-message
+          [message] = "message"
+        ></tt-chat-workspace-message>
+      }
+    }
+  </div>
+</ng-scrollbar>
+<tt-message-input
+  (created)="onSendMessage($event)"
+></tt-message-input>

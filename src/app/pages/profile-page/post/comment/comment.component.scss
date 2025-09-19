@@ -15,3 +15,12 @@
   justify-content: space-between;
   color: var(--light-transparent-color);
 }
+
+.comment-time {
+  margin-right: 5px;
+}
+
+.comment-text {
+  margin-bottom: 5px;
+  overflow-wrap: anywhere;
+}

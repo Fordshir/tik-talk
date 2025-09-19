@@ -1,0 +1,41 @@
+:host {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-gap: 12px;
+}
+
+:host.is-mine {
+  grid-template-columns: fit-content(100%) 1fr;
+  justify-self: end;
+
+  .message-container {
+    order: -1;
+  }
+  .message-text {
+    clip-path: polygon(
+        0 0,
+        calc(100% - 10px) 0,
+        100% 10px,
+        100% 100%,
+        0 100%
+    );
+    justify-self: end;
+    background: var(--primary-color);
+    color: var(--dark-color);
+  }
+}
+
+.message-text {
+  padding: 8px 16px;
+  background: var(--message-color);
+  font-weight: 500;
+  color: var(--light-color);
+  width: fit-content;
+  clip-path: polygon(
+      0 10px,
+      10px 0,
+      100% 0,
+      100% 100%,
+      0 100%
+  );
+}

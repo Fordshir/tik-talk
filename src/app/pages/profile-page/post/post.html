@@ -22,17 +22,20 @@
     </div>
 
     <div class="post__comments-wrapper">
-      @for (comment of comments(); track comment.id) {
-        <tt-comment
-          [comment]="comment"
-        ></tt-comment>
-      }
+      <ng-scrollbar>
+        @for (comment of comments(); track comment.id) {
+          <tt-comment
+            [comment]="comment"
+          ></tt-comment>
+        }
+      </ng-scrollbar>
     </div>
 
     <tt-post-input
-      (created)="onCreated()"
+      (created)="onCreated($event)"
       [postId]="post.id"
       [isCommentInput]="true"
+      [profile]="profile()"
     ></tt-post-input>
   </main>
 }

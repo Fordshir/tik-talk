@@ -1,5 +1,10 @@
-<tt-profile-header>
-</tt-profile-header>
+<div class="settings-header">
+  @if (profile$ | async; as profile) {
+    <tt-profile-header
+      [profile]="profile"
+    ></tt-profile-header>
+  }
+</div>
 
 <form class="profile-form__wrapper" [formGroup]="form">
   <div class="profile-form">
@@ -40,8 +45,9 @@
     </label>
   </div>
   <div>
-    <div>
-      <button class="btn" (click)="onSave()">Сохранить</button>
+    <div class="btn-wrapper">
+      <a [routerLink]="'/login'" class="logout-btn"><svg class="logout-btn__icon" icon="logout"></svg></a>
+      <button class="btn settings-btn" (click)="onSave()">Сохранить</button>
     </div>
   </div>
 </form>

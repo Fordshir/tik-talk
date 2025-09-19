@@ -1,0 +1,8 @@
+@if (activeChat$ | async; as chat) {
+  <tt-chat-workspace-header
+    [profile]="chat.companion"
+  ></tt-chat-workspace-header>
+  <tt-chat-workspace-messages-wrapper
+    [chat]="chat"
+  ></tt-chat-workspace-messages-wrapper>
+}

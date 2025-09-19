@@ -1,17 +1,13 @@
-import {Component, EventEmitter, HostBinding, inject, input, Output, Renderer2} from '@angular/core';
+import {Component, EventEmitter, HostBinding, inject, Input, input, Output, Renderer2} from '@angular/core';
 import {AvatarCircle} from '../../../common-ui/avatar-circle/avatar-circle';
-import {ProfileService} from '../../../data/services/profile';
-import {NgIf} from '@angular/common';
 import {SvgIcon} from '../../../common-ui/svg-icon/svg-icon';
-import {PostService} from '../../../data/services/post.service';
 import {FormsModule} from '@angular/forms';
-import {firstValueFrom} from 'rxjs';
+import {Profile} from '../../../data/interfaces/profile.interface';
 
 @Component({
   selector: 'tt-post-input',
   imports: [
     AvatarCircle,
-    NgIf,
     SvgIcon,
     FormsModule
   ],
@@ -20,13 +16,12 @@ import {firstValueFrom} from 'rxjs';
 })
 export class PostInput {
   r2 = inject(Renderer2)
-  postService = inject(PostService);
 
   isCommentInput = input(false)
   postId = input<number>(0)
-  profile = inject(ProfileService).me
+  @Input() profile: Profile | null | undefined
 
-  @Output() created = new EventEmitter();
+  @Output() created = new EventEmitter<string>();
 
   @HostBinding('class.comment')
   get isComment() {
@@ -42,27 +37,10 @@ export class PostInput {
     this.r2.setStyle(textarea, 'height', textarea.scrollHeight + 'px');
   }
 
-  onCreatePost() {
-    if (!this.postText) return
-
-    if (this.isCommentInput()) {
-      firstValueFrom(this.postService.createComment({
-        text: this.postText,
-        authorId: this.profile()!.id,
-        postId: this.postId(),
-      })).then(() => {
-        this.postText = ''
-      })
-      return;
+  onSend() {
+    if (this.postText.trim()) {
+      this.created.emit(this.postText);
+      this.postText = '';
     }
-
-    firstValueFrom(this.postService.createPost({
-      title: 'клёвый пост',
-      content: this.postText,
-      authorId: this.profile()!.id
-    })).then(() => {
-      this.postText = ''
-      this.created.emit()
-    })
   }
 }

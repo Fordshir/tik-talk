@@ -11,11 +11,12 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
 
   &:hover,
-  .to-settings-icon{
-    color: var(--link-color);
+  &:hover .to-settings-icon {
+    color: var(--light-color);
   }
 }
 

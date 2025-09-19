@@ -8,6 +8,8 @@ import {CommentComponent} from './comment/comment.component';
 import {PostService} from '../../../data/services/post.service';
 import {firstValueFrom} from 'rxjs';
 import {TimeAgoPipe} from '../../../helpers/pipes/time-ago-pipe';
+import {NgScrollbar} from 'ngx-scrollbar';
+import {ProfileService} from '../../../data/services/profile';
 
 @Component({
   selector: 'tt-post',
@@ -17,6 +19,7 @@ import {TimeAgoPipe} from '../../../helpers/pipes/time-ago-pipe';
     PostInput,
     CommentComponent,
     TimeAgoPipe,
+    NgScrollbar,
   ],
   providers: [DatePipe],
   templateUrl: './post.html',
@@ -24,6 +27,7 @@ import {TimeAgoPipe} from '../../../helpers/pipes/time-ago-pipe';
 })
 export class PostComponent implements OnInit {
   post = input<Post>()
+  profile = inject(ProfileService).me
 
   comments = signal<PostComment[]>([])
 
@@ -33,9 +37,20 @@ export class PostComponent implements OnInit {
     this.comments.set(this.post()!.comments);
   }
 
-  async onCreated() {
-    const comments = await firstValueFrom(this.postService.getCommentsByPostId(this.post()!.id))
-    this.comments.set(comments);
+  async onCreated(commentText: string) {
+    if (commentText) {
+      firstValueFrom(this.postService.createComment({
+        text: commentText,
+        authorId: this.profile()!.id,
+        postId: this.post()!.id,
+      })).then(async () => {
+        const comments = await firstValueFrom(this.postService.getCommentsByPostId(this.post()!.id))
+        this.comments.set(comments);
+      })
+      return;
+    }
+
+
   }
 
 }

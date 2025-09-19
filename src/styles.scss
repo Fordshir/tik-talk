@@ -7,7 +7,10 @@
   --primary-color: #AE7AFF;
   --gray-color: #5F646D;
   --dark-hover-color: #161616;
-  --light-transparent-color: rgba(255, 255, 255, 0.75)
+  --light-transparent-color: rgba(255, 255, 255, 0.75);
+  --message-color: #404040;
+
+  --light-border: 1px solid var(--light-color);
 }
 
 *,
@@ -31,7 +34,7 @@ body{
 .skill-tag{
   padding: 0 8px;
   border-radius: 4px;
-  border: 1px solid var(--light-color);
+  border: var(--light-border);
   display: inline;
   font-size: 12px;
   font-weight: 700;
@@ -113,6 +116,7 @@ body{
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
+  overflow-wrap: anywhere;
 }
 
 .regular {
@@ -133,7 +137,7 @@ body{
   width: 100%;
   margin-top: 8px;
   display: block;
-  border: 1px solid var(--light-color);
+  border: var(--light-border);
   border-radius: 4px;
   padding: 12px 20px;
   background: var(--dark-color);
@@ -166,7 +170,7 @@ body{
   background: none;
   color: var(--light-color);
   border: none;
-  border-bottom: 1px solid var(--light-color);
+  border-bottom: var(--light-border);
   height: 33px;
 
   &:focus-visible {
@@ -177,4 +181,11 @@ body{
 .tt-textarea {
   height: 84px;
   resize: none;
+}
+
+.ng-scrollbar {
+  --scrollbar-track-color: rgba(25, 25, 25, 0.5);
+  --scrollbar-thumb-color: var(--primary-color);
+  --scrollbar-border-radius: 2px;
+  --scrollbar-thickness: 5;
 }
