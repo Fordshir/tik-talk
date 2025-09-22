@@ -6,6 +6,7 @@ export interface Chat {
   userSecond: Profile
   messages: Message[]
   companion?: Profile
+  unreadMessages: number
 }
 
 export interface Message {
@@ -24,6 +25,8 @@ export interface lastMessageRes {
   id: number
   userFrom: Profile
   message: string | null
+  createdAt: string
+  unreadMessages: number
 }
 
 export interface GroupedMessages {

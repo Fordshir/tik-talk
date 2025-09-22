@@ -29,6 +29,4 @@ export class ChatWorkspaceMessagesWrapper {
     await firstValueFrom(this.chatsService.getChatById(this.chat().id));
   }
 
-
-
 }

@@ -5,6 +5,7 @@ import {ChatsService} from '../../../data/services/chats.service';
 import {AsyncPipe} from '@angular/common';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {map, startWith, switchMap} from 'rxjs';
+import {NgScrollbar} from 'ngx-scrollbar';
 
 @Component({
   selector: 'tt-chats-list',
@@ -13,7 +14,8 @@ import {map, startWith, switchMap} from 'rxjs';
     ReactiveFormsModule,
     AsyncPipe,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgScrollbar
   ],
   templateUrl: './chats-list.html',
   styleUrl: './chats-list.scss'

@@ -27,3 +27,19 @@
 .chat-user {
   color: var(--light-transparent-color);
 }
+
+.unread-counter {
+  color: var(--dark-color);
+  background: var(--primary-color);
+  padding: 1px 5px;
+}
+
+.user-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.message-wrapper {
+  display: flex;
+  justify-content: space-between;
+}

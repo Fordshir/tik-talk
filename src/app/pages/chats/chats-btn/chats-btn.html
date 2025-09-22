@@ -5,7 +5,15 @@
   ></tt-avatar-circle>
 
   <div class="last-message__wrapper">
-    <div class="chat-user medium-text">{{ chat.userFrom.firstName }} {{ chat.userFrom.lastName }}</div>
-    <div class="medium-text">{{ chat.message ?? '...' }}</div>
+    <div class="user-wrapper">
+      <div class="chat-user medium-text">{{ chat.userFrom.firstName }} {{ chat.userFrom.lastName }}</div>
+      <div class="chat-user medium-text">{{ chat.createdAt | date: "HH:mm"}}</div>
+    </div>
+    <div class="message-wrapper">
+      <div class="medium-text">{{ chat.message ?? '...' }}</div>
+      @if (chat.unreadMessages > 0) {
+        <div class="medium-text unread-counter">{{ chat.unreadMessages }}</div>
+      }
+    </div>
   </div>
 }

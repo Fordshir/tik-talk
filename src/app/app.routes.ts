@@ -6,8 +6,10 @@ import {Layout} from './common-ui/layout/layout';
 import {canActivateAuth} from './auth/access.guard';
 import {SettingsPage} from './pages/settings-page/settings-page';
 import {chatsRoutes} from './pages/chats/chatsRoutes';
+import {FormHw} from './experimental/form-hw/form-hw';
 
 export const routes: Routes = [
+  {path: 'experimental', component: FormHw},
   {path: '', component: Layout, children: [
     {path: '', redirectTo: 'profile/me', pathMatch: 'full'},
     {path: 'profile/:id', component: ProfilePage},

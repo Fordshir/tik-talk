@@ -1,9 +1,15 @@
 :host {
   border-right: var(--light-border);
   display: block;
+  max-height: calc(100dvh - 24px - 24px);
 }
 
 .chats-filters-input__wrapper {
   padding: 16px 20px;
   border-bottom: var(--light-border);
+}
+
+.chats-list-label {
+  gap: 0;
+  padding: 2px 0;
 }

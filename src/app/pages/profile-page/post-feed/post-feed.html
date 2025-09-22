@@ -3,9 +3,11 @@
   [profile]="profile()"
 ></tt-post-input>
 <ng-scrollbar>
-  @for (post of feed; track post.id) {
-    <tt-post
-      [post]="post"
-    ></tt-post>
-  }
+  <div class="post-area">
+    @for (post of feed; track post.id) {
+      <tt-post
+        [post]="post"
+      ></tt-post>
+    }
+  </div>
 </ng-scrollbar>

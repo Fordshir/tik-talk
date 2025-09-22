@@ -6,4 +6,6 @@
 .profile-card__wrapper{
   display: grid;
   grid-gap: 8px;
+  max-height: calc(100dvh - 24px - 24px - 120px);
+  overflow-y: scroll;
 }
