@@ -1,0 +1,19 @@
+:host {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  grid-gap: 24px;
+}
+
+.username-and-name {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+:host-context(.settings-header) .username-and-name {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 4px;
+}
