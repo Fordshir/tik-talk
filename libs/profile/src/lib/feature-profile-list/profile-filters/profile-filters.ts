@@ -2,7 +2,8 @@ import {Component, inject} from "@angular/core";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {debounceTime, startWith, switchMap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {ProfileService} from '../../../index';
+import {profileActions, ProfileService} from '../../../index';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: "tt-profile-filters",
@@ -12,6 +13,7 @@ import {ProfileService} from '../../../index';
 })
 export class ProfileFilters {
   fb = inject(FormBuilder);
+  store = inject(Store);
   profileService = inject(ProfileService);
 
   searchForm = this.fb.group({
@@ -25,11 +27,10 @@ export class ProfileFilters {
       .pipe(
         startWith({}),
         debounceTime(500),
-        switchMap((formValue) => {
-          return this.profileService.filterProfiles(formValue);
-        }),
         takeUntilDestroyed()
       )
-      .subscribe();
+      .subscribe(formValue => {
+        this.store.dispatch(profileActions.filterEvents({filters: formValue}))
+      });
   }
 }
