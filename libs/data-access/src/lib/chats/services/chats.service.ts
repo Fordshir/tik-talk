@@ -1,9 +1,14 @@
 import {inject, Injectable, signal} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Chat, GroupedMessages, lastMessageRes, Message,} from "../interfaces/chats.interface";
-import {map, switchMap, timer} from "rxjs";
+import {map, Observable, switchMap, timer} from "rxjs";
 import {DateTime} from "ts-luxon";
-import {ProfileService} from '@tt/profile';
+import {ChatWsService} from '../interfaces/chat-ws-service.interface';
+import {ChatWSMessage} from '../interfaces/chat-ws-message.interface';
+import {isNewMessage, isUnreadMessage} from '../interfaces/type-guards';
+import {ChatWsRxjsService} from './chat-ws-rxjs.service';
+import { Auth } from "../../auth/auth";
+import { ProfileService } from "../../profile";
 
 @Injectable({
   providedIn: "root",
@@ -11,12 +16,58 @@ import {ProfileService} from '@tt/profile';
 export class ChatsService {
   http = inject(HttpClient);
   me = inject(ProfileService).me;
+  #authService = inject(Auth);
+
+  wsAdapter: ChatWsService = new ChatWsRxjsService();
 
   activeChatMessages = signal<GroupedMessages[]>([]);
+  unreadMessagesCounter = signal(0);
+  activeChat = signal<Chat | null>(null);
 
   baseApiUrl = "https://icherniakov.ru/yt-course/";
   chatsUrl = `${this.baseApiUrl}chat/`;
   messageUrl = `${this.baseApiUrl}message/`;
+
+  connectWS () {
+    return this.wsAdapter.connect({
+      url: `${this.baseApiUrl}chat/ws`,
+      token: this.#authService.token ?? '',
+      handleMessage: this.handleWSMessage
+    }) as Observable<ChatWSMessage>;
+  }
+
+  handleWSMessage = (message: ChatWSMessage)=> {
+    if (!('action' in message)) return
+
+    if (isUnreadMessage(message)) {
+      this.unreadMessagesCounter.set(message.data.count)
+    }
+
+    if (isNewMessage(message)) {
+      const me = this.me()
+      const activeChat = this.activeChat()
+
+      if (!me || !activeChat) return
+
+      this.activeChatMessages.set([
+        ...this.activeChatMessages(),
+        {
+          date: message.data.created_at, // поменять
+          messages: [{
+            id: message.data.id,
+            userFromId: message.data.author,
+            personalChatId: message.data.chat_id,
+            text: message.data.message,
+            createdAt: message.data.created_at,
+            isRead: false,
+            isMine: message.data.author === me.id,
+            user: activeChat.userFirst.id === message.data.author
+              ? activeChat.userFirst
+              : activeChat.userSecond
+          }]}
+      ])
+    }
+  }
 
   createChat(userId: number) {
     return this.http.post<Chat>(`${this.chatsUrl}${userId}`, {});
@@ -64,10 +115,10 @@ export class ChatsService {
   }
 
   getChatById(chatId: number) {
-    return timer(0, 10000)
-      .pipe(switchMap(() => this.http.get<Chat>(`${this.chatsUrl}${chatId}`)))
+    return this.http.get<Chat>(`${this.chatsUrl}${chatId}`)
       .pipe(
         map((chat) => {
+          this.activeChat.set(chat)
           const patchedMessages = chat.messages.map((message) => {
             return {
               ...message,
@@ -93,17 +144,5 @@ export class ChatsService {
           };
         })
       );
-  }
-
-  sendMessage(chatId: number, message: string) {
-    return this.http.post<Message>(
-      `${this.messageUrl}send/${chatId}`,
-      {},
-      {
-        params: {
-          message,
-        },
-      }
-    );
   }
 }

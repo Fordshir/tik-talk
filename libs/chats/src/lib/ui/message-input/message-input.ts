@@ -1,13 +1,14 @@
-import {Component, EventEmitter, inject, Output, Renderer2,} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, Output, Renderer2,} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AvatarCircle, SvgIconComponent} from '@tt/common-ui';
-import {ProfileService} from '@tt/profile';
+import {ProfileService} from '@tt/data-access';
 
 @Component({
   selector: "tt-message-input",
   imports: [AvatarCircle, ReactiveFormsModule, SvgIconComponent, FormsModule],
   templateUrl: "./message-input.html",
   styleUrl: "./message-input.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageInput {
   r2 = inject(Renderer2);
