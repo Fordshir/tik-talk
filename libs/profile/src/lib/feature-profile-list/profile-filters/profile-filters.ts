@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {debounceTime, startWith} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {profileActions} from '../../../index';
 import {Store} from '@ngrx/store';
+import {profileActions} from '@tt/data-access';
 
 @Component({
   selector: "tt-profile-filters",

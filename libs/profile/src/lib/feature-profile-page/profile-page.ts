@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, signal} from "@angular/core";
-import {ProfileHeader} from "../../ui/profile-header/profile-header";
+import {ProfileHeader} from "../ui/profile-header/profile-header";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {switchMap} from "rxjs";
 import {toObservable} from "@angular/core/rxjs-interop";
