@@ -1,9 +1,9 @@
-import {Component, inject, input, OnInit, signal} from "@angular/core";
-import {firstValueFrom} from "rxjs";
+import {ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
 import {DatePipe} from "@angular/common";
 import {AvatarCircle, SvgIconComponent, TimeAgoPipe} from '@tt/common-ui';
 import {CommentComponent, PostInput} from '../../ui';
-import {GlobalStoreService, Post, PostComment, PostService} from '@tt/data-access';
+import {GlobalStoreService, Post, postsActions} from '@tt/data-access';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: "tt-post",
@@ -17,33 +17,24 @@ import {GlobalStoreService, Post, PostComment, PostService} from '@tt/data-acces
   providers: [DatePipe],
   templateUrl: "./post.html",
   styleUrl: "./post.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostComponent implements OnInit {
+
+export class PostComponent {
   post = input<Post>();
   profile = inject(GlobalStoreService).me;
+  store = inject(Store);
 
-  comments = signal<PostComment[]>([]);
-
-  postService = inject(PostService);
-
-  async ngOnInit() {
-    this.comments.set(this.post()!.comments);
-  }
-
-  async onCreated(commentText: string) {
+  onCreated(commentText: string) {
     if (commentText) {
-      firstValueFrom(
-        this.postService.createComment({
+      this.store.dispatch(postsActions.createComment({
+        comment: {
           text: commentText,
           authorId: this.profile()!.id,
           postId: this.post()!.id,
-        })
-      ).then(async () => {
-        const comments = await firstValueFrom(
-          this.postService.getCommentsByPostId(this.post()!.id)
-        );
-        this.comments.set(comments);
-      });
+        }
+      }))
+
       return;
     }
   }

@@ -1,4 +1,3 @@
-export * from "../../data-access/src/lib/profile"
 export * from "./lib/ui"
 export * from "./lib/feature-profile-list"
 export * from "./lib/feature-profile-page"

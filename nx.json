@@ -41,7 +41,8 @@
     },
     "@nx/angular:component": {
       "style": "scss",
-      "standalone": true
+      "standalone": true,
+      "changeDetection": "OnPush"
     }
   }
 }

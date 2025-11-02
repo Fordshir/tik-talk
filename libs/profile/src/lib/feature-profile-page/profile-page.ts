@@ -1,11 +1,11 @@
-import {Component, inject, signal} from "@angular/core";
-import {ProfileHeader} from "../../ui/profile-header/profile-header";
+import {ChangeDetectionStrategy, Component, inject, signal} from "@angular/core";
+import {ProfileHeader} from "../ui/profile-header/profile-header";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {switchMap} from "rxjs";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {AsyncPipe} from "@angular/common";
-import {ProfileService} from '../../../index';
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
+import {ProfileService} from '@tt/data-access';
 import {PostFeed} from '@tt/posts';
 
 @Component({
@@ -20,6 +20,7 @@ import {PostFeed} from '@tt/posts';
   ],
   templateUrl: "./profile-page.html",
   styleUrl: "./profile-page.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfilePage {
   profileService = inject(ProfileService);

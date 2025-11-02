@@ -1,17 +1,18 @@
 @if(profile$ | async; as profile) {
   <header class="profile-page__header">
-    <tt-profile-header [profile]="profile"> </tt-profile-header>
+    <tt-profile-header [profile]="profile"></tt-profile-header>
 
     @if (isMyPage()) {
-    <a class="btn to-settings-btn" [routerLink]="['/settings']">
-      Редактировать
-      <svg icon="settings" class="to-settings-icon"></svg>
-    </a>
-    } @else {
-    <button class="btn to-settings-btn" (click)="sendMessage(profile.id)">
-      Написать
-      <svg icon="send-message" class="to-settings-icon"></svg>
-    </button>
+      <a class="btn to-settings-btn" [routerLink]="['/settings']">
+        Редактировать
+        <svg icon="settings" class="to-settings-icon"></svg>
+      </a>
+    }
+    @else {
+      <button class="btn to-settings-btn" (click)="sendMessage(profile.id)">
+        Написать
+        <svg icon="send-message" class="to-settings-icon"></svg>
+      </button>
     }
   </header>
 
@@ -33,7 +34,7 @@
       <h3 class="h6 mb16">Навыки</h3>
       <div class="stack-wrapper mb32">
         @for (skill of profile.stack; track skill) {
-        <div class="skill-tag">{{ skill }}</div>
+          <div class="skill-tag">{{ skill }}</div>
         }
       </div>
 

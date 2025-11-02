@@ -1,4 +1,4 @@
-import {Component, inject, signal} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, signal} from "@angular/core";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators,} from "@angular/forms";
 
 import {Router} from "@angular/router";
@@ -9,6 +9,7 @@ import {Auth} from '@tt/data-access';
   imports: [ReactiveFormsModule],
   templateUrl: "./login-page.html",
   styleUrl: "./login-page.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPage {
   authService = inject(Auth);
