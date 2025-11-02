@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {ProfileCard} from "../../ui/profile-card/profile-card";
 import {ProfileFilters} from "../profile-filters/profile-filters";
+import {profileActions, selectFilteredProfiles} from '../../../index';
 import {Store} from '@ngrx/store';
 import {InfiniteScrollTrigger} from '@tt/common-ui';
-import {profileActions, selectFilteredProfiles} from '@tt/data-access';
 
 @Component({
   selector: "tt-search-page",

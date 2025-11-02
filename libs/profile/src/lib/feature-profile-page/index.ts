@@ -1,5 +1,4 @@
-import { ProfilePage } from "./profile-page";
-
+import { ProfilePage } from "./profile-page/profile-page";
 
 export {
   ProfilePage
