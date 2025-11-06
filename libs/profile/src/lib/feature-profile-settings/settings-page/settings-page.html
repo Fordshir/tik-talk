@@ -1,6 +1,6 @@
 <div class="settings-header">
   @if (profile$ | async; as profile) {
-  <tt-profile-header [profile]="profile"></tt-profile-header>
+   <tt-profile-header [profile]="profile"></tt-profile-header>
   }
 </div>
 
@@ -37,15 +37,15 @@
       <tt-avatar-upload></tt-avatar-upload>
     </label>
 
-    <label class="tt-form-label">
-      <span class="tt-form-label__text">Навыки</span>
-      <input type="text" class="tt-form-input" formControlName="stack" />
-    </label>
+    <tt-stack-input formControlName="stack"></tt-stack-input>
+
+    <tt-address-input formControlName="city"></tt-address-input>
+
   </div>
   <div>
     <div class="btn-wrapper">
       <div class="btn-wrapper__left">
-        <a [routerLink]="'/login'" class="logout-btn"
+        <a (click)="authService.logout()" class="logout-btn"
           ><svg class="logout-btn__icon" icon="logout"></svg
         ></a>
         <a [routerLink]="'/experimental'" class="logout-btn"

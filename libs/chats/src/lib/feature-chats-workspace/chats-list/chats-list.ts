@@ -1,7 +1,7 @@
-import {Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {ChatsBtn} from "../chats-btn/chats-btn";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {ChatsService} from "../../../../../data-access/src/lib/chats/services/chats.service";
+import {ChatsService} from "@tt/data-access";
 import {AsyncPipe} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {map, startWith, switchMap} from "rxjs";
@@ -17,6 +17,7 @@ import {map, startWith, switchMap} from "rxjs";
   ],
   templateUrl: "./chats-list.html",
   styleUrl: "./chats-list.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatsList {
   chatsService = inject(ChatsService);
@@ -29,7 +30,7 @@ export class ChatsList {
         startWith(""),
         map((inputValue) => {
           return chats.filter((chat) => {
-            return `${chat.userFrom.firstName} ${chat.userFrom.firstName}`
+            return `${chat.userFrom.firstName} ${chat.userFrom.lastName}`
               .toLowerCase()
               .includes(inputValue.toLowerCase() ?? "");
           });

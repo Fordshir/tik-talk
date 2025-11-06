@@ -1,10 +1,10 @@
-import {Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {FormArray, FormControl, FormGroup, FormRecord, ReactiveFormsModule, Validators,} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {Address, Feature, MockService} from "./mock.service";
 import {KeyValuePipe} from "@angular/common";
 import {RouterLink} from "@angular/router";
-import {SvgIconComponent} from '../../../../../../libs/common-ui/src';
+import {SvgIconComponent} from '@tt/common-ui';
 
 enum receiverType {
   PERSON = "PERSON",
@@ -25,6 +25,7 @@ function getAddressForm(initialValue: Address = {}) {
   imports: [ReactiveFormsModule, KeyValuePipe, RouterLink, SvgIconComponent],
   templateUrl: "./form-hw.html",
   styleUrl: "./form-hw.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FormHw {

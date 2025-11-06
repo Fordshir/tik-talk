@@ -1,15 +1,15 @@
-import {Component, inject, input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
 import {ChatWorkspaceMessage} from "../chat-workspace-message/chat-workspace-message";
 import {MessageInput} from "../../ui/message-input/message-input";
-import {ChatsService} from "../../../../../data-access/src/lib/chats/services/chats.service";
-import {Chat} from "../../../../../data-access/src/lib/chats/interfaces/chats.interface";
-import {firstValueFrom} from "rxjs";
+import {ChatsService, Chat} from "@tt/data-access";
+import {ScrollDownDirective} from '../../../../../common-ui/src/lib/directives/scroll-down';
 
 @Component({
   selector: "tt-chat-workspace-messages-wrapper",
-  imports: [ChatWorkspaceMessage, MessageInput],
+  imports: [ChatWorkspaceMessage, MessageInput, ScrollDownDirective],
   templateUrl: "./chat-workspace-messages-wrapper.html",
   styleUrl: "./chat-workspace-messages-wrapper.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatWorkspaceMessagesWrapper {
   chatsService = inject(ChatsService);
@@ -18,11 +18,11 @@ export class ChatWorkspaceMessagesWrapper {
   messages = this.chatsService.activeChatMessages;
 
   async onSendMessage(messageText: string) {
-    if (messageText.trim() === "") return;
-    await firstValueFrom(
-      this.chatsService.sendMessage(this.chat().id, messageText)
-    );
-
-    await firstValueFrom(this.chatsService.getChatById(this.chat().id));
+    if (messageText.trim().length > 0) {
+      this.chatsService.wsAdapter.sendMessage(
+        messageText,
+        this.chat().id
+      )
+    }
   }
 }

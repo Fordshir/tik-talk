@@ -1,8 +1,8 @@
-import {Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {ChatWorkspaceHeader} from "../chat-workspace-header/chat-workspace-header";
 import {ChatWorkspaceMessagesWrapper} from "../chat-workspace-messages-wrapper/chat-workspace-messages-wrapper";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ChatsService} from "../../../../../data-access/src/lib/chats/services/chats.service";
+import {ChatsService} from "@tt/data-access";
 import {filter, of, switchMap} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 
@@ -11,6 +11,7 @@ import {AsyncPipe} from "@angular/common";
   imports: [ChatWorkspaceHeader, ChatWorkspaceMessagesWrapper, AsyncPipe],
   templateUrl: "./chat-workspace.html",
   styleUrl: "./chat-workspace.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatWorkspace {
   route = inject(ActivatedRoute);
