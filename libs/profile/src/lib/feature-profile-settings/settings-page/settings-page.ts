@@ -7,7 +7,8 @@ import {toObservable} from "@angular/core/rxjs-interop";
 import {AsyncPipe} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {AddressInput, StackInput, SvgIconComponent} from '@tt/common-ui';
-import {Auth, ProfileService} from '@tt/data-access';
+import {ProfileService} from '../../../index';
+import {Auth} from '@tt/data-access';
 
 @Component({
   selector: "tt-settings-page",

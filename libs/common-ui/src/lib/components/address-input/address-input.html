@@ -8,27 +8,9 @@
             class="suggest-btn"
             (click)="onSuggestionPick(suggest)"
           >
-            {{ suggest.data.city }} {{ suggest.data.street }} {{ suggest.data.house }}
+            {{ suggest }}
           </button>
         }
     </div>
   }
 }
-
-<div [formGroup]="addressForm">
-  <input
-    formControlName="city"
-    type="text"
-    class="tt-input"
-    placeholder="Город">
-  <input
-    formControlName="street"
-    type="text"
-    class="tt-input"
-    placeholder="Улица">
-  <input
-    formControlName="building"
-    type="text"
-    class="tt-input"
-    placeholder="Дом">
-</div>

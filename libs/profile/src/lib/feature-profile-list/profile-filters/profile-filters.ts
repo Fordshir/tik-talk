@@ -2,8 +2,8 @@ import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {debounceTime, startWith} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {profileActions, profileFeature} from '../../../index';
 import {Store} from '@ngrx/store';
-import {profileActions} from '@tt/data-access';
 
 @Component({
   selector: "tt-profile-filters",
@@ -23,9 +23,17 @@ export class ProfileFilters {
   });
 
   constructor() {
+    this.store.select(profileFeature.selectProfileFilters)
+      .pipe(takeUntilDestroyed())
+      .subscribe(filters => {
+        if (filters) {
+          this.searchForm.patchValue(filters, { emitEvent: false });
+        }
+      });
+
     this.searchForm.valueChanges
       .pipe(
-        startWith({}),
+        startWith(this.searchForm.value),
         debounceTime(500),
         takeUntilDestroyed()
       )

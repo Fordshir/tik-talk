@@ -11,10 +11,9 @@
     </select>
   </label>
   @if (form.controls.type.value === receiverType.PERSON) {
-    <label class="tt-control-label"
-      >Имя @if (form.controls.name.touched &&
-      form.controls.name.hasError('required')) {
-      <small class="red-flag">*Обязательное поле</small>
+    <label class="tt-control-label">Имя
+      @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+        <small class="red-flag">*Обязательное поле</small>
       }
       <input
         class="exp-form__input"
@@ -23,8 +22,7 @@
         formControlName="name"
       />
     </label>
-    <label class="tt-control-label"
-      >Фамилия
+    <label class="tt-control-label">Фамилия
       <input
         class="exp-form__input"
         type="text"
@@ -34,8 +32,7 @@
     </label>
   }
   @else {
-    <label class="tt-control-label"
-      >Организация
+    <label class="tt-control-label">Организация
       <input
         class="exp-form__input"
         type="text"
@@ -43,10 +40,9 @@
         formControlName="organization"
       />
     </label>
-    <label class="tt-control-label"
-      >ИНН @if (form.controls.inn.touched &&
-      form.controls.inn.hasError('required')) {
-      <small class="red-flag">*Обязательное поле</small>
+    <label class="tt-control-label">ИНН
+      @if (form.controls.inn.touched && form.controls.inn.hasError('required')) {
+        <small class="red-flag">*Обязательное поле</small>
       }
       <input
         class="exp-form__input"
@@ -56,18 +52,16 @@
       />
     </label>
   }
-  <label class="tt-control-label"
-    >Описание проблемы
+  <label class="tt-control-label">Описание проблемы
     <textarea
       class="exp-form__input"
       placeholder="Текст..."
       formControlName="description"
     ></textarea>
   </label>
-  <label class="tt-control-label"
-    >Номер для связи @if (form.controls.telephone.touched &&
-    form.controls.telephone.hasError('required')) {
-    <small class="red-flag">*Обязательное поле</small>
+  <label class="tt-control-label">Номер для связи
+    @if (form.controls.telephone.touched && form.controls.telephone.hasError('required')) {
+      <small class="red-flag">*Обязательное поле</small>
     }
     <input
       type="tel"
@@ -81,12 +75,11 @@
   <div [formGroup]="form.controls.features">
     <div class="h4 mb16">Дополнительно</div>
     <div class="form-checkbox">
-      @for (control of form.controls.features.controls | keyvalue: sort; track
-      control; let i = $index) {
-      <label>
-        {{ features[i].label }}
-        <input type="checkbox" [formControlName]="control.key" />
-      </label>
+      @for (control of form.controls.features.controls | keyvalue: sort; track control; let i = $index) {
+        <label>
+          {{ features[i].label }}
+          <input type="checkbox" [formControlName]="control.key" />
+        </label>
       }
     </div>
   </div>
@@ -97,8 +90,7 @@
   </div>
   @for (group of form.controls.addresses.controls; track group) {
     <div class="address-wrapper" [formGroup]="group">
-      <label class="tt-control-label"
-        >Город
+      <label class="tt-control-label">Город
         <input
           class="exp-form__input"
           type="text"
@@ -106,8 +98,7 @@
           formControlName="city"
         />
       </label>
-      <label class="tt-control-label"
-        >Улица
+      <label class="tt-control-label">Улица
         <input
           class="exp-form__input"
           type="text"
@@ -115,8 +106,7 @@
           formControlName="street"
         />
       </label>
-      <label class="tt-control-label"
-        >Дом
+      <label class="tt-control-label">Дом
         <input
           class="exp-form__input"
           type="number"
@@ -124,8 +114,7 @@
           formControlName="building"
         />
       </label>
-      <label class="tt-control-label"
-        >Квартира
+      <label class="tt-control-label">Квартира
         <input
           class="exp-form__input"
           type="number"

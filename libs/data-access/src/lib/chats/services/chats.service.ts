@@ -9,6 +9,7 @@ import {isNewMessage, isUnreadMessage} from '../interfaces/type-guards';
 import {ChatWsRxjsService} from './chat-ws-rxjs.service';
 import { Auth } from "../../auth/auth";
 import { ProfileService } from "../../profile";
+import {formatDate} from '@angular/common';
 
 @Injectable({
   providedIn: "root",
@@ -24,7 +25,7 @@ export class ChatsService {
   unreadMessagesCounter = signal(0);
   activeChat = signal<Chat | null>(null);
 
-  baseApiUrl = "https://icherniakov.ru/yt-course/";
+  baseApiUrl = "/yt-course/";
   chatsUrl = `${this.baseApiUrl}chat/`;
   messageUrl = `${this.baseApiUrl}message/`;
 
@@ -52,7 +53,7 @@ export class ChatsService {
       this.activeChatMessages.set([
         ...this.activeChatMessages(),
         {
-          date: message.data.created_at, // поменять
+          date: formatDate(message.data.created_at, "dd.MM.yyyy", "en-US"), // поменять
           messages: [{
             id: message.data.id,
             userFromId: message.data.author,
@@ -105,8 +106,8 @@ export class ChatsService {
       if (!groupedMessages.has(dateLabel)) {
         groupedMessages.set(dateLabel, []);
       }
-      groupedMessages.get(dateLabel)?.push(message);
-    });
+        groupedMessages.get(dateLabel)?.push(message);
+      });
 
     return Array.from(groupedMessages.entries()).map(([date, messages]) => ({
       date,

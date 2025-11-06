@@ -10,7 +10,7 @@ import {GlobalStoreService, Pageble} from '@tt/data-access';
 
 export class ProfileService {
   http = inject(HttpClient);
-  baseApiUrl = "https://icherniakov.ru/yt-course/";
+  baseApiUrl = "/yt-course/";
 
   #globalStoreService = inject(GlobalStoreService);
   me = signal<Profile | null>(null);
