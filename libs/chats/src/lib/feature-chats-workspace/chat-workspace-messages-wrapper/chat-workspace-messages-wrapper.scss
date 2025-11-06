@@ -1,0 +1,25 @@
+:host {
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  padding: 16px 20px;
+  max-height: calc(100dvh - 24px - 24px - 76px);
+}
+
+.messages-wrapper {
+  display: grid;
+  grid-gap: 12px;
+  min-height: calc(100dvh - 260px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.last-message-date {
+  padding: 6px 30px;
+  background: var(--message-color);
+  width: min-content;
+  height: min-content;
+  justify-self: center;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+}

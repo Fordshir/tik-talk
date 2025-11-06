@@ -1,0 +1,8 @@
+<tt-post-input
+  (created)="onCreatePost($event)"
+></tt-post-input>
+  <div class="post-area">
+    @for (post of feed; track post.id) {
+    <tt-post [post]="post"></tt-post>
+    }
+  </div>

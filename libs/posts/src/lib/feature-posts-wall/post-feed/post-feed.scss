@@ -1,0 +1,12 @@
+:host {
+  display: grid;
+  grid-gap: 16px;
+  align-content: start;
+}
+
+.post-area {
+  display: grid;
+  grid-gap: 16px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}

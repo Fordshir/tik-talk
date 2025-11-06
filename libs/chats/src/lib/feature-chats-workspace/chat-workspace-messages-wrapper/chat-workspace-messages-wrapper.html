@@ -1,0 +1,8 @@
+<div class="messages-wrapper">
+  @for (groupedMessage of messages(); track groupedMessage.messages) {
+    <div class="last-message-date">{{ groupedMessage.date }}</div>
+    @for (message of groupedMessage.messages; track message.id) {
+      <tt-chat-workspace-message [message]="message"></tt-chat-workspace-message>
+    }}
+</div>
+<tt-message-input (created)="onSendMessage($event)"></tt-message-input>

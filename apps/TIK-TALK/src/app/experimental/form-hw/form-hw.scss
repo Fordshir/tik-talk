@@ -1,0 +1,64 @@
+:host {
+  display: grid;
+  place-content: center;
+  padding: 100px 100px;
+}
+
+.exp-form__input {
+  background: var(--dark-color);
+  color: var(--light-color);
+  width: 100%;
+  padding: 10px 15px;
+}
+
+.address-wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.red-flag {
+  color: red;
+}
+
+.plus-btn {
+  font-size: 20px;
+  width: min-content;
+  justify-self: end;
+}
+
+.delete-btn {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  text-align: center;
+}
+
+.form-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tt-form-label {
+  max-height: calc(100dvh - 200px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.home-btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  margin-bottom: 30px;
+  background: var(--primary-color);
+  color: var(--light-color);
+  font-weight: 700;
+  font-size: 20px;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.home-svg {
+  margin-left: 15px;
+  width: 12px;
+  height: 12px;
+}

@@ -1,0 +1,19 @@
+@if (comment(); as comment) {
+<tt-avatar-circle
+  class="size32"
+  [avatarUrl]="comment.author.avatarUrl"
+></tt-avatar-circle>
+
+<div class="comment-body">
+  <header class="comment-header">
+    <span class="medium-text">{{ comment.author.username }}</span>
+    <span class="medium-text comment-time">{{
+      comment.createdAt | timeAgo
+    }}</span>
+  </header>
+
+  <div class="comment-text">
+    {{ comment.text }}
+  </div>
+</div>
+}

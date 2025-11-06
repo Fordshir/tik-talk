@@ -1,0 +1,141 @@
+<a [routerLink]="'/settings'" class="home-btn"
+  >Вернуться на TIK-TALK<svg class="home-svg" icon="arrow-up"></svg
+></a>
+<form class="tt-form-label" [formGroup]="form" (ngSubmit)="onSubmit($event)">
+  <div class="h4 mb16">Карточка клиента</div>
+  <label class="tt-control-label"
+    >Тип заказчика
+    <select class="exp-form__input" formControlName="type">
+      <option [value]="receiverType.PERSON">Физическое лицо</option>
+      <option [value]="receiverType.LEGAL">Юридическое Лицо</option>
+    </select>
+  </label>
+  @if (form.controls.type.value === receiverType.PERSON) {
+  <label class="tt-control-label"
+    >Имя @if (form.controls.name.touched &&
+    form.controls.name.hasError('required')) {
+    <small class="red-flag">*Обязательное поле</small>
+    }
+    <input
+      class="exp-form__input"
+      type="text"
+      placeholder="Введите имя"
+      formControlName="name"
+    />
+  </label>
+  <label class="tt-control-label"
+    >Фамилия
+    <input
+      class="exp-form__input"
+      type="text"
+      placeholder="Введите фамилию"
+      formControlName="lastName"
+    />
+  </label>
+  } @else {
+  <label class="tt-control-label"
+    >Организация
+    <input
+      class="exp-form__input"
+      type="text"
+      placeholder="Наименование организации"
+      formControlName="organization"
+    />
+  </label>
+  <label class="tt-control-label"
+    >ИНН @if (form.controls.inn.touched &&
+    form.controls.inn.hasError('required')) {
+    <small class="red-flag">*Обязательное поле</small>
+    }
+    <input
+      class="exp-form__input"
+      type="text"
+      placeholder="Введите ИНН"
+      formControlName="inn"
+    />
+  </label>
+  }
+  <label class="tt-control-label"
+    >Описание проблемы
+    <textarea
+      class="exp-form__input"
+      placeholder="Текст..."
+      formControlName="description"
+    ></textarea>
+  </label>
+  <label class="tt-control-label"
+    >Номер для связи @if (form.controls.telephone.touched &&
+    form.controls.telephone.hasError('required')) {
+    <small class="red-flag">*Обязательное поле</small>
+    }
+    <input
+      type="tel"
+      class="exp-form__input"
+      pattern=".{10,}"
+      placeholder="+7 (800) 000 00 00"
+      formControlName="telephone"
+    />
+  </label>
+
+  <div [formGroup]="form.controls.features">
+    <div class="h4 mb16">Дополнительно</div>
+    <div class="form-checkbox">
+      @for (control of form.controls.features.controls | keyvalue: sort; track
+      control; let i = $index) {
+      <label>
+        {{ features[i].label }}
+        <input type="checkbox" [formControlName]="control.key" />
+      </label>
+      }
+    </div>
+  </div>
+
+  <div class="address-wrapper">
+    <div class="h4 mb16">Адрес</div>
+    <button class="btn plus-btn" (click)="addAddress()">+</button>
+  </div>
+  @for (group of form.controls.addresses.controls; track group) {
+  <div class="address-wrapper" [formGroup]="group">
+    <label class="tt-control-label"
+      >Город
+      <input
+        class="exp-form__input"
+        type="text"
+        placeholder="Город"
+        formControlName="city"
+      />
+    </label>
+    <label class="tt-control-label"
+      >Улица
+      <input
+        class="exp-form__input"
+        type="text"
+        placeholder="Улица"
+        formControlName="street"
+      />
+    </label>
+    <label class="tt-control-label"
+      >Дом
+      <input
+        class="exp-form__input"
+        type="number"
+        placeholder="Дом"
+        formControlName="building"
+      />
+    </label>
+    <label class="tt-control-label"
+      >Квартира
+      <input
+        class="exp-form__input"
+        type="number"
+        placeholder="Квартира"
+        formControlName="apartment"
+      />
+    </label>
+    <button class="btn delete-btn" (click)="deleteAddress($index)">
+      Удалить
+    </button>
+  </div>
+  }
+  <button class="btn" type="submit">Отправить</button>
+</form>
