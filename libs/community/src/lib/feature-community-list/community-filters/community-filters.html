@@ -1,0 +1,22 @@
+<form class="profile-search-form" [formGroup]="communitySearchForm">
+
+  <tt-input
+    formControlName="name"
+    type="text"
+    placeholder="Введите название"
+  >
+    <span class="tt-form-label__text">Название сообщества</span>
+  </tt-input>
+
+  <tt-select-input formControlName="themes">
+    <span class="tt-form-label__text">Темы</span>
+  </tt-select-input>
+
+  <tt-stack-input
+    formControlName="tags"
+    placeholder="Введите тэги"
+  >
+    <span class="tt-form-label__text">Тэги</span>
+  </tt-stack-input>
+
+</form>

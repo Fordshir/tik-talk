@@ -1,0 +1,14 @@
+<label class="tt-form-label">
+  <ng-content></ng-content>
+  <select
+    (change)="onSelectChange($event)"
+    class="select-control"
+    [ngModel]="selectedValue"
+  >
+    @for (option of list; track option;) {
+      <option class="select-option">
+        {{ option }}
+      </option>
+    }
+  </select>
+</label>

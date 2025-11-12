@@ -53,6 +53,11 @@ export class Sidebar {
       icon: "search",
       link: "search",
     },
+    {
+      label: "Сообщества",
+      icon: "community",
+      link: "community",
+    },
   ];
 
   connect() {

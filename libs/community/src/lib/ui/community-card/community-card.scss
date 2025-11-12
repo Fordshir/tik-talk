@@ -1,0 +1,45 @@
+.community-card {
+  border: var(--light-border);
+  background: var(--dark-color);
+  padding: 32px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 250px;
+  grid-gap: 32px;
+}
+
+.avatar-name {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  grid-gap: 20px;
+}
+
+.community-card__avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.community-card__name {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.community-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  height: min-content;
+}
+
+.community-card__action-btns {
+  display: grid;
+  grid-template-columns: 1fr 44px;
+  grid-gap: 10px;
+  place-content: center;
+}
+
+.to-subscribe-btn:hover {
+  color: var(--light-color);
+}

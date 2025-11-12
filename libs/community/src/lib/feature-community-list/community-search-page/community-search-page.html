@@ -1,0 +1,19 @@
+<div class="community-header">
+  <h1 class="h4">Сообщества</h1>
+  <button class="btn create-community-btn">Создать сообщество <svg class="svg16" icon="community"></svg></button>
+</div>
+
+<tt-community-filters></tt-community-filters>
+
+<div class="community-card__wrapper">
+  @for (community of communities(); track $index; let last = $last){
+    <app-community-card [community]="community"></app-community-card>
+    @if (last) {
+      @defer (on viewport) {
+        <tt-infinite-scroll-trigger
+          (loaded)="timeToFetch()"
+        ></tt-infinite-scroll-trigger>
+      } @placeholder { <div></div> }
+    }
+  }
+</div>

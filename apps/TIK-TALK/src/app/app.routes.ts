@@ -7,6 +7,8 @@ import {profileFeature, ProfileEffects, canActivateAuth, PostsEffects, postsFeat
 import {ProfilePage, SearchPage, SettingsPage} from '@tt/profile';
 import {LoginPage} from '@tt/auth';
 import {Layout} from '@tt/layout';
+import {CommunitySearchPage} from '@tt/community';
+import {CommunityEffects, communityFeature} from '../../../../libs/data-access/src/lib/community';
 
 export const routes: Routes = [
   { path: "experimental", component: FormHw },
@@ -30,6 +32,14 @@ export const routes: Routes = [
         providers:[
           provideState(profileFeature),
           provideEffects(ProfileEffects)
+        ]
+      },
+      {
+        path: "community",
+        component: CommunitySearchPage,
+        providers:[
+          provideState(communityFeature),
+          provideEffects(CommunityEffects)
         ]
       },
       {

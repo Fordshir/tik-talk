@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, HostListener} from "@angular/core";
+import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, HostListener, input} from "@angular/core";
 import { SvgIconComponent } from "../svg-icon/svg-icon";
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AsyncPipe} from '@angular/common';
@@ -30,6 +30,8 @@ export class StackInput implements ControlValueAccessor {
 
   #disabled = false
 
+  placeholder = input<string>();
+
   @HostBinding('class.disabled')
   get disabled() {
     return this.#disabled
@@ -43,6 +45,7 @@ export class StackInput implements ControlValueAccessor {
     if (!this.innerInput) return
 
     this.value$.next([...this.value$.value, this.innerInput])
+    console.log(this.value$.value)
     this.innerInput = ''
     this.onChange(this.value$.value)
   }
@@ -77,7 +80,7 @@ export class StackInput implements ControlValueAccessor {
   }
 
   onTagDelete(i: number) {
-    const tags = this.value$.value
+    const tags = [...this.value$.value]
     tags.splice(i, 1)
     this.value$.next(tags)
     this.onChange(this.value$.value)

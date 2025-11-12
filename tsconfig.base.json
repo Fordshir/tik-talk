@@ -21,7 +21,8 @@
       "@tt/interfaces/*": ["libs/interfaces/src/lib/*"],
       "@tt/layout": ["libs/layout/src/index.ts"],
       "@tt/posts": ["libs/posts/src/index.ts"],
-      "@tt/profile": ["libs/profile/src/index.ts"]
+      "@tt/profile": ["libs/profile/src/index.ts"],
+      "@tt/community": ["libs/community/src/index.ts"]
     },
     "baseUrl": ".",
     "rootDir": "."

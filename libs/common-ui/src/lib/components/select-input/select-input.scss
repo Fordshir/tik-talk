@@ -1,0 +1,15 @@
+.select-control {
+  width: 100%;
+  color: var(--light-color);
+  padding: 9px 0;
+  background: var(--dark-color);
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  border-bottom: 1px solid var(--light-color);
+  outline: none;
+
+  &:focus-visible {
+    outline: 1px solid var(--primary-color);
+  }
+}

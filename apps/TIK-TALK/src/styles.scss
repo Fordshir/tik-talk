@@ -42,6 +42,10 @@ body {
   height: 24px;
 }
 
+.svg16.link-svg {
+  transform: translateX(-30%) translateY(35%);
+}
+
 .btn {
   width: 100%;
   padding: 10px 20px;
@@ -73,6 +77,7 @@ body {
 .svg16 {
   width: 16px;
   height: 16px;
+  transform: translateY(35%);
 }
 
 .btn-shadow {
@@ -167,10 +172,11 @@ body {
 }
 
 .tt-form-input {
-  font-size: 14px;
   font-weight: 400;
+  font-size: 14px;
   font-style: normal;
   line-height: 21px;
+  font-family: "JetBrains Mono", sans-serif;
   background: none;
   color: var(--light-color);
   border: none;
