@@ -2,14 +2,13 @@ import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {debounceTime, startWith} from "rxjs";
 import {Store} from '@ngrx/store';
-import {communityActions, communityFeature} from '../../../../../data-access/src/lib/community';
+import {communityActions} from '@tt/data-access';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {StackInput, TtInput} from '@tt/common-ui';
-import {SelectInput} from '../../../../../common-ui/src/lib/components/select-input/select-input';
+import {Select, StackInput, TtInput} from '@tt/common-ui';
 
 @Component({
   selector: "tt-community-filters",
-  imports: [FormsModule, ReactiveFormsModule, StackInput, SelectInput, TtInput],
+  imports: [FormsModule, ReactiveFormsModule, StackInput, Select, TtInput],
   templateUrl: "./community-filters.html",
   styleUrl: "./community-filters.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,14 +24,6 @@ export class CommunityFilters {
   });
 
   constructor() {
-    this.store.select(communityFeature.selectCommunityFilters)
-      .pipe(takeUntilDestroyed())
-      .subscribe(filters => {
-        if (filters) {
-          this.communitySearchForm.patchValue(filters, { emitEvent: false });
-        }
-      });
-
     this.communitySearchForm.valueChanges
       .pipe(
         startWith(this.communitySearchForm.value),

@@ -3,6 +3,7 @@
   background: var(--dark-color);
   padding: 32px 24px;
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr 1fr 250px;
   grid-gap: 32px;
 }
@@ -21,9 +22,9 @@
 }
 
 .community-card__name {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 8px;
 }
 
 .community-card__tags {
@@ -40,6 +41,13 @@
   place-content: center;
 }
 
-.to-subscribe-btn:hover {
-  color: var(--light-color);
+.link-btn {
+  max-width: 44px;
+  justify-self: end;
+
+  &:hover {
+    color: var(--light-color);
+  }
 }
+
+

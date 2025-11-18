@@ -4,7 +4,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {communityActions} from './actions';
 import {map, switchMap, withLatestFrom} from 'rxjs';
 import {Store} from '@ngrx/store';
-import { selectCommunityFilters, selectCommunityPageable } from "./selectors";
+import {selectCommunityFilters, selectCommunityPageable} from "./selectors";
 
 @Injectable({
   providedIn: 'root',

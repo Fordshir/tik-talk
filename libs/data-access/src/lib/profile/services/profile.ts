@@ -2,7 +2,7 @@ import {inject, Injectable, signal} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, tap} from "rxjs";
 import {Profile} from '../interfaces';
-import {GlobalStoreService, Pageble} from '@tt/data-access';
+import {GlobalStoreService, Pageable} from '@tt/data-access';
 
 @Injectable({
   providedIn: "root",
@@ -34,7 +34,7 @@ export class ProfileService {
 
   getSubscribersShortList(subsAmount = 3) {
     return this.http
-      .get<Pageble<Profile>>(`${this.baseApiUrl}account/subscribers/`)
+      .get<Pageable<Profile>>(`${this.baseApiUrl}account/subscribers/`)
       .pipe(map((res) => res.items.slice(0, subsAmount)));
   }
 
@@ -54,7 +54,7 @@ export class ProfileService {
 
   filterProfiles(params: Record<string, any>) {
     return this.http
-      .get<Pageble<Profile>>(`${this.baseApiUrl}account/accounts`, {
+      .get<Pageable<Profile>>(`${this.baseApiUrl}account/accounts`, {
         params,
       })
   }
