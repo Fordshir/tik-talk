@@ -1,8 +1,7 @@
-import {ChangeDetectionStrategy, Component, forwardRef, HostBinding} from "@angular/core";
+import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, input, Input, model, Output} from "@angular/core";
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {SvgIconComponent} from "../svg-icon/svg-icon";
 import {NgClass} from '@angular/common';
-import {CommunityThemes} from "@tt/data-access"
 
 @Component({
   selector: "tt-select",
@@ -24,7 +23,7 @@ import {CommunityThemes} from "@tt/data-access"
 })
 
 export class Select implements ControlValueAccessor {
-  themes = Object.values(CommunityThemes);
+  @Input() options: string[] | undefined;
 
   #disabled = false
 

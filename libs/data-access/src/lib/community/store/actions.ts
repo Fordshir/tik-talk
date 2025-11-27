@@ -7,7 +7,5 @@ export const communityActions = createActionGroup({
     'filter events': props<{ filters: Record<string, any> }>(),
     'set page': props<{ page?: number }>(),
     'communities loaded': props<{ communities: Community[] }>(),
-    'communities updated': props<{ communities: Community[] }>(),
-    'community update': emptyProps(),
   }
 })

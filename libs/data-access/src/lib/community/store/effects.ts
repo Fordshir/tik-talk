@@ -36,23 +36,4 @@ export class CommunityEffects {
       )
     )
   })
-
-  updateCommunities = createEffect(()=>{
-    return this.actions$.pipe(
-      ofType(
-        communityActions.communityUpdate
-        ),
-      withLatestFrom(
-        this.store.select(selectCommunityFilters),
-        this.store.select(selectCommunityPageable)
-      ),
-      switchMap(([_, filters, pageable])=>{
-        return this.communityService.filterCommunities({
-          ...pageable,
-          ...filters
-        })
-      }),
-      map(res => communityActions.communitiesUpdated({communities:res.items}))
-    )
-  })
 }

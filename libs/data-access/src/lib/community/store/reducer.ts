@@ -27,12 +27,6 @@ export const communityFeature = createFeature({
         communities: state.communities.concat(payload.communities)
       }
     }),
-    on(communityActions.communitiesUpdated, (state, payload) => {
-      return {
-        ...state,
-        communities: [...payload.communities]
-      }
-    }),
     on(communityActions.filterEvents, (state, payload) => {
       return {
         ...state,

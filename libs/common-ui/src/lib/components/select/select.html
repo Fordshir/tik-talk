@@ -21,7 +21,7 @@
 
     @if (isDropdownOpened) {
     <div class="dropdown">
-      @for (option of themes; track option) {
+      @for (option of options; track option) {
         <div class="select-option" [ngClass]="{'selected-option': option === selectedValue}">
           <div class="select-option-item">
             {{ option }}

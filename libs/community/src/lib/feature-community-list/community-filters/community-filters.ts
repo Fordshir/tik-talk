@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {debounceTime, startWith} from "rxjs";
 import {Store} from '@ngrx/store';
-import {communityActions} from '@tt/data-access';
+import {communityActions, CommunityThemes} from '@tt/data-access';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Select, StackInput, TtInput} from '@tt/common-ui';
 
@@ -16,6 +16,7 @@ import {Select, StackInput, TtInput} from '@tt/common-ui';
 export class CommunityFilters {
   fb = inject(FormBuilder);
   store = inject(Store);
+  themes = Object.values(CommunityThemes);
 
   communitySearchForm = this.fb.group({
     name: [""],

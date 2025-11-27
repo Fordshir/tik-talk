@@ -9,7 +9,7 @@
 
       <div class="community-card__name">
         <strong class="h6">{{ community.name }}</strong>
-        <span class="subtitle">{{ community.subscribersAmount }} подписчиков</span>
+        <span class="subtitle">{{ subscribers() }} подписчиков</span>
       </div>
     </div>
 
@@ -21,7 +21,7 @@
 
     <div class="community-card__action-btns">
       @if (community.admin.id !== me){
-        @if (!community.isJoined) {
+        @if (!isJoined()) {
           <button
             (click)="toSubscribe(community.id)"
             class="btn"
