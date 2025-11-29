@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {postsActions} from './actions';
 import {map, switchMap} from 'rxjs';
-import { PostService } from "../services/post.service";
+import {PostService} from "../services/post.service";
 
 @Injectable({
   providedIn: 'root',

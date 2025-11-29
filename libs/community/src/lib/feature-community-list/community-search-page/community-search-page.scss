@@ -1,0 +1,21 @@
+:host {
+  display: grid;
+  grid-gap: 20px;
+}
+
+.community-card__wrapper {
+  display: grid;
+  grid-gap: 8px;
+  max-height: calc(100dvh - 24px - 24px - 200px);
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.create-community-btn {
+  width: fit-content;
+}
+
+.community-header {
+  display: flex;
+  justify-content: space-between;
+}

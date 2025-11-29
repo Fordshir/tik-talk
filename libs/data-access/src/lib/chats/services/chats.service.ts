@@ -7,8 +7,8 @@ import {ChatWsService} from '../interfaces/chat-ws-service.interface';
 import {ChatWSMessage} from '../interfaces/chat-ws-message.interface';
 import {isNewMessage, isUnreadMessage} from '../interfaces/type-guards';
 import {ChatWsRxjsService} from './chat-ws-rxjs.service';
-import { Auth } from "../../auth/auth";
-import { ProfileService } from "../../profile";
+import {Auth} from "../../auth/auth";
+import {ProfileService} from "../../profile";
 import {formatDate} from '@angular/common';
 
 @Injectable({

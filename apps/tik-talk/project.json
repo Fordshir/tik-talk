@@ -1,5 +1,5 @@
 {
-  "name": "TIK-TALK",
+  "name": "tik-talk",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "generators": {
@@ -14,15 +14,15 @@
       "skipTests": true
     }
   },
-  "sourceRoot": "apps/TIK-TALK/src",
+  "sourceRoot": "apps/tik-talk/src",
   "prefix": "tt",
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "options": {
-        "browser": "apps/TIK-TALK/src/main.ts",
+        "browser": "apps/tik-talk/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/TIK-TALK/tsconfig.app.json",
+        "tsConfig": "apps/tik-talk/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
@@ -30,8 +30,8 @@
             "input": "public"
           }
         ],
-        "styles": ["apps/TIK-TALK/src/styles.scss"],
-        "outputPath": "dist/TIK-TALK"
+        "styles": ["apps/tik-talk/src/styles.scss"],
+        "outputPath": "dist/tik-talk"
       },
       "configurations": {
         "production": {
@@ -62,10 +62,10 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "TIK-TALK:build:production"
+          "buildTarget": "tik-talk:build:production"
         },
         "development": {
-          "buildTarget": "TIK-TALK:build:development"
+          "buildTarget": "tik-talk:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -80,15 +80,15 @@
       "executor": "@angular/build:karma",
       "options": {
         "polyfills": ["zone.js", "zone.js/testing"],
-        "tsConfig": "apps/TIK-TALK/tsconfig.spec.json",
+        "tsConfig": "apps/tik-talk/tsconfig.spec.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/TIK-TALK/public"
+            "input": "apps/tik-talk/public"
           }
         ],
-        "styles": ["apps/TIK-TALK/src/styles.scss"]
+        "styles": ["apps/tik-talk/src/styles.scss"]
       }
     }
   }

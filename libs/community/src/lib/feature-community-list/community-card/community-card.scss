@@ -1,0 +1,53 @@
+.community-card {
+  border: var(--light-border);
+  background: var(--dark-color);
+  padding: 32px 24px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 250px;
+  grid-gap: 32px;
+}
+
+.avatar-name {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  grid-gap: 20px;
+}
+
+.community-card__avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.community-card__name {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 8px;
+}
+
+.community-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  height: min-content;
+}
+
+.community-card__action-btns {
+  display: grid;
+  grid-template-columns: 1fr 44px;
+  grid-gap: 10px;
+  place-content: center;
+}
+
+.link-btn {
+  max-width: 44px;
+  justify-self: end;
+
+  &:hover {
+    color: var(--light-color);
+  }
+}
+
+

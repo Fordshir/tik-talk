@@ -3,10 +3,19 @@ import {FormHw} from "@tt/experimental";
 import {provideState} from '@ngrx/store';
 import {provideEffects} from '@ngrx/effects';
 import {chatsRoutes} from '@tt/chats';
-import {profileFeature, ProfileEffects, canActivateAuth, PostsEffects, postsFeature} from '@tt/data-access';
+import {
+  canActivateAuth,
+  CommunityEffects,
+  communityFeature,
+  PostsEffects,
+  postsFeature,
+  ProfileEffects,
+  profileFeature
+} from '@tt/data-access';
 import {ProfilePage, SearchPage, SettingsPage} from '@tt/profile';
 import {LoginPage} from '@tt/auth';
 import {Layout} from '@tt/layout';
+import {communitiesRoutes} from '@tt/community';
 
 export const routes: Routes = [
   { path: "experimental", component: FormHw },
@@ -30,6 +39,14 @@ export const routes: Routes = [
         providers:[
           provideState(profileFeature),
           provideEffects(ProfileEffects)
+        ]
+      },
+      {
+        path: "community",
+        loadChildren: () => communitiesRoutes,
+        providers:[
+          provideState(communityFeature),
+          provideEffects(CommunityEffects)
         ]
       },
       {
