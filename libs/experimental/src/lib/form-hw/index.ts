@@ -1,5 +1,5 @@
-import { FormHw } from "./form-hw";
-import {Address, Feature, MockService } from "./mock.service";
+import {FormHw} from "./form-hw";
+import {Address, Feature, MockService} from "./mock.service";
 
 export {
   FormHw,

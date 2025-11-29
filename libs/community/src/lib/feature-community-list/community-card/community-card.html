@@ -9,35 +9,41 @@
 
       <div class="community-card__name">
         <strong class="h6">{{ community.name }}</strong>
-        <span class="subtitle">{{ community.subscribersAmount }} подписчиков</span>
+        <span class="subtitle">{{ subscribers() }} подписчиков</span>
       </div>
     </div>
 
     <div class="community-card__tags">
       @for(tag of community.tags; track tag){
-      <div class="skill-tag">{{ tag }}</div>
+        <div class="skill-tag">{{ tag }}</div>
       }
     </div>
 
     <div class="community-card__action-btns">
       @if (community.admin.id !== me){
-        @if (!community.isJoined) {
+        @if (!isJoined()) {
           <button
             (click)="toSubscribe(community.id)"
-            class="btn to-subscribe-btn"
-          >Подписаться  <svg class="svg16" icon="subscribe"></svg></button>
+            class="btn"
+          >
+            Подписаться
+            <svg class="svg16" icon="subscribe"></svg>
+          </button>
         } @else {
           <button
             (click)="toUnsubscribe(community.id)"
-            class="btn to-subscribe-btn"
-          >Отписаться  <svg class="svg16" icon="cross"></svg></button>
+            class="btn"
+          >
+            Отписаться
+            <svg class="svg10" icon="cross"></svg>
+          </button>
         }
       }
       <a
-        class="btn to-subscribe-btn"
+        class="btn-icon"
         [routerLink]="['/community', community.id]"
       >
-        <svg class="svg16 link-svg" icon="arrow-up"></svg>
+        <svg class="svg16" icon="arrow-up"></svg>
       </a>
     </div>
   </div>

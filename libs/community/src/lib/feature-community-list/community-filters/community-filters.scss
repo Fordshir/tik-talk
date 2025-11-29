@@ -1,8 +1,10 @@
-.profile-search-form {
+.community-search-form {
   padding: 16px 20px;
   background: var(--dark-color);
   border: var(--light-border);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+  grid-auto-flow: column;
+  flex-wrap: nowrap;
   grid-gap: 40px;
 }

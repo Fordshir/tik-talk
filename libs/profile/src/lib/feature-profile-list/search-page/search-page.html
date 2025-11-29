@@ -2,7 +2,7 @@
 
 <div class="profile-card__wrapper">
   @for (profile of profiles(); track profile.id; let last = $last){
-    <app-profile-card [profile]="profile"></app-profile-card>
+    <tt-profile-card [profile]="profile"></tt-profile-card>
     @if (last) {
       @defer (on viewport) {
         <tt-infinite-scroll-trigger

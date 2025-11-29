@@ -1,4 +1,4 @@
-<form class="profile-search-form" [formGroup]="communitySearchForm">
+<form class="community-search-form" [formGroup]="communitySearchForm">
 
   <tt-input
     formControlName="name"
@@ -8,9 +8,9 @@
     <span class="tt-form-label__text">Название сообщества</span>
   </tt-input>
 
-  <tt-select-input formControlName="themes">
+  <tt-select formControlName="themes" [options]="themes">
     <span class="tt-form-label__text">Темы</span>
-  </tt-select-input>
+  </tt-select>
 
   <tt-stack-input
     formControlName="tags"

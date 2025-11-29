@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, HostListener, input} from "@angular/core";
-import { SvgIconComponent } from "../svg-icon/svg-icon";
+import {SvgIconComponent} from "../svg-icon/svg-icon";
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {AsyncPipe} from '@angular/common';
 import {BehaviorSubject} from 'rxjs';
@@ -44,10 +44,11 @@ export class StackInput implements ControlValueAccessor {
 
     if (!this.innerInput) return
 
-    this.value$.next([...this.value$.value, this.innerInput])
-    console.log(this.value$.value)
-    this.innerInput = ''
-    this.onChange(this.value$.value)
+    if(!this.value$.value.includes(this.innerInput)) {
+      this.value$.next([...this.value$.value, this.innerInput])
+      this.innerInput = ''
+      this.onChange(this.value$.value)
+    }
   }
 
   writeValue(stack: string[] | null) {

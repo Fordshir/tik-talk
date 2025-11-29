@@ -55,7 +55,7 @@ export class Sidebar {
     },
     {
       label: "Сообщества",
-      icon: "community",
+      icon: "communities",
       link: "community",
     },
   ];

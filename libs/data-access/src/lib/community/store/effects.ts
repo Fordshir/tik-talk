@@ -4,7 +4,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {communityActions} from './actions';
 import {map, switchMap, withLatestFrom} from 'rxjs';
 import {Store} from '@ngrx/store';
-import { selectCommunityFilters, selectCommunityPageable } from "./selectors";
+import {selectCommunityFilters, selectCommunityPageable} from "./selectors";
 
 @Injectable({
   providedIn: 'root',
@@ -34,25 +34,6 @@ export class CommunityEffects {
       map(res =>
         communityActions.communitiesLoaded({communities:res.items})
       )
-    )
-  })
-
-  updateCommunities = createEffect(()=>{
-    return this.actions$.pipe(
-      ofType(
-        communityActions.communityUpdate
-        ),
-      withLatestFrom(
-        this.store.select(selectCommunityFilters),
-        this.store.select(selectCommunityPageable)
-      ),
-      switchMap(([_, filters, pageable])=>{
-        return this.communityService.filterCommunities({
-          ...pageable,
-          ...filters
-        })
-      }),
-      map(res => communityActions.communitiesUpdated({communities:res.items}))
     )
   })
 }

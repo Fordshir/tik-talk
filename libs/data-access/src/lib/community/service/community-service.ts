@@ -1,6 +1,6 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Pageble} from '@tt/data-access';
+import {Pageable} from '@tt/data-access';
 import {Community} from '../interface/community-interface';
 
 
@@ -14,7 +14,7 @@ export class CommunityService {
 
   filterCommunities(params: Record<string, any>) {
     return this.http
-      .get<Pageble<Community>>(`${this.baseApiUrl}community/`, {
+      .get<Pageable<Community>>(`${this.baseApiUrl}community/`, {
         params,
       })
   }

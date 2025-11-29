@@ -1,5 +1,5 @@
-import { Community } from "./interface/community-interface"
-import { CommunityService } from "./service/community-service"
+import {Community} from "./interface/community-interface"
+import {CommunityService} from "./service/community-service"
 
 export * from "./store"
 

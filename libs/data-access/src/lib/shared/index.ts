@@ -1,12 +1,14 @@
-import { GlobalStoreService } from "./services/global-store.service";
-import { Pageble } from "./interfaces/pageble.interface";
-import { DadataService } from "./services/dadata.service";
+import {GlobalStoreService} from "./services/global-store.service";
+import {Pageable} from "./interfaces/pageable.interface";
+import {DadataService} from "./services/dadata.service";
+import {CommunityThemes} from "./enum/themes-list";
 
 export type {
-  Pageble
+  Pageable
 }
 
 export {
   GlobalStoreService,
-  DadataService
+  DadataService,
+  CommunityThemes
 }
