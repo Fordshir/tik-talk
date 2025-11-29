@@ -22,7 +22,7 @@
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   background: var(--dark-color);
   border: 1px solid var(--light-color);
   box-shadow: 4px 4px 0 0 rgba(255, 255, 255, 25%);
@@ -35,7 +35,6 @@
   &:hover{
     background: var(--dark-hover-color);
     color: var(--primary-color);
-    border-radius: 2px;
   }
 }
 
@@ -43,7 +42,6 @@
 .selected-option:hover {
   background: var(--dark-hover-color);
   color: var(--primary-color);
-  border-radius: 2px;
   background-image: url("public/assets/svg/selected.svg");
   background-repeat: no-repeat;
   background-size: 16px;
@@ -54,9 +52,6 @@
   border: 1px solid currentColor;
   width: min-content;
   padding: 4px 8px;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 16px;
 }
 
 .select-tag {

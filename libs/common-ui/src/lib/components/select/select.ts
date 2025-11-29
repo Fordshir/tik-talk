@@ -42,8 +42,6 @@ export class Select implements ControlValueAccessor {
 
   onClick (event: Event) {
     const target = event.target as HTMLElement;
-    event.stopPropagation();
-    event.preventDefault();
 
     if (!target.closest('button')){
       this.toggleDropdown()
