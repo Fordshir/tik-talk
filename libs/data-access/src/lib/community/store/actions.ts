@@ -1,4 +1,4 @@
-import {createActionGroup, emptyProps, props} from '@ngrx/store';
+import {createActionGroup, props} from '@ngrx/store';
 import {Community} from '../interface/community-interface';
 
 export const communityActions = createActionGroup({

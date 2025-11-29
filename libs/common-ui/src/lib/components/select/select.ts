@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, input, Input, model, Output} from "@angular/core";
+import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, Input} from "@angular/core";
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {SvgIconComponent} from "../svg-icon/svg-icon";
 import {NgClass} from '@angular/common';
@@ -41,6 +41,9 @@ export class Select implements ControlValueAccessor {
   }
 
   onClick (event: Event) {
+    event.stopPropagation();
+    event.preventDefault()
+
     const target = event.target as HTMLElement;
 
     if (!target.closest('button')){

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, input, linkedSignal} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
-import {Community, communityActions, CommunityService, ProfileService} from '@tt/data-access';
+import {Community, CommunityService, ProfileService} from '@tt/data-access';
 import {Store} from '@ngrx/store';
 import {firstValueFrom} from 'rxjs';
 
