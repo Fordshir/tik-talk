@@ -1,5 +1,5 @@
 import {Dnd} from "./lib/directives/dnd"
-import { ScrollDownDirective } from "./lib/directives/scroll-down"
+import {ScrollDownDirective} from "./lib/directives/scroll-down"
 import {InfiniteScrollTrigger} from "./lib/infinite-scroll-trigger/infinite-scroll-trigger"
 import {ImgUrlPipe} from "./lib/pipes/img-url-pipe"
 import {TimeAgoPipe} from "./lib/pipes/time-ago-pipe"
