@@ -10,8 +10,10 @@ install_dependencies:
   tags:
     - docker
   script:
-    - rm -rf .pnp.* .yarn/cache
-    - yarn install --immutable --mode=update-lockfile
+    - cat .yarnrc.yml || echo "NO_YARNRC_YML_FOUND"
+    - yarn config --why nodeLinker || true
+    - yarn config get nodeLinker || true
+    - yarn
     - yarn global add nx
   cache:
     key:
