@@ -32,7 +32,6 @@
 			]
 		}
 	},
-	"nxCloudId": "68d8d800c0681b0dd97fbdd4",
 	"generators": {
 		"@nx/angular:library": {
 			"linter": "eslint",
