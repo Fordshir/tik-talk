@@ -10,11 +10,9 @@ install_dependencies:
   tags:
     - docker
   script:
-    - cat .yarnrc.yml || echo "NO_YARNRC_YML_FOUND"
-    - yarn config --why nodeLinker || true
-    - yarn config get nodeLinker || true
     - yarn
     - yarn global add nx
+    - yarn config get nodeLinker
   cache:
     key:
       files:
