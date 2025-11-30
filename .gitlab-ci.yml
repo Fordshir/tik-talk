@@ -6,7 +6,7 @@ stages:
 
 install_dependencies:
   stage: dependencies
-  image: node:20.11-alpine
+  image: node:22.18-alpine
   tags:
     - docker
   script:
@@ -21,7 +21,7 @@ install_dependencies:
 
 build_angular:
   stage: build
-  image: node:20.11-alpine
+  image: node:22.18-alpine
   tags:
     - docker
   script:
