@@ -6,13 +6,12 @@ stages:
 
 install_dependencies:
   stage: dependencies
-  image: node:22.18-alpine
+  image: node:25.1-alpine
   tags:
     - docker
   script:
     - yarn
     - yarn global add nx
-    - yarn config get nodeLinker
   cache:
     key:
       files:
@@ -22,7 +21,7 @@ install_dependencies:
 
 build_angular:
   stage: build
-  image: node:22.18-alpine
+  image: node:25.1-alpine
   tags:
     - docker
   script:
