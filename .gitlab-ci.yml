@@ -10,8 +10,8 @@ install_dependencies:
   tags:
     - docker
   script:
-    - yarn
     - yarn config set nodeLinker node-modules
+    - yarn
     - yarn global add nx
   cache:
     key:
