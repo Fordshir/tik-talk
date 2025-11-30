@@ -1,13 +1,13 @@
 {
-  "name": "community",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "community/src",
-  "prefix": "lib",
-  "projectType": "library",
-  "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+	"name": "community",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "community/src",
+	"prefix": "lib",
+	"projectType": "library",
+	"tags": [],
+	"targets": {
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		}
+	}
 }

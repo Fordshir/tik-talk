@@ -1,5 +1,3 @@
-import {LoginPage} from './login-page/login-page';
+import { LoginPage } from './login-page/login-page'
 
-export {
-  LoginPage
-}
+export { LoginPage }

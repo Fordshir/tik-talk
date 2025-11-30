@@ -1,50 +1,38 @@
 @if (community(); as community) {
-  <div class="community-card">
-    <div class="avatar-name">
-      <img
-        [src]="community.avatarUrl | imgUrl"
-        alt="avatar"
-        class="community-card__avatar"
-      />
+<div class="community-card">
+	<div class="avatar-name">
+		<img
+			[src]="community.avatarUrl | imgUrl"
+			alt="avatar"
+			class="community-card__avatar" />
 
-      <div class="community-card__name">
-        <strong class="h6">{{ community.name }}</strong>
-        <span class="subtitle">{{ subscribers() }} подписчиков</span>
-      </div>
-    </div>
+		<div class="community-card__name">
+			<strong class="h6">{{ community.name }}</strong>
+			<span class="subtitle">{{ subscribers() }} подписчиков</span>
+		</div>
+	</div>
 
-    <div class="community-card__tags">
-      @for(tag of community.tags; track tag){
-        <div class="skill-tag">{{ tag }}</div>
-      }
-    </div>
+	<div class="community-card__tags">
+		@for(tag of community.tags; track tag){
+		<div class="skill-tag">{{ tag }}</div>
+		}
+	</div>
 
-    <div class="community-card__action-btns">
-      @if (community.admin.id !== me){
-        @if (!isJoined()) {
-          <button
-            (click)="toSubscribe(community.id)"
-            class="btn"
-          >
-            Подписаться
-            <svg class="svg16" icon="subscribe"></svg>
-          </button>
-        } @else {
-          <button
-            (click)="toUnsubscribe(community.id)"
-            class="btn"
-          >
-            Отписаться
-            <svg class="svg10" icon="cross"></svg>
-          </button>
-        }
-      }
-      <a
-        class="btn-icon"
-        [routerLink]="['/community', community.id]"
-      >
-        <svg class="svg16" icon="arrow-up"></svg>
-      </a>
-    </div>
-  </div>
+	<div class="community-card__action-btns">
+		@if (community.admin.id !== me){ @if (!isJoined()) {
+		<button (click)="toSubscribe(community.id)" class="btn">
+			Подписаться
+			<svg class="svg16" icon="subscribe"></svg>
+		</button>
+		} @else {
+		<button (click)="toUnsubscribe(community.id)" class="btn">
+			Отписаться
+			<svg class="svg10" icon="cross"></svg>
+		</button>
+		} }
+		<a class="btn-icon" [routerLink]="['/community', community.id]">
+			<svg class="svg16" icon="arrow-up"></svg>
+		</a>
+	</div>
+</div>
 }

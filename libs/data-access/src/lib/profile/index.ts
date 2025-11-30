@@ -1,8 +1,6 @@
-import {ProfileService} from "./services/profile";
+import { ProfileService } from './services/profile'
 
-export * from "./interfaces"
-export * from "./store"
+export * from './interfaces'
+export * from './store'
 
-export {
-  ProfileService
-}
+export { ProfileService }

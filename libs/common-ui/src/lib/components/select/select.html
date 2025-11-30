@@ -1,34 +1,28 @@
 <label class="tt-form-label select-label">
-  <ng-content></ng-content>
-  <div
-    class="select-control"
-    (click)="onClick($event)"
-  >
-    @if (selectedValue){
-      <div class="skill-tag select-tag">
-        <button
-          type="button"
-          (click)="onDelete()"
-          class="theme-btn__delete svg16"
-        >
-          <svg icon="cross" class="svg10"></svg>
-        </button>
-        {{selectedValue}}
-      </div>
-    } @else {
-      <p class="placeholder">Выберите тему</p>
-    }
-
-    @if (isDropdownOpened) {
-    <div class="dropdown">
-      @for (option of options; track option) {
-        <div class="select-option" [ngClass]="{'selected-option': option === selectedValue}">
-          <div class="select-option-item">
-            {{ option }}
-          </div>
-        </div>
-      }
-    </div>
-  }
-  </div>
+	<ng-content></ng-content>
+	<div class="select-control" (click)="onClick($event)">
+		@if (selectedValue){
+		<div class="skill-tag select-tag">
+			<button
+				type="button"
+				(click)="onDelete()"
+				class="theme-btn__delete svg16">
+				<svg icon="cross" class="svg10"></svg>
+			</button>
+			{{selectedValue}}
+		</div>
+		} @else {
+		<p class="placeholder">Выберите тему</p>
+		} @if (isDropdownOpened) {
+		<div class="dropdown">
+			@for (option of options; track option) {
+			<div
+				class="select-option"
+				[ngClass]="{'selected-option': option === selectedValue}">
+				<div class="select-option-item">{{ option }}</div>
+			</div>
+			}
+		</div>
+		}
+	</div>
 </label>

@@ -1,22 +1,13 @@
 <form class="community-search-form" [formGroup]="communitySearchForm">
+	<tt-input formControlName="name" type="text" placeholder="Введите название">
+		<span class="tt-form-label__text">Название сообщества</span>
+	</tt-input>
 
-  <tt-input
-    formControlName="name"
-    type="text"
-    placeholder="Введите название"
-  >
-    <span class="tt-form-label__text">Название сообщества</span>
-  </tt-input>
+	<tt-select formControlName="themes" [options]="themes">
+		<span class="tt-form-label__text">Темы</span>
+	</tt-select>
 
-  <tt-select formControlName="themes" [options]="themes">
-    <span class="tt-form-label__text">Темы</span>
-  </tt-select>
-
-  <tt-stack-input
-    formControlName="tags"
-    placeholder="Введите тэги"
-  >
-    <span class="tt-form-label__text">Тэги</span>
-  </tt-stack-input>
-
+	<tt-stack-input formControlName="tags" placeholder="Введите тэги">
+		<span class="tt-form-label__text">Тэги</span>
+	</tt-stack-input>
 </form>
