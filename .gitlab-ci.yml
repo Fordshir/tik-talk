@@ -11,6 +11,8 @@ install_dependencies:
     - docker
   script:
     - yarn config set nodeLinker node-modules
+    - rm -f .pnp.cjs .pnp.loader.mjs
+    - rm -rf .yarn/cache
     - yarn
     - yarn global add nx
   cache:
