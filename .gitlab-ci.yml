@@ -10,10 +10,8 @@ install_dependencies:
   tags:
     - docker
   script:
-    - yarn config set nodeLinker node-modules
-    - rm -f .pnp.cjs .pnp.loader.mjs
-    - rm -rf .yarn/cache
-    - yarn
+    - rm -rf .pnp.* .yarn/cache
+    - yarn install --immutable --mode=update-lockfile
     - yarn global add nx
   cache:
     key:
