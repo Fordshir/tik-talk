@@ -19,6 +19,9 @@ install_dependencies:
         - yarn.lock
     paths:
       - node_modules
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "main"
 
 lint_check:
   stage: lint
@@ -33,6 +36,9 @@ lint_check:
         - yarn.lock
     paths:
       - node_modules
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "main"
 
 build_angular:
   stage: build
@@ -50,6 +56,9 @@ build_angular:
         - yarn.lock
     paths:
       - node_modules
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "main"
 
 deploy-test-stand:
   stage: deploy-test-stand
@@ -69,9 +78,9 @@ deploy-test-stand:
   script:
     - ssh $DEPLOY_USER_HOST "./deploy-tik-talk/deploy.sh $GITLAB_USER_LOGIN"
     - $DEPLOY_HOST_COPY$LC_GITLAB_USERNAME-$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME/
-  only:
-    - merge_requests
-  when: manual
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - when: manual
 
 deploy:
   stage: deploy
@@ -91,6 +100,6 @@ deploy:
   script:
     - ssh $DEPLOY_USER_HOST "./deploy-tik-talk/deploy.sh $GITLAB_USER_LOGIN"
     - $DEPLOY_HOST_COPY$LC_GITLAB_USERNAME/
-  only:
-    - main
-  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - when: manual
