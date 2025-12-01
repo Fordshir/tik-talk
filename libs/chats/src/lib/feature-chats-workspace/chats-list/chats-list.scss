@@ -1,17 +1,17 @@
 :host {
-	border-right: var(--light-border);
-	display: block;
-	max-height: calc(100dvh - 24px - 24px);
-	overflow-y: scroll;
-	scrollbar-width: none;
+  border-right: var(--light-border);
+  display: block;
+  max-height: calc(100dvh - 24px - 24px);
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 
 .chats-filters-input__wrapper {
-	padding: 16px 20px;
-	border-bottom: var(--light-border);
+  padding: 16px 20px;
+  border-bottom: var(--light-border);
 }
 
 .chats-list-label {
-	gap: 0;
-	padding: 2px 0;
+  gap: 0;
+  padding: 2px 0;
 }

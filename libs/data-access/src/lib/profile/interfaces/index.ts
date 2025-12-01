@@ -1,3 +1,3 @@
-import { Profile } from './profile.interface'
+import {Profile} from './profile.interface'
 
-export type { Profile }
+export type {Profile}

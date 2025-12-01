@@ -1,39 +1,39 @@
-import { Component, signal } from '@angular/core'
-import { Dnd, SvgIconComponent } from '@tt/common-ui'
-import { FormsModule } from '@angular/forms'
+import {Component, signal} from '@angular/core'
+import {Dnd, SvgIconComponent} from '@tt/common-ui'
+import {FormsModule} from '@angular/forms'
 
 @Component({
-	selector: 'tt-avatar-upload',
-	imports: [SvgIconComponent, Dnd, FormsModule],
-	templateUrl: './avatar-upload.html',
-	styleUrl: './avatar-upload.scss'
+  selector: 'tt-avatar-upload',
+  imports: [SvgIconComponent, Dnd, FormsModule],
+  templateUrl: './avatar-upload.html',
+  styleUrl: './avatar-upload.scss'
 })
 export class AvatarUpload {
-	preview = signal<string>('/assets/imgs/avatar-placeholder.png')
+  preview = signal<string>('/assets/imgs/avatar-placeholder.png')
 
-	avatar: File | null = null
+  avatar: File | null = null
 
-	fileBrowserHandler(event: Event) {
-		const file = (event.target as HTMLInputElement).files?.[0]
+  fileBrowserHandler(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0]
 
-		this.processFile(file)
-	}
+    this.processFile(file)
+  }
 
-	onFileDropped(file: File) {
-		this.processFile(file)
-	}
+  onFileDropped(file: File) {
+    this.processFile(file)
+  }
 
-	processFile(file: File | null | undefined) {
-		if (!file || !file.type.match('image')) return
+  processFile(file: File | null | undefined) {
+    if (!file || !file.type.match('image')) return
 
-		const reader = new FileReader()
+    const reader = new FileReader()
 
-		reader.onload = (event) => {
-			this.preview.set(event.target?.result?.toString() ?? '')
-		}
+    reader.onload = (event) => {
+      this.preview.set(event.target?.result?.toString() ?? '')
+    }
 
-		reader.readAsDataURL(file)
+    reader.readAsDataURL(file)
 
-		this.avatar = file
-	}
+    this.avatar = file
+  }
 }

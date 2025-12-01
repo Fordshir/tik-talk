@@ -1,41 +1,41 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
-import { ChatsBtn } from '../chats-btn/chats-btn'
-import { FormControl, ReactiveFormsModule } from '@angular/forms'
-import { ChatsService } from '@tt/data-access'
-import { AsyncPipe } from '@angular/common'
-import { RouterLink, RouterLinkActive } from '@angular/router'
-import { map, startWith, switchMap } from 'rxjs'
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
+import {ChatsBtn} from '../chats-btn/chats-btn'
+import {FormControl, ReactiveFormsModule} from '@angular/forms'
+import {ChatsService} from '@tt/data-access'
+import {AsyncPipe} from '@angular/common'
+import {RouterLink, RouterLinkActive} from '@angular/router'
+import {map, startWith, switchMap} from 'rxjs'
 
 @Component({
-	selector: 'tt-chats-list',
-	imports: [
-		ChatsBtn,
-		ReactiveFormsModule,
-		AsyncPipe,
-		RouterLink,
-		RouterLinkActive
-	],
-	templateUrl: './chats-list.html',
-	styleUrl: './chats-list.scss',
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'tt-chats-list',
+  imports: [
+    ChatsBtn,
+    ReactiveFormsModule,
+    AsyncPipe,
+    RouterLink,
+    RouterLinkActive
+  ],
+  templateUrl: './chats-list.html',
+  styleUrl: './chats-list.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatsList {
-	chatsService = inject(ChatsService)
+  chatsService = inject(ChatsService)
 
-	filterChatsControl = new FormControl()
+  filterChatsControl = new FormControl()
 
-	chats$ = this.chatsService.getMyChats().pipe(
-		switchMap((chats) => {
-			return this.filterChatsControl.valueChanges.pipe(
-				startWith(''),
-				map((inputValue) => {
-					return chats.filter((chat) => {
-						return `${chat.userFrom.firstName} ${chat.userFrom.lastName}`
-							.toLowerCase()
-							.includes(inputValue.toLowerCase() ?? '')
-					})
-				})
-			)
-		})
-	)
+  chats$ = this.chatsService.getMyChats().pipe(
+    switchMap((chats) => {
+      return this.filterChatsControl.valueChanges.pipe(
+        startWith(''),
+        map((inputValue) => {
+          return chats.filter((chat) => {
+            return `${chat.userFrom.firstName} ${chat.userFrom.lastName}`
+              .toLowerCase()
+              .includes(inputValue.toLowerCase() ?? '')
+          })
+        })
+      )
+    })
+  )
 }
