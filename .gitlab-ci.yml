@@ -1,5 +1,6 @@
 stages:
   - dependencies
+  - lint
   - build
   - deploy
   - deploy-test-stand
@@ -12,6 +13,20 @@ install_dependencies:
   script:
     - yarn
     - yarn global add nx
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+
+lint_check:
+  stage: lint
+  image: node:25.1-alpine
+  tags:
+    - docker
+  script:
+    - eslint
   cache:
     key:
       files:
