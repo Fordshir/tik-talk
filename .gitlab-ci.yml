@@ -78,9 +78,9 @@ deploy-test-stand:
   script:
     - ssh $DEPLOY_USER_HOST "./deploy-tik-talk/deploy.sh $GITLAB_USER_LOGIN"
     - $DEPLOY_HOST_COPY$LC_GITLAB_USERNAME-$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME/
-  rules:
-    - if: $CI_MERGE_REQUEST_ID
-    - when: manual
+  only:
+    - merge_requests
+  when: manual
 
 deploy:
   stage: deploy
