@@ -1,8 +1,9 @@
 stages:
   - dependencies
+  - lint
   - build
-  - deploy
   - deploy-test-stand
+  - deploy
 
 install_dependencies:
   stage: dependencies
@@ -18,6 +19,26 @@ install_dependencies:
         - yarn.lock
     paths:
       - node_modules
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "main"
+
+lint_check:
+  stage: lint
+  image: node:25.1-alpine
+  tags:
+    - docker
+  script:
+    - yarn lint
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "main"
 
 build_angular:
   stage: build
@@ -35,28 +56,9 @@ build_angular:
         - yarn.lock
     paths:
       - node_modules
-
-deploy:
-  stage: deploy
-  image: alpine:latest
-  before_script:
-    - apk update
-    - apk upgrade --no-cache openssh-client openssl libssl3 libcrypto3
-    - apk add --no-cache openssh-client openssl libssl3 libcrypto3
-    - mkdir -p ~/.ssh
-    - echo "$DEPLOY_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - echo ~/.ssh/id_rsa
-    - echo "$DEPLOY_KNOWN_HOSTS" >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-    - LC_GITLAB_USERNAME=$(echo "$GITLAB_USER_LOGIN" | tr '[:upper:]' '[:lower:]')
-    - export LC_GITLAB_USERNAME
-  script:
-    - ssh $DEPLOY_USER_HOST "./deploy-tik-talk/deploy.sh $GITLAB_USER_LOGIN"
-    - $DEPLOY_HOST_COPY$LC_GITLAB_USERNAME/
-  only:
-    - main
-  when: manual
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "main"
 
 deploy-test-stand:
   stage: deploy-test-stand
@@ -78,4 +80,26 @@ deploy-test-stand:
     - $DEPLOY_HOST_COPY$LC_GITLAB_USERNAME-$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME/
   only:
     - merge_requests
+  when: manual
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk update
+    - apk upgrade --no-cache openssh-client openssl libssl3 libcrypto3
+    - apk add --no-cache openssh-client openssl libssl3 libcrypto3
+    - mkdir -p ~/.ssh
+    - echo "$DEPLOY_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo ~/.ssh/id_rsa
+    - echo "$DEPLOY_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - LC_GITLAB_USERNAME=$(echo "$GITLAB_USER_LOGIN" | tr '[:upper:]' '[:lower:]')
+    - export LC_GITLAB_USERNAME
+  script:
+    - ssh $DEPLOY_USER_HOST "./deploy-tik-talk/deploy.sh $GITLAB_USER_LOGIN"
+    - $DEPLOY_HOST_COPY$LC_GITLAB_USERNAME/
+  only:
+    - main
   when: manual

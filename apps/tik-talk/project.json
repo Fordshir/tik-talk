@@ -101,6 +101,15 @@
           "apps/tik-talk/src/styles.scss"
         ]
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/tik-talk/**/*.ts",
+          "apps/tik-talk/**/*.html"
+        ]
+      }
     }
   }
 }
