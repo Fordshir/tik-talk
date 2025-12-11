@@ -1,6 +1,7 @@
 <form class="community-search-form" [formGroup]="communitySearchForm">
   <tt-input formControlName="name" type="text" placeholder="Введите название">
     <span class="tt-form-label__text">Название сообщества</span>
+    <svg icon="search" class="svg16 input-icon" right></svg>
   </tt-input>
 
   <tt-select formControlName="themes" [options]="themes">

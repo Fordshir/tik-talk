@@ -4,11 +4,11 @@ import {debounceTime, startWith} from 'rxjs'
 import {Store} from '@ngrx/store'
 import {communityActions, CommunityThemes} from '@tt/data-access'
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop'
-import {Select, StackInput, TtInput} from '@tt/common-ui'
+import {Select, StackInput, SvgIconComponent, TtInput} from '@tt/common-ui'
 
 @Component({
   selector: 'tt-community-filters',
-  imports: [FormsModule, ReactiveFormsModule, StackInput, Select, TtInput],
+  imports: [FormsModule, ReactiveFormsModule, StackInput, Select, TtInput, SvgIconComponent],
   templateUrl: './community-filters.html',
   styleUrl: './community-filters.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

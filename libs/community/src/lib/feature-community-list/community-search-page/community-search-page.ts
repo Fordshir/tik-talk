@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store'
 import {InfiniteScrollTrigger, SvgIconComponent} from '@tt/common-ui'
 import {CommunityCard} from '../community-card/community-card'
 import {CommunityFilters} from '../community-filters/community-filters'
-import {communityActions, selectFilteredCommunities} from '@tt/data-access'
+import {communityActions, ModalService, selectFilteredCommunities} from '@tt/data-access'
 
 @Component({
   selector: 'tt-community-search-page',
@@ -11,7 +11,7 @@ import {communityActions, selectFilteredCommunities} from '@tt/data-access'
     CommunityCard,
     InfiniteScrollTrigger,
     SvgIconComponent,
-    CommunityFilters
+    CommunityFilters,
   ],
   templateUrl: './community-search-page.html',
   styleUrl: './community-search-page.scss',
@@ -20,8 +20,13 @@ import {communityActions, selectFilteredCommunities} from '@tt/data-access'
 export class CommunitySearchPage {
   store = inject(Store)
   communities = this.store.selectSignal(selectFilteredCommunities)
+  modalService = inject(ModalService)
 
   timeToFetch() {
     this.store.dispatch(communityActions.setPage({}))
+  }
+
+  showModal() {
+    this.modalService.show()
   }
 }

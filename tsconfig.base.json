@@ -13,36 +13,16 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "@tt/auth": [
-        "libs/auth/src/index.ts"
-      ],
-      "@tt/chats": [
-        "libs/chats/src/index.ts"
-      ],
-      "@tt/common-ui": [
-        "libs/common-ui/src/index.ts"
-      ],
-      "@tt/data-access": [
-        "libs/data-access/src/index.ts"
-      ],
-      "@tt/experimental": [
-        "libs/experimental/src/index.ts"
-      ],
-      "@tt/interfaces/*": [
-        "libs/interfaces/src/lib/*"
-      ],
-      "@tt/layout": [
-        "libs/layout/src/index.ts"
-      ],
-      "@tt/posts": [
-        "libs/posts/src/index.ts"
-      ],
-      "@tt/profile": [
-        "libs/profile/src/index.ts"
-      ],
-      "@tt/community": [
-        "libs/community/src/index.ts"
-      ]
+      "@tt/auth": ["libs/auth/src/index.ts"],
+      "@tt/chats": ["libs/chats/src/index.ts"],
+      "@tt/common-ui": ["libs/common-ui/src/index.ts"],
+      "@tt/community": ["libs/community/src/index.ts"],
+      "@tt/data-access": ["libs/data-access/src/index.ts"],
+      "@tt/experimental": ["libs/experimental/src/index.ts"],
+      "@tt/interfaces/*": ["libs/interfaces/src/lib/*"],
+      "@tt/layout": ["libs/layout/src/index.ts"],
+      "@tt/posts": ["libs/posts/src/index.ts"],
+      "@tt/profile": ["libs/profile/src/index.ts"]
     },
     "baseUrl": ".",
     "rootDir": "."
@@ -63,8 +43,5 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
