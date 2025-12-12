@@ -4,6 +4,7 @@ import {InfiniteScrollTrigger, SvgIconComponent} from '@tt/common-ui'
 import {CommunityCard} from '../community-card/community-card'
 import {CommunityFilters} from '../community-filters/community-filters'
 import {communityActions, ModalService, selectFilteredCommunities} from '@tt/data-access'
+import {CommunityCreate} from '@tt/community';
 
 @Component({
   selector: 'tt-community-search-page',
@@ -26,7 +27,9 @@ export class CommunitySearchPage {
     this.store.dispatch(communityActions.setPage({}))
   }
 
-  showModal() {
-    this.modalService.show()
+  showModal(component: any) {
+    this.modalService.show(component)
   }
+
+  protected readonly CommunityCreate = CommunityCreate;
 }
