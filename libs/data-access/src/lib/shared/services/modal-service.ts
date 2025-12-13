@@ -1,4 +1,4 @@
-import {Injectable, signal, ViewContainerRef} from '@angular/core';
+import {Injectable, ViewContainerRef} from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -6,17 +6,17 @@ import {Injectable, signal, ViewContainerRef} from '@angular/core';
 
 export class ModalService {
   #container?: ViewContainerRef
-  isShown = signal(false)
+
 
   registerContainer(vcr: ViewContainerRef) {
     this.#container = vcr;
   }
 
-  show() {
-    this.isShown.set(true)
+  show(component: any) {
+    this.#container?.createComponent(component)
   }
 
   close() {
-    this.isShown.set(false)
+    this.#container?.clear()
   }
 }
