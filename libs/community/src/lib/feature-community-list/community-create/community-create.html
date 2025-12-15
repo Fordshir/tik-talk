@@ -1,3 +1,29 @@
 <tt-modal-base>
-  <p>Hello World!</p>
+  <form class="community-create-form" [formGroup]="communityCreateForm" (ngSubmit)="onSubmit()">
+    <tt-input formControlName="name" type="text" placeholder="Введите название">
+      <span class="tt-form-label__text">Название сообщества</span>
+    </tt-input>
+    <tt-select formControlName="themes" [options]="themes">
+      <span class="tt-form-label__text">Тема</span>
+      <svg icon="search" class="svg16 input-icon" right></svg>
+    </tt-select>
+    <tt-stack-input formControlName="tags" placeholder="Введите тэги">
+      <span class="tt-form-label__text">Тэги</span>
+      <svg icon="search" class="svg16 input-icon" right></svg>
+    </tt-stack-input>
+    <label class="tt-form-label">
+      <span class="tt-form-label__text">Описание</span>
+      <textarea
+        class="tt-form-input tt-textarea"
+        placeholder="Введите описание"
+        formControlName="description"
+        rows="5"
+      ></textarea>
+    </label>
+    <div class="btn-wrapper">
+      <button class="black-btn" (click)="onDelete()"><svg class="svg16" icon="delete"></svg></button>
+      <button class="black-btn" (click)="onCancel()">Отмена</button>
+      <button class="btn" type="submit">Сохранить</button>
+    </div>
+  </form>
 </tt-modal-base>

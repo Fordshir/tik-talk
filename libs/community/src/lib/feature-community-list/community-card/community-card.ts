@@ -32,4 +32,8 @@ export class CommunityCard {
     this.isJoined.set(false)
     this.subscribers.set(this.subscribers() - 1)
   }
+
+  async deleteCommunity(community_id: number) {
+    await firstValueFrom(this.communityService.deleteCommunity(community_id))
+  }
 }
