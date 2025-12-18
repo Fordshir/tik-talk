@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {ModalBase, Select, StackInput, SvgIconComponent, TtInput} from '@tt/common-ui';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {communityActions, CommunityService, CommunityThemes, ModalService} from '@tt/data-access';
+import {communityActions, CommunityThemes, ModalService} from '@tt/data-access';
 import {CreateCommunity} from '../../../../../data-access/src/lib/community/interface/community-interface';
 import {Store} from '@ngrx/store';
 
@@ -21,7 +21,6 @@ import {Store} from '@ngrx/store';
 })
 export class CommunityCreate {
   fb = inject(FormBuilder);
-  communityService = inject(CommunityService);
   modalService = inject(ModalService)
   store = inject(Store)
   themes = Object.values(CommunityThemes)
