@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {ModalBase, Select, StackInput, SvgIconComponent, TtInput} from '@tt/common-ui';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {CommunityService, CommunityThemes, ModalService} from '@tt/data-access';
+import {communityActions, CommunityService, CommunityThemes, ModalService} from '@tt/data-access';
 import {CreateCommunity} from '../../../../../data-access/src/lib/community/interface/community-interface';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: "tt-community-create",
@@ -22,6 +23,7 @@ export class CommunityCreate {
   fb = inject(FormBuilder);
   communityService = inject(CommunityService);
   modalService = inject(ModalService)
+  store = inject(Store)
   themes = Object.values(CommunityThemes)
   communityCreateForm = this.fb.nonNullable.group({
     name: ['', Validators.required],
@@ -40,9 +42,9 @@ export class CommunityCreate {
 
     console.log(request)
 
-    this.communityService.createCommunity(request).subscribe(() => {
-      this.modalService.close();
-    })
+    this.store.dispatch(communityActions.createCommunity({request}))
+
+    this.modalService.close();
   }
 
   onDelete(){

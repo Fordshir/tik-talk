@@ -12,6 +12,7 @@ export class CommunityService {
   baseApiUrl = '/yt-course/community/'
 
   filterCommunities(params: Record<string, any>) {
+    console.log(params)
     return this.http.get<Pageable<Community>>(`${this.baseApiUrl}`, {
       params
     })

@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core'
-import {CommunityService} from '@tt/data-access'
+import {CommunityService, selectFilteredCommunities} from '@tt/data-access'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {communityActions} from './actions'
 import {map, switchMap, withLatestFrom} from 'rxjs'
@@ -30,6 +30,28 @@ export class CommunityEffects {
       map((res) =>
         communityActions.communitiesLoaded({communities: res.items})
       )
+    )
+  })
+
+  createCommunity = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(communityActions.createCommunity),
+      switchMap(({request}) => {
+        return this.communityService.createCommunity(request). pipe(
+          map((res) =>
+          communityActions.newCommunity({community: res})
+        ))
+    }))
+  })
+
+  deleteCommunity= createEffect(()=> {
+    return this.actions$.pipe(
+      ofType(communityActions.deleteCommunity),
+      switchMap(({community_id}) => {
+        return this.communityService.deleteCommunity(community_id). pipe(
+          map(() => communityActions.communitiesReload())
+        )
+      })
     )
   })
 }
