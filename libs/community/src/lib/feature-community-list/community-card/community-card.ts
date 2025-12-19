@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, input, linkedSignal} from '@angular/core'
 import {RouterLink} from '@angular/router'
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui'
-import {Community, CommunityService, ProfileService} from '@tt/data-access'
+import {Community, communityActions, CommunityService, ProfileService} from '@tt/data-access'
 import {Store} from '@ngrx/store'
 import {firstValueFrom} from 'rxjs'
 
@@ -33,7 +33,7 @@ export class CommunityCard {
     this.subscribers.set(this.subscribers() - 1)
   }
 
-  async deleteCommunity(community_id: number) {
-    await firstValueFrom(this.communityService.deleteCommunity(community_id))
+  deleteCommunity(community_id: number) {
+    this.store.dispatch(communityActions.deleteCommunity({community_id}))
   }
 }

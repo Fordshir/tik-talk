@@ -1,8 +1,8 @@
-import {Community} from './interface/community-interface'
-import {CommunityService} from './service/community-service'
+import { Community, CreateCommunity } from "./interface/community-interface";
+import { CommunityService } from "./service/community-service";
 
-export * from './store'
+export * from "./store";
 
-export {CommunityService}
+export { CommunityService };
 
-export type {Community}
+export type { Community, CreateCommunity };

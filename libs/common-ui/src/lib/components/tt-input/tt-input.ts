@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, inject, input} from '@angular/core'
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, inject, input, signal} from '@angular/core'
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms'
 
 @Component({
@@ -19,13 +19,10 @@ export class TtInput implements ControlValueAccessor {
   type = input<'text' | 'password'>('text')
   placeholder = input<string>()
 
-  cdr = inject(ChangeDetectorRef)
-
-  value: string = ''
+  value = signal<string>('')
 
   writeValue(value: string) {
-    this.value = value ?? ''
-    this.cdr.detectChanges()
+    this.value.set(value)
   }
 
   registerOnChange(fn: any) {
@@ -39,7 +36,14 @@ export class TtInput implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean) {
   }
 
+  onInput(event: Event) {
+    const value = (event.target as HTMLInputElement).value
+    this.value.set(value)
+    this.onChange(value)
+  }
+
   onChange(value: string) {
+
   }
 
   onTouched() {
