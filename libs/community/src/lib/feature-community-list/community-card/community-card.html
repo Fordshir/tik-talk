@@ -30,6 +30,10 @@
             <svg class="svg10" icon="cross"></svg>
           </button>
         }
+      } @else {
+        <button (click)="deleteCommunity(community.id)" class="black-btn">
+          <svg class="svg16" icon="delete"></svg>
+        </button>
       }
       <a class="btn-icon" [routerLink]="['/community', community.id]">
         <svg class="svg16" icon="arrow-up"></svg>

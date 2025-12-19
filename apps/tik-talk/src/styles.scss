@@ -202,7 +202,7 @@ body {
   color: var(--light-color);
   border: none;
   border-bottom: var(--light-border);
-  height: 33px;
+  min-height: 33px;
 
   &:focus-visible {
     outline: 1px solid var(--primary-color);
@@ -210,8 +210,8 @@ body {
 }
 
 .tt-textarea {
-  height: 84px;
   resize: none;
+  scrollbar-width: none;
 }
 
 .ng-scrollbar {
@@ -227,4 +227,28 @@ body {
   font-weight: 400;
   font-size: 14px;
   line-height: 25px;
+}
+
+.input-icon {
+  position: absolute;
+  top: 43px;
+  right: 0;
+}
+
+.black-btn {
+  background: var(--dark-color);
+  border: 1px solid var(--light-color);
+  border-radius: 2px;
+  width: fit-content;
+  padding: 10px 20px;
+  color: var(--light-color);
+  cursor: pointer;
+  font-family: "JetBrains Mono", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 0;
+}
+
+.black-btn:hover {
+  background: var(--dark-hover-color);
 }

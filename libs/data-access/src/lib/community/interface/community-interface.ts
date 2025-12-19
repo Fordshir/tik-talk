@@ -22,3 +22,10 @@ export interface Community {
   createdAt: string
   isJoined: boolean
 }
+
+export interface CreateCommunity {
+  name: string
+  themes: []
+  tags: []
+  description?: string
+}

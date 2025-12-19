@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, Input} from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  HostBinding,
+  inject,
+  Input
+} from '@angular/core'
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms'
 import {SvgIconComponent} from '../svg-icon/svg-icon'
 import {NgClass} from '@angular/common'
@@ -22,9 +30,11 @@ export class Select implements ControlValueAccessor {
 
   #disabled = false
 
-  selectedValue: string | null = null
+  selectedValue: string[] = []
 
   isDropdownOpened = false
+
+  cdr = inject(ChangeDetectorRef)
 
   toggleDropdown() {
     this.isDropdownOpened = !this.isDropdownOpened
@@ -44,18 +54,20 @@ export class Select implements ControlValueAccessor {
     if (!target.closest('button')) {
       this.toggleDropdown()
       if (target.className.includes('select-option') && target.textContent) {
-        this.onChange((this.selectedValue = target.textContent.trim()))
+        this.onChange((this.selectedValue = [target.textContent.trim()]))
       }
     }
   }
 
   onDelete() {
-    this.selectedValue = ''
+    this.selectedValue = []
     this.onChange(this.selectedValue)
+    this.cdr.detectChanges()
   }
 
-  writeValue(value: string | null) {
-    this.selectedValue = value
+  writeValue(value: string[] | null) {
+    this.selectedValue = value ?? []
+    this.cdr.detectChanges()
   }
 
   registerOnChange(fn: any) {

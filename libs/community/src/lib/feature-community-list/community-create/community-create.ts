@@ -1,13 +1,53 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
-import {ModalBase} from '@tt/common-ui';
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
+import {ModalBase, Select, StackInput, SvgIconComponent, TtInput} from '@tt/common-ui';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {communityActions, CommunityThemes, ModalService, CreateCommunity} from '@tt/data-access';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: "tt-community-create",
   imports: [
-    ModalBase
+    ModalBase,
+    TtInput,
+    ReactiveFormsModule,
+    StackInput,
+    SvgIconComponent,
+    Select
   ],
   templateUrl: "./community-create.html",
   styleUrl: "./community-create.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommunityCreate {}
+export class CommunityCreate {
+  fb = inject(FormBuilder);
+  modalService = inject(ModalService)
+  store = inject(Store)
+  themes = Object.values(CommunityThemes)
+  communityCreateForm = this.fb.nonNullable.group({
+    name: ['', Validators.required],
+    themes: [[], Validators.required],
+    tags: [[], Validators.required],
+    description: [''],
+  })
+
+  onSubmit(){
+    this.communityCreateForm.markAllAsTouched()
+    this.communityCreateForm.updateValueAndValidity()
+
+    if(this.communityCreateForm.invalid) return;
+
+    const request: CreateCommunity = this.communityCreateForm.getRawValue()
+
+    this.store.dispatch(communityActions.createCommunity({request}))
+
+    this.modalService.close();
+  }
+
+  onDelete(){
+    this.communityCreateForm.reset()
+  }
+
+  onCancel(){
+    this.modalService.close();
+  }
+}

@@ -1,8 +1,8 @@
 <label class="tt-form-label">
   <ng-content></ng-content>
   <input
-    [ngModel]="value"
-    (ngModelChange)="onChange($event)"
+    [value]="value()"
+    (input)="onInput($event)"
     [type]="type()"
     class="tt-form-input"
     [placeholder]="placeholder()"
