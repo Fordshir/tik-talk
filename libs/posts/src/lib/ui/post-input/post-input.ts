@@ -1,7 +1,8 @@
-import {Component, EventEmitter, HostBinding, inject, input, Output, Renderer2} from '@angular/core'
+import {Component, EventEmitter, HostBinding, inject, input, Output, Renderer2, signal} from '@angular/core'
 import {FormsModule} from '@angular/forms'
 import {AvatarCircle, SvgIconComponent} from '@tt/common-ui'
-import {GlobalStoreService} from '@tt/data-access'
+import {Community, GlobalStoreService} from '@tt/data-access'
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'tt-post-input',
@@ -15,6 +16,8 @@ export class PostInput {
   isCommentInput = input(false)
   postId = input<number>(0)
   profile = inject(GlobalStoreService).me
+  community = input<Community | null>(null)
+  isMyCommunity = input<boolean>(false)
 
   @Output() created = new EventEmitter<string>()
 

@@ -1,4 +1,12 @@
-@if (profile (); as profile) {
+@if (isMyCommunity()){
+  @if (community(); as community){
+    <tt-avatar-circle
+      class="size32"
+      [avatarUrl]="community.avatarUrl"></tt-avatar-circle>
+  }
+}
+
+@if (!isMyCommunity() && profile(); as profile) {
   <tt-avatar-circle
     class="size32"
     [avatarUrl]="profile.avatarUrl"></tt-avatar-circle>

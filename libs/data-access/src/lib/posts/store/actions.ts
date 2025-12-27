@@ -5,8 +5,10 @@ export const postsActions = createActionGroup({
   source: '',
   events: {
     'posts get': emptyProps(),
+    'community posts get': emptyProps(),
     'create post': props<{ post: PostCreateDto }>(),
     'posts loaded': props<{ posts: Post[] }>(),
+    'community posts loaded': props<{ posts: Post[] }>(),
 
     'comments get': props<{ postId: number }>(),
     'create comment': props<{ comment: CommentCreateDto }>(),

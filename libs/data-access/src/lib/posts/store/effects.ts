@@ -3,6 +3,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {postsActions} from './actions'
 import {map, switchMap} from 'rxjs'
 import {PostService} from '../services/post.service'
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,25 @@ import {PostService} from '../services/post.service'
 export class PostsEffects {
   postService = inject(PostService)
   actions$ = inject(Actions)
+  router = inject(Router)
 
   fetchPost = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(postsActions.postsGet),
+        switchMap(({}) => {
+          return this.postService.fetchPosts()
+        }),
+        map((posts) => postsActions.postsLoaded({posts: posts}))
+      )
+  })
+
+  fetchCommunityPosts = createEffect(() => {
     return this.actions$.pipe(
-      ofType(postsActions.postsGet),
+      ofType(postsActions.communityPostsGet),
       switchMap(({}) => {
-        return this.postService.fetchPosts()
+        return this.postService.fetchCommunityPosts()
       }),
-      map((posts) => postsActions.postsLoaded({posts: posts}))
+      map((posts) => postsActions.postsLoaded({posts: posts.items}))
     )
   })
 

@@ -20,6 +20,10 @@ export interface Post {
   comments: PostComment[]
 }
 
+export interface CommunityPosts {
+  items: Post[]
+}
+
 export interface PostComment {
   id: number
   text: string

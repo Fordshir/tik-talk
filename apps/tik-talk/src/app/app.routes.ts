@@ -15,7 +15,7 @@ import {
 import {ProfilePage, SearchPage, SettingsPage} from '@tt/profile'
 import {LoginPage} from '@tt/auth'
 import {Layout} from '@tt/layout'
-import {communitiesRoutes} from '@tt/community'
+import {CommunitySearchPage, CommunityPage} from '@tt/community'
 
 export const routes: Routes = [
   {path: 'experimental', component: FormHw},
@@ -40,11 +40,16 @@ export const routes: Routes = [
       },
       {
         path: 'community',
-        loadChildren: () => communitiesRoutes,
+        component: CommunitySearchPage,
         providers: [
           provideState(communityFeature),
           provideEffects(CommunityEffects)
         ]
+      },
+      {
+        path: 'community/:id',
+        component: CommunityPage,
+        providers: [provideState(postsFeature), provideEffects(PostsEffects)]
       },
       {
         path: 'chats',

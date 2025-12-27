@@ -1,19 +1,21 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
-  inject,
-  Input,
+  inject, input,
+  Input, OnInit,
   Output,
-  Renderer2
+  Renderer2, signal
 } from '@angular/core'
 import {debounceTime, fromEvent} from 'rxjs'
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop'
 import {PostComponent} from '../post/post'
 import {PostInput} from '../../ui'
-import {GlobalStoreService, postsActions, selectedPosts} from '@tt/data-access'
+import {Community, GlobalStoreService, postsActions, selectedPosts} from '@tt/data-access'
 import {Store} from '@ngrx/store'
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'tt-post-feed',
@@ -22,11 +24,16 @@ import {Store} from '@ngrx/store'
   styleUrl: './post-feed.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostFeed {
+export class PostFeed implements OnInit, AfterViewInit {
   hostElement = inject(ElementRef)
   r2 = inject(Renderer2)
   profile = inject(GlobalStoreService).me
+  community = input<Community | null>(null)
+  isMyCommunity = signal<boolean>(false)
+  isCommunity = signal<boolean>(false)
   store = inject(Store)
+  route = inject(ActivatedRoute)
+  router = inject(Router)
 
   feed = this.store.selectSignal(selectedPosts)
 
@@ -43,11 +50,16 @@ export class PostFeed {
   }
 
   ngOnInit() {
+    if(this.router.url.includes('community')){
+      this.store.dispatch(postsActions.communityPostsGet())
+    }
     this.store.dispatch(postsActions.postsGet())
   }
 
   ngAfterViewInit() {
     this.resizeFeed()
+    this.isCommunity.set(this.router.url.includes('/community'))
+    this.isMyCommunity.set(this.isCommunity() && this.community()?.admin.id === this.profile()?.id)
   }
 
   resizeFeed() {

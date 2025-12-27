@@ -1,3 +1,6 @@
-@if (avatarUrl (); as avatarUrl) {
+@if (avatarUrl(); as avatarUrl) {
   <img class="avatar-circle" [src]="avatarUrl | imgUrl" alt=""/>
+}
+@else {
+  <img class="avatar-circle" [src]="'' | imgUrl" alt=""/>
 }
