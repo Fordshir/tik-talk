@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input, linkedSignal, output, signal} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {SvgIconComponent} from '@tt/common-ui';
 import {ModalService} from '@tt/data-access';
 

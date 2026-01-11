@@ -4,10 +4,13 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  inject, input,
-  Input, OnInit,
+  inject,
+  input,
+  Input,
+  OnInit,
   Output,
-  Renderer2, signal
+  Renderer2,
+  signal
 } from '@angular/core'
 import {debounceTime, fromEvent} from 'rxjs'
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop'
@@ -39,7 +42,7 @@ export class PostFeed implements OnInit, AfterViewInit {
 
   @Input() postId: number = 0
   @Input() isCommentInput = false
-  @Output() created = new EventEmitter<void>()
+  @Output() created = new EventEmitter<string>()
 
   constructor() {
     fromEvent(window, 'resize')
@@ -50,16 +53,20 @@ export class PostFeed implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    if(this.router.url.includes('community')){
-      this.store.dispatch(postsActions.communityPostsGet())
+    this.isCommunity.set(this.router.url.includes('/community'))
+    this.isMyCommunity.set(this.community()?.admin.id === this.profile()?.id)
+    const id = parseInt(this.router.url.split('/')[2]) || this.profile()!.id
+
+    if(this.isCommunity()){
+      this.store.dispatch(postsActions.communityPostsGet({id}))
     }
-    this.store.dispatch(postsActions.postsGet())
+    else {
+      this.store.dispatch(postsActions.postsGet({id}))
+    }
   }
 
   ngAfterViewInit() {
     this.resizeFeed()
-    this.isCommunity.set(this.router.url.includes('/community'))
-    this.isMyCommunity.set(this.isCommunity() && this.community()?.admin.id === this.profile()?.id)
   }
 
   resizeFeed() {
@@ -67,18 +74,5 @@ export class PostFeed implements OnInit, AfterViewInit {
 
     const height = window.innerHeight - top - 24 - 24
     this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`)
-  }
-
-  onCreatePost(postText: string) {
-    if (!postText) return
-    this.store.dispatch(
-      postsActions.createPost({
-        post: {
-          title: 'клёвый пост',
-          content: postText,
-          authorId: this.profile()!.id
-        }
-      })
-    )
   }
 }

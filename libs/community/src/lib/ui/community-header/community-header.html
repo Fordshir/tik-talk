@@ -1,10 +1,12 @@
 @if (community(); as community) {
   <div class="avatar-wrapper">
     <tt-avatar-circle [avatarUrl]="community.avatarUrl"></tt-avatar-circle>
-    <div class="edit-avatar medium-text">
-      Изменить фотографию
-      <svg class="svg16" icon="pencil"></svg>
-    </div>
+    @if (community.admin.id === myId()){
+      <div class="edit-avatar medium-text">
+        Изменить фотографию
+        <svg class="svg16" icon="pencil"></svg>
+      </div>
+    }
   </div>
   @if (community.admin.id === myId()){
     <div class="community-name-form" [formGroup]="form">

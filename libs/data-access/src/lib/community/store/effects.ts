@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core'
-import {CommunityService, selectFilteredCommunities} from '@tt/data-access'
+import {CommunityService} from '@tt/data-access'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {communityActions} from './actions'
 import {map, switchMap, withLatestFrom} from 'rxjs'

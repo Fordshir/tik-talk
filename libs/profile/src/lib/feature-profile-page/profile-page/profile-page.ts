@@ -5,8 +5,9 @@ import {switchMap} from 'rxjs'
 import {toObservable} from '@angular/core/rxjs-interop'
 import {AsyncPipe} from '@angular/common'
 import {ImgUrlPipe, SvgIconComponent} from '@tt/common-ui'
-import {ProfileService} from '@tt/data-access'
+import {GlobalStoreService, postsActions, ProfileService} from '@tt/data-access'
 import {PostFeed} from '@tt/posts'
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'tt-profile-page',
@@ -26,6 +27,8 @@ export class ProfilePage {
   profileService = inject(ProfileService)
   route = inject(ActivatedRoute)
   router = inject(Router)
+  store = inject(Store)
+  profile = inject(GlobalStoreService).me
 
   me$ = toObservable(this.profileService.me)
   subscribers$ = this.profileService.getSubscribersShortList(5)
@@ -43,5 +46,18 @@ export class ProfilePage {
 
   async sendMessage(userId: number) {
     this.router.navigate(['/chats', 'new'], {queryParams: {userId}})
+  }
+
+  onCreatePost(postText: string) {
+    if (!postText) return
+    this.store.dispatch(
+      postsActions.createPost({
+        post: {
+          title: 'клёвый пост',
+          content: postText,
+          authorId: this.profile()!.id
+        }
+      })
+    )
   }
 }

@@ -1,3 +1,3 @@
-import { CommunityPage } from "./community-page/community-page";
+import {CommunityPage} from "./community-page/community-page";
 
 export { CommunityPage };

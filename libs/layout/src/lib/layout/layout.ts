@@ -1,7 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-} from '@angular/core'
+import {ChangeDetectionStrategy, Component,} from '@angular/core'
 import {RouterOutlet} from '@angular/router'
 import {Sidebar} from '../sidebar/sidebar'
 import {ModalHost} from '@tt/common-ui';

@@ -1,6 +1,6 @@
-import {inject, Injectable, signal} from '@angular/core'
+import {inject, Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
-import {map, Observable, switchMap, tap} from 'rxjs'
+import {map} from 'rxjs'
 import {CommentCreateDto, Post, PostComment, PostCreateDto} from '../interfaces/post.interface'
 import {Router} from '@angular/router';
 import {Pageable} from '@tt/data-access';
@@ -14,36 +14,19 @@ export class PostService {
 
   baseApiUrl = '/yt-course/'
 
-  posts = signal<Post[]>([])
 
   createPost(payload: PostCreateDto) {
-    return this.#http.post<Post>(`${this.baseApiUrl}post/`, payload).pipe(
-      switchMap(() => {
-        return this.fetchPosts()
-      })
-    )
+    return this.#http.post<Post>(`${this.baseApiUrl}post/`, payload)
   }
 
-  fetchCommunityPosts() {
-    const userId = this.router.url.split('/')[2]
+  fetchCommunityPosts(id: number) {
     return this.#http
-      .get<Pageable<Post>>(`${this.baseApiUrl}community/${userId}/posts`)
-      .pipe(tap((res) => this.posts.set(res.items)
-      ))
+      .get<Pageable<Post>>(`${this.baseApiUrl}community/${id}/posts`)
   }
 
-  fetchPosts() {
-    const userId = this.router.url.split('/')[2]
-
-    if (userId === 'me') {
-      return this.#http
-        .get<Post[]>(`${this.baseApiUrl}post/`)
-        .pipe(tap((res) => this.posts.set(res)))
-    }
-
+  fetchPosts(id: number) {
     return this.#http
-      .get<Post[]>(`${this.baseApiUrl}post/?user_id=${userId}`)
-      .pipe(tap((res) => this.posts.set(res)))
+      .get<Post[]>(`${this.baseApiUrl}post/`, {params: {user_id: id}})
   }
 
   createComment(payload: CommentCreateDto) {

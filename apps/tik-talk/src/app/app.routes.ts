@@ -15,7 +15,7 @@ import {
 import {ProfilePage, SearchPage, SettingsPage} from '@tt/profile'
 import {LoginPage} from '@tt/auth'
 import {Layout} from '@tt/layout'
-import {CommunitySearchPage, CommunityPage} from '@tt/community'
+import {CommunityPage, CommunitySearchPage} from '@tt/community'
 
 export const routes: Routes = [
   {path: 'experimental', component: FormHw},

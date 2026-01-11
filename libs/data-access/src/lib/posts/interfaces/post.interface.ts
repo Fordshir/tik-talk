@@ -3,7 +3,8 @@ import {Profile} from '../../profile/interfaces'
 export interface PostCreateDto {
   title: string
   content: string
-  authorId: number
+  authorId?: number
+  communityId?: number
 }
 
 export interface Post {
@@ -49,4 +50,9 @@ export interface CommentCreateDto {
   text: string
   authorId: number
   postId: number
+}
+
+export interface idType {
+  profileId: number
+  communityId: number
 }

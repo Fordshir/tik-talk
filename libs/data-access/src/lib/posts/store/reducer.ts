@@ -3,7 +3,7 @@ import {postsActions} from './actions'
 import {Post} from '../interfaces/post.interface'
 
 export interface PostsState {
-  posts: Post[]
+  posts: Post[],
 }
 
 export const initialStatePosts: PostsState = {
