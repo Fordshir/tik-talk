@@ -23,7 +23,7 @@
   </header>
 
   <main class="community-page__body">
-    <tt-post-feed [community]="community" (created)="onCreatePost($event)"></tt-post-feed>
+    <tt-post-feed [community]="community" [feed]="feed()" (created)="onCreatePost($event)"></tt-post-feed>
 
     <div class="body-info">
       <div class="subs-counter-wrapper">

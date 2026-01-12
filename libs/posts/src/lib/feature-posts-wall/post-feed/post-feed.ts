@@ -16,9 +16,9 @@ import {debounceTime, fromEvent} from 'rxjs'
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop'
 import {PostComponent} from '../post/post'
 import {PostInput} from '../../ui'
-import {Community, GlobalStoreService, postsActions, selectedPosts} from '@tt/data-access'
+import {Community, GlobalStoreService, Post} from '@tt/data-access'
 import {Store} from '@ngrx/store'
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'tt-post-feed',
@@ -33,12 +33,10 @@ export class PostFeed implements OnInit, AfterViewInit {
   profile = inject(GlobalStoreService).me
   community = input<Community | null>(null)
   isMyCommunity = signal<boolean>(false)
-  isCommunity = signal<boolean>(false)
   store = inject(Store)
   route = inject(ActivatedRoute)
-  router = inject(Router)
 
-  feed = this.store.selectSignal(selectedPosts)
+  feed = input<Post[]>([])
 
   @Input() postId: number = 0
   @Input() isCommentInput = false
@@ -53,16 +51,7 @@ export class PostFeed implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.isCommunity.set(this.router.url.includes('/community'))
     this.isMyCommunity.set(this.community()?.admin.id === this.profile()?.id)
-    const id = parseInt(this.router.url.split('/')[2]) || this.profile()!.id
-
-    if(this.isCommunity()){
-      this.store.dispatch(postsActions.communityPostsGet({id}))
-    }
-    else {
-      this.store.dispatch(postsActions.postsGet({id}))
-    }
   }
 
   ngAfterViewInit() {

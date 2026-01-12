@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, linkedSignal, signal} from "@angular/core";
-import {CommunityService, postsActions, ProfileService} from '@tt/data-access';
+import {CommunityService, postsActions, ProfileService, selectedPosts} from '@tt/data-access';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {switchMap, tap} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
@@ -32,6 +32,7 @@ export class CommunityPage {
   store = inject(Store)
   myId = linkedSignal(()=> this.profileService.me()?.id)
   communityId = signal<number>(0)
+  feed = this.store.selectSignal(selectedPosts)
 
   subscribers$ = this.route.params.pipe(
     switchMap(({id}) => {
@@ -41,7 +42,10 @@ export class CommunityPage {
 
   community$ = this.route.params.pipe(
     switchMap(({id}) => {
-      return this.communityService.getCommunity(id).pipe(tap(()=> {this.communityId.set(id)}))
+      return this.communityService.getCommunity(id).pipe(tap(()=> {
+        this.store.dispatch(postsActions.communityPostsGet({id}))
+        this.communityId.set(id)
+      }))
     })
   )
 
@@ -50,7 +54,7 @@ export class CommunityPage {
     this.store.dispatch(
       postsActions.createPost({
         post: {
-          title: 'клёвый пост',
+          title: 'клёвый пост сообщества',
           content: postText,
           communityId: this.communityId()
         }
