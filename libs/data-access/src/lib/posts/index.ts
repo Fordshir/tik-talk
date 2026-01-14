@@ -1,8 +1,8 @@
-import {CommentCreateDto, Post, PostComment, PostCreateDto} from './interfaces/post.interface'
+import {CommentCreateDto, IdType, Post, PostComment, PostCreateDto} from './interfaces/post.interface'
 import {PostService} from './services/post.service'
 
 export * from './store/index'
 
 export {PostService}
 
-export type {Post, PostComment, PostCreateDto, CommentCreateDto}
+export type {Post, PostComment, PostCreateDto, CommentCreateDto, IdType}

@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, inject, linkedSignal, signal} from "@angular/core";
+import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input, linkedSignal} from "@angular/core";
 import {CommunityService, postsActions, ProfileService, selectedPosts} from '@tt/data-access';
-import {ActivatedRoute, RouterLink} from '@angular/router';
-import {switchMap, tap} from 'rxjs';
+import {RouterLink} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
 import {PostFeed} from '@tt/posts';
 import {BannerUrlPipe, ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
@@ -25,29 +24,33 @@ import {Store} from '@ngrx/store';
   styleUrl: "./community-page.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommunityPage {
+export class CommunityPage implements AfterViewInit{
   profileService = inject(ProfileService)
   communityService = inject(CommunityService)
-  route = inject(ActivatedRoute)
   store = inject(Store)
   myId = linkedSignal(()=> this.profileService.me()?.id)
-  communityId = signal<number>(0)
+  id = input<number>()
   feed = this.store.selectSignal(selectedPosts)
 
-  subscribers$ = this.route.params.pipe(
-    switchMap(({id}) => {
-      return this.communityService.getSubscribersShortList(id, 6)
-    })
-  )
+  subscribers$ = linkedSignal(() => {
+    const id = this.id()
+    if (!id) return
+    return this.communityService.getSubscribersShortList(id, 6)
+  })
 
-  community$ = this.route.params.pipe(
-    switchMap(({id}) => {
-      return this.communityService.getCommunity(id).pipe(tap(()=> {
-        this.store.dispatch(postsActions.communityPostsGet({id}))
-        this.communityId.set(id)
-      }))
-    })
-  )
+  community$ = linkedSignal(() => {
+    const id = this.id()
+    if (!id) return
+      return this.communityService.getCommunity(id)
+  })
+
+
+  ngAfterViewInit() {
+    const id = this.id()
+    if (!id) return
+    this.store.dispatch(postsActions.communityPostsGet({id}))
+
+  }
 
   onCreatePost(postText: string) {
     if (!postText) return
@@ -56,7 +59,7 @@ export class CommunityPage {
         post: {
           title: 'клёвый пост сообщества',
           content: postText,
-          communityId: this.communityId()
+          communityId: this.id()
         }
       })
     )

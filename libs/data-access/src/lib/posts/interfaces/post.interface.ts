@@ -52,7 +52,7 @@ export interface CommentCreateDto {
   postId: number
 }
 
-export interface idType {
+export interface IdType {
   profileId: number
   communityId: number
 }

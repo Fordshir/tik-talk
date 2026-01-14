@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {postsActions} from "./actions";
 import {map, switchMap, tap} from "rxjs";
 import {PostService} from "../services/post.service";
-import {idType} from "../interfaces/post.interface";
+import {IdType} from "../interfaces/post.interface";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +11,7 @@ import {idType} from "../interfaces/post.interface";
 export class PostsEffects {
   postService = inject(PostService);
   actions$ = inject(Actions);
-  id = signal<idType>({ profileId: 0, communityId: 0 });
+  id = signal<IdType>({ profileId: 0, communityId: 0 });
 
   fetchPost = createEffect(() => {
     return this.actions$.pipe(
