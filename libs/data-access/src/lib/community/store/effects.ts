@@ -54,4 +54,27 @@ export class CommunityEffects {
       })
     )
   })
+
+  getCommunity= createEffect(()=> {
+    return this.actions$.pipe(
+      ofType(communityActions.getCommunity),
+      switchMap(({community_id}) => {
+        return this.communityService.getCommunity(community_id).pipe(
+          map((community) => communityActions.communityLoaded({community}))
+        )
+      })
+    )
+  })
+
+  getSubscribers= createEffect(()=> {
+    return this.actions$.pipe(
+      ofType(communityActions.getCommunitySubscribers),
+      switchMap(({community_id}) => {
+        return this.communityService.getSubscribersShortList(community_id, 6).pipe(
+          map((profiles) => communityActions.subscribersLoaded({subscribers: profiles}))
+        )
+      })
+    )
+  })
+
 }

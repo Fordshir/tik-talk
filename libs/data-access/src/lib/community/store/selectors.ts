@@ -20,3 +20,13 @@ export const selectCommunityFilters = createSelector(
   communityFeature.selectCommunityFilters,
   (filters) => filters
 )
+
+export const selectedCommunity = createSelector(
+  communityFeature.selectCommunity,
+  (community) => community
+)
+
+export const selectedSubscribers = createSelector(
+  communityFeature.selectSubscribers,
+  (profiles) => profiles
+)

@@ -1,7 +1,12 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input, linkedSignal} from "@angular/core";
-import {CommunityService, postsActions, ProfileService, selectedPosts} from '@tt/data-access';
+import {
+  communityActions,
+  postsActions,
+  ProfileService,
+  selectedCommunity,
+  selectedPosts, selectedSubscribers
+} from '@tt/data-access';
 import {RouterLink} from '@angular/router';
-import {AsyncPipe} from '@angular/common';
 import {PostFeed} from '@tt/posts';
 import {BannerUrlPipe, ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
 import {CommunityHeader} from '../../ui/community-header/community-header';
@@ -10,7 +15,6 @@ import {Store} from '@ngrx/store';
 @Component({
   selector: "tt-community-page",
   imports: [
-    AsyncPipe,
     RouterLink,
     PostFeed,
     ImgUrlPipe,
@@ -26,30 +30,21 @@ import {Store} from '@ngrx/store';
 })
 export class CommunityPage implements AfterViewInit{
   profileService = inject(ProfileService)
-  communityService = inject(CommunityService)
   store = inject(Store)
   myId = linkedSignal(()=> this.profileService.me()?.id)
   id = input<number>()
   feed = this.store.selectSignal(selectedPosts)
 
-  subscribers$ = linkedSignal(() => {
-    const id = this.id()
-    if (!id) return
-    return this.communityService.getSubscribersShortList(id, 6)
-  })
+  subscribers = this.store.selectSignal(selectedSubscribers)
 
-  community$ = linkedSignal(() => {
-    const id = this.id()
-    if (!id) return
-      return this.communityService.getCommunity(id)
-  })
-
+  community = this.store.selectSignal(selectedCommunity)
 
   ngAfterViewInit() {
     const id = this.id()
     if (!id) return
+    this.store.dispatch(communityActions.getCommunity({community_id: id}))
+    this.store.dispatch(communityActions.getCommunitySubscribers({community_id: id}))
     this.store.dispatch(postsActions.communityPostsGet({id}))
-
   }
 
   onCreatePost(postText: string) {

@@ -1,10 +1,13 @@
 import {createFeature, createReducer, on} from '@ngrx/store'
 import {communityActions} from './actions'
 import {Community} from '../interface/community-interface'
+import {Profile} from '../../profile';
 
 export interface CommunityState {
   communities: Community[]
   newCommunity: Community
+  community: Community
+  subscribers: Profile[]
   communityFilters: Record<string, any>
   page: number
   size: number
@@ -36,6 +39,31 @@ export const initialStateCommunity: CommunityState = {
     createdAt: "",
     isJoined: false
   },
+  community: {
+    id: 0,
+    admin: {
+      id: 0,
+      username: "",
+      avatarUrl: "",
+      subscribersAmount: 0,
+      firstName: "",
+      lastName: "",
+      isActive: false,
+      stack: [],
+      city: "",
+      description: ""
+    },
+    name: "",
+    themes: [],
+    tags: [],
+    bannerUrl: "",
+    avatarUrl: "",
+    description: "",
+    subscribersAmount: 0,
+    createdAt: "",
+    isJoined: false
+  },
+  subscribers: [],
   communityFilters: {},
   page: 1,
   size: 10
@@ -78,6 +106,18 @@ export const communityFeature = createFeature({
       return {
         ...state,
         page
+      }
+    }),
+    on(communityActions.communityLoaded, (state, payload) => {
+      return {
+        ...state,
+        community: payload.community
+      }
+    }),
+    on(communityActions.subscribersLoaded, (state, payload) => {
+      return {
+        ...state,
+        subscribers: payload.subscribers
       }
     })
   )
