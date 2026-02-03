@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
 import {ModalBase, Select, StackInput, SvgIconComponent, TtInput} from '@tt/common-ui';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {communityActions, CommunityThemes, CreateCommunity, ModalService} from '@tt/data-access';
+import {communityActions, CommunityThemes, ModalService, UpdateCommunity} from '@tt/data-access';
 import {Store} from '@ngrx/store';
 
 @Component({
@@ -36,7 +36,7 @@ export class CommunityCreate {
 
     if(this.communityCreateForm.invalid) return;
 
-    const request: CreateCommunity = this.communityCreateForm.getRawValue()
+    const request: UpdateCommunity = this.communityCreateForm.getRawValue()
 
     this.store.dispatch(communityActions.createCommunity({request}))
 

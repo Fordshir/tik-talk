@@ -23,7 +23,7 @@ export interface Community {
   isJoined: boolean
 }
 
-export interface CreateCommunity {
+export interface UpdateCommunity {
   name: string
   themes: []
   tags: []

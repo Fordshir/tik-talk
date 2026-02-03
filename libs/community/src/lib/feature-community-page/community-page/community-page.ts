@@ -1,16 +1,19 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input, linkedSignal} from "@angular/core";
 import {
   communityActions,
+  ModalService,
   postsActions,
   ProfileService,
   selectedCommunity,
-  selectedPosts, selectedSubscribers
+  selectedPosts,
+  selectedSubscribers
 } from '@tt/data-access';
 import {RouterLink} from '@angular/router';
 import {PostFeed} from '@tt/posts';
 import {BannerUrlPipe, ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
 import {CommunityHeader} from '../../ui/community-header/community-header';
 import {Store} from '@ngrx/store';
+import {CommunitySettings} from '../../feature-community-list/community-settings/community-settings';
 
 @Component({
   selector: "tt-community-page",
@@ -31,6 +34,7 @@ import {Store} from '@ngrx/store';
 export class CommunityPage implements AfterViewInit{
   profileService = inject(ProfileService)
   store = inject(Store)
+  modalService = inject(ModalService)
   myId = linkedSignal(()=> this.profileService.me()?.id)
   id = input<number>()
   feed = this.store.selectSignal(selectedPosts)
@@ -59,4 +63,10 @@ export class CommunityPage implements AfterViewInit{
       })
     )
   }
+
+  showModal(component: any) {
+    this.modalService.show(component)
+  }
+
+  protected readonly CommunitySettings = CommunitySettings;
 }

@@ -15,10 +15,10 @@
     ></tt-community-header>
 
     @if (community.admin.id === myId()) {
-      <a class="btn to-settings-btn">
+      <button class="btn to-settings-btn" (click)="showModal(CommunitySettings)">
         Редактировать
         <svg icon="settings" class="to-settings-icon"></svg>
-      </a>
+      </button>
     }
   </header>
 

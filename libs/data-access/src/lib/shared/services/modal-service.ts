@@ -1,4 +1,5 @@
-import {Injectable, ViewContainerRef} from '@angular/core';
+import {ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
+import {outputToObservable} from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ export class ModalService {
   }
 
   show(component: any) {
-    this.#container?.createComponent(component)
+    if (!this.#container) return
+    const content:ComponentRef<any> = this.#container.createComponent(component)
+    if (!content.instance.closed) return
+    return outputToObservable(content.instance.closed);
   }
 
   close() {

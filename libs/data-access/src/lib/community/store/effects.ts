@@ -44,6 +44,17 @@ export class CommunityEffects {
     }))
   })
 
+  updateCommunity = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(communityActions.updateCommunity),
+      switchMap(({request, community_id}) => {
+        return this.communityService.updateCommunity(request, community_id). pipe(
+          map((res) =>
+          communityActions.newCommunity({community: res})
+        ))
+    }))
+  })
+
   deleteCommunity= createEffect(()=> {
     return this.actions$.pipe(
       ofType(communityActions.deleteCommunity),

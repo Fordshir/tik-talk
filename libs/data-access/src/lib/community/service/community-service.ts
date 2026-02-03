@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
 import {Pageable, Profile} from '@tt/data-access'
-import {Community, CreateCommunity} from '../interface/community-interface'
+import {Community, UpdateCommunity} from '../interface/community-interface'
 import {map, Observable} from 'rxjs';
 
 @Injectable({
@@ -38,8 +38,13 @@ export class CommunityService {
     return this.http.delete(`${this.baseApiUrl}${community_id}/join`)
   }
 
-  createCommunity(request: CreateCommunity): Observable<Community> {
+  createCommunity(request: UpdateCommunity): Observable<Community> {
       return this.http.post<Community>(`${this.baseApiUrl}`, request
+    )
+  }
+
+  updateCommunity(request: UpdateCommunity, community_id: number): Observable<Community> {
+      return this.http.patch<Community>(`${this.baseApiUrl}${community_id}`, request
     )
   }
 

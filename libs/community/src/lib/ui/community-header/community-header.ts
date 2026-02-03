@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, input} from '@angular/core'
+import {AfterViewChecked, ChangeDetectionStrategy, Component, input} from '@angular/core'
 import {AvatarCircle, SvgIconComponent} from '@tt/common-ui'
 import {Community} from '@tt/data-access'
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -10,7 +10,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
   styleUrl: './community-header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommunityHeader implements AfterViewInit {
+export class CommunityHeader implements AfterViewChecked {
   community = input.required<Community>()
   myId = input<number>()
 
@@ -18,7 +18,7 @@ export class CommunityHeader implements AfterViewInit {
     name: new FormControl<string | null>(null, Validators.required),
   })
 
-  ngAfterViewInit() {
+  ngAfterViewChecked() {
     this.form.controls.name.setValue(this.community().name)
   }
 

@@ -6,6 +6,7 @@ import {TtInput} from "./tt-input/tt-input";
 import {SvgIconComponent} from "./svg-icon/svg-icon";
 import {ModalBase} from "./modal-base/modal-base";
 import {ModalHost} from "./modal-host/modal-host";
+import {DeleteConfirmationModal} from "./delete-confirmation-modal/delete-confirmation-modal";
 
 export {
   AvatarCircle,
@@ -15,5 +16,6 @@ export {
   Select,
   TtInput,
   ModalBase,
-  ModalHost
+  ModalHost,
+  DeleteConfirmationModal
 };

@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +8,6 @@ import {
   inject,
   input,
   Input,
-  OnInit,
   Output,
   Renderer2,
   signal
@@ -27,7 +27,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrl: './post-feed.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostFeed implements OnInit, AfterViewInit {
+export class PostFeed implements AfterViewChecked, AfterViewInit {
   hostElement = inject(ElementRef)
   r2 = inject(Renderer2)
   profile = inject(GlobalStoreService).me
@@ -50,7 +50,7 @@ export class PostFeed implements OnInit, AfterViewInit {
       })
   }
 
-  ngOnInit() {
+  ngAfterViewChecked() {
     this.isMyCommunity.set(this.community()?.admin.id === this.profile()?.id)
   }
 
