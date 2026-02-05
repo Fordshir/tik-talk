@@ -79,7 +79,7 @@ export class CommunityCreate {
 
       if (res === false) {
         this.#modalService.close()
-        this.#modalService.show(CommunityCreate)
+        this.#modalService.show(CommunityCreate, {community: community})
       }
       else if (res === true) {
         this.store.dispatch(communityActions.deleteCommunity({community_id: community.id}))
