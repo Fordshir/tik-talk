@@ -1,5 +1,5 @@
 <tt-modal-base>
-  <form class="community-create-form" [formGroup]="communityCreateForm" (ngSubmit)="onSubmit()">
+  <form class="community-create-form" [formGroup]="communityCreateForm()" (ngSubmit)="onSubmit()">
     <tt-input formControlName="name" type="text" placeholder="Введите название">
       <span class="tt-form-label__text">Название сообщества</span>
     </tt-input>

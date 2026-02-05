@@ -13,7 +13,7 @@ import {PostFeed} from '@tt/posts';
 import {BannerUrlPipe, ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
 import {CommunityHeader} from '../../ui/community-header/community-header';
 import {Store} from '@ngrx/store';
-import {CommunitySettings} from '../../feature-community-list/community-settings/community-settings';
+import {CommunityCreate} from '@tt/community';
 
 @Component({
   selector: "tt-community-page",
@@ -65,8 +65,8 @@ export class CommunityPage implements AfterViewInit{
   }
 
   showModal(component: any) {
-    this.modalService.show(component)
+    this.modalService.show(component, {community: this.community()})
   }
 
-  protected readonly CommunitySettings = CommunitySettings;
+  protected readonly CommunityCreate = CommunityCreate;
 }

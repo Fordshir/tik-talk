@@ -1,8 +1,27 @@
-import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
-import {ModalBase, Select, StackInput, SvgIconComponent, TtInput} from '@tt/common-ui';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {communityActions, CommunityThemes, ModalService, UpdateCommunity} from '@tt/data-access';
-import {Store} from '@ngrx/store';
+import {
+  ChangeDetectionStrategy,
+  Component, computed, inject,
+  input,
+} from "@angular/core";
+import {
+  DeleteConfirmationModal,
+  ModalBase,
+  Select,
+  StackInput,
+  SvgIconComponent,
+  TtInput,
+} from "@tt/common-ui";
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+  Community,
+  communityActions,
+  CommunityThemes,
+  ModalService,
+  UpdateCommunity,
+} from "@tt/data-access";
+import { Store } from "@ngrx/store";
+import {defaultIfEmpty, firstValueFrom} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: "tt-community-create",
@@ -12,7 +31,7 @@ import {Store} from '@ngrx/store';
     ReactiveFormsModule,
     StackInput,
     SvgIconComponent,
-    Select
+    Select,
   ],
   templateUrl: "./community-create.html",
   styleUrl: "./community-create.scss",
@@ -20,34 +39,60 @@ import {Store} from '@ngrx/store';
 })
 export class CommunityCreate {
   fb = inject(FormBuilder);
-  modalService = inject(ModalService)
-  store = inject(Store)
-  themes = Object.values(CommunityThemes)
-  communityCreateForm = this.fb.nonNullable.group({
-    name: ['', Validators.required],
-    themes: [[], Validators.required],
-    tags: [[], Validators.required],
-    description: [''],
+  #modalService = inject(ModalService);
+  store = inject(Store);
+  router = inject(Router);
+  themes = Object.values(CommunityThemes);
+  community = input<Community>();
+  communityCreateForm = computed(()=> {
+    const community = this.community();
+    return this.fb.nonNullable.group({
+      name: [community?.name ?? "", Validators.required],
+      themes: [community?.themes ?? [], Validators.required],
+      tags: [community?.tags ?? [], Validators.required],
+      description: [community?.description ?? ""],
+    });
   })
 
-  onSubmit(){
-    this.communityCreateForm.markAllAsTouched()
-    this.communityCreateForm.updateValueAndValidity()
+  onSubmit() {
+    const community = this.community();
+    this.communityCreateForm().markAllAsTouched();
+    this.communityCreateForm().updateValueAndValidity();
 
-    if(this.communityCreateForm.invalid) return;
+    if (this.communityCreateForm().invalid) return;
 
-    const request: UpdateCommunity = this.communityCreateForm.getRawValue()
+    const request: UpdateCommunity = this.communityCreateForm().getRawValue();
 
-    this.store.dispatch(communityActions.createCommunity({request}))
+    community
+      ? this.store.dispatch(communityActions.updateCommunity({ request, community_id: community.id }))
+      : this.store.dispatch(communityActions.createCommunity({ request }));
 
-    this.modalService.close();
+    this.#modalService.close();
+    community ? setTimeout(()=> {this.store.dispatch(communityActions.getCommunity({community_id: community.id}))}, 100) : null
   }
 
-  onDelete(){
-    this.communityCreateForm.reset()
+  async onDelete() {
+    const community = this.community();
+    if (community){
+      this.#modalService.close()
+      const res = await firstValueFrom(this.#modalService.show(DeleteConfirmationModal)?.pipe(defaultIfEmpty(false))!)
+
+      if (res === false) {
+        this.#modalService.close()
+        this.#modalService.show(CommunityCreate)
+      }
+      else if (res === true) {
+        this.store.dispatch(communityActions.deleteCommunity({community_id: community.id}))
+        this.router.navigate(['community'])
+        this.#modalService.close()
+      }
+    }
+    else {
+      this.communityCreateForm().reset();
+    }
   }
 
-  onCancel(){
-    this.modalService.close();
+  onCancel() {
+    this.#modalService.close();
   }
 }
