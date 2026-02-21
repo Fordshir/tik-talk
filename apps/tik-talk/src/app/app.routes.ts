@@ -2,7 +2,6 @@ import {Routes} from '@angular/router'
 import {FormHw} from '@tt/experimental'
 import {provideState} from '@ngrx/store'
 import {provideEffects} from '@ngrx/effects'
-import {chatsRoutes} from '@tt/chats'
 import {
   canActivateAuth,
   CommunityEffects,
@@ -43,7 +42,7 @@ export const routes: Routes = [
         component: CommunitySearchPage,
         providers: [
           provideState(communityFeature),
-          provideEffects(CommunityEffects)
+          provideEffects(CommunityEffects),
         ]
       },
       {
@@ -53,7 +52,7 @@ export const routes: Routes = [
       },
       {
         path: 'chats',
-        loadChildren: () => chatsRoutes
+        loadChildren: () => import('@tt/chats').then(m => m.chatsRoutes)
       }
     ],
     canActivate: [canActivateAuth]

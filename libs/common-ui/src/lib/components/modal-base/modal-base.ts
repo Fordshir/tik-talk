@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from "@angular/core";
+import {ChangeDetectionStrategy, Component, inject, input} from "@angular/core";
 import {SvgIconComponent} from '@tt/common-ui';
 import {ModalService} from '@tt/data-access';
 
@@ -13,6 +13,8 @@ import {ModalService} from '@tt/data-access';
 })
 export class ModalBase {
   #modalService = inject(ModalService);
+
+  header = input<String>('')
 
   close() {
     this.#modalService.close();

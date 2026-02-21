@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy, Component, forwardRef, input, signal} from '@angular/core'
 import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms'
+import {SvgIconComponent} from '@tt/common-ui';
 
 @Component({
   selector: 'tt-input',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, SvgIconComponent],
   templateUrl: './tt-input.html',
   styleUrl: './tt-input.scss',
   providers: [
@@ -16,7 +17,7 @@ import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModul
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TtInput implements ControlValueAccessor {
-  type = input<'text' | 'password'>('text')
+  type = input<'text' | 'password' | 'comment'>('text')
   placeholder = input<string>()
 
   value = signal<string>('')

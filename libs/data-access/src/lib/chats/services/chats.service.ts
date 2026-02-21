@@ -78,6 +78,12 @@ export class ChatsService {
     return this.http.post<Chat>(`${this.chatsUrl}${userId}`, {})
   }
 
+  sendMessage(text: string, chatId: number) {
+    return this.http.post(`${this.messageUrl}send/${chatId}`, {}, {
+      params: { message: text }
+    })
+  }
+
   getMyChats() {
     return timer(0, 10000).pipe(
       switchMap(() =>

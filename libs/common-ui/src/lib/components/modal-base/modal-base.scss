@@ -22,8 +22,18 @@
   border: 1px solid var(--light-color);
 }
 
+.header-wrapper {
+  display: flex;
+}
+
+.header-word {
+  font-weight: 800;
+  font-size: 18px;
+}
+
 .close-svg {
   align-self: end;
+  margin-left: auto;
   cursor: pointer;
 
   &:hover {

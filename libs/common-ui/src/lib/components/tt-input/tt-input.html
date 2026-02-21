@@ -1,11 +1,23 @@
-<label class="tt-form-label">
-  <ng-content></ng-content>
-  <input
-    [value]="value()"
-    (input)="onInput($event)"
-    [type]="type()"
-    class="tt-form-input"
-    [placeholder]="placeholder()"
-  />
-  <ng-content select="[right]"></ng-content>
-</label>
+@if (type() === 'comment'){
+  <div class="comment-area">
+    <textarea
+      class="hidden-textarea"
+      (input)="onInput($event)"
+      placeholder="Напишите комментарий"
+    ></textarea>
+    <svg icon="smile" class="svg16 textarea-icon"></svg>
+  </div>
+}
+@else {
+  <label class="tt-form-label">
+    <ng-content></ng-content>
+    <input
+      [value]="value()"
+      (input)="onInput($event)"
+      [type]="type()"
+      class="tt-form-input"
+      [placeholder]="placeholder()"
+    />
+    <ng-content select="[right]"></ng-content>
+  </label>
+}

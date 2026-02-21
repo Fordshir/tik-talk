@@ -1,0 +1,28 @@
+<tt-modal-base header="Поделиться">
+  <form class="share-form" [formGroup]="shareForm" (submit)="onSubmit()">
+    <div class="share-choice">
+      <tt-radio [radioList]="['На своей странице','В личном сообщении']" formControlName="type"></tt-radio>
+
+      @if (shareForm.controls.type.value === 'В личном сообщении'){
+        <tt-input type="text" placeholder="Выберите" formControlName="search">
+          <span class="tt-form-label__text">Подписчики</span>
+          <svg icon="search" class="svg16 input-icon"></svg>
+        </tt-input>
+
+        <tt-choose-control [subscribers]="filteredSubscribers()" formControlName="target"></tt-choose-control>
+      }
+
+      <tt-input type="comment" class="comment" formControlName="text"></tt-input>
+
+      <div class="button-wrapper">
+        <button type="submit" class="black-btn">
+          Отмена
+        </button>
+        <button type="submit" class="btn">
+          Отправить
+          <svg icon="send-message" class="svg16"></svg>
+        </button>
+      </div>
+    </div>
+  </form>
+</tt-modal-base>

@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input, linkedSignal} from "@angular/core";
+import {AfterViewInit, ChangeDetectionStrategy, Component, inject, input, linkedSignal, Type} from "@angular/core";
 import {
   communityActions,
   ModalService,
@@ -8,24 +8,21 @@ import {
   selectedPosts,
   selectedSubscribers
 } from '@tt/data-access';
-import {RouterLink} from '@angular/router';
 import {PostFeed} from '@tt/posts';
-import {BannerUrlPipe, ImgUrlPipe, SvgIconComponent} from '@tt/common-ui';
+import {BannerUrlPipe, SubscriberCircle, SvgIconComponent} from '@tt/common-ui';
 import {CommunityHeader} from '../../ui/community-header/community-header';
+import {CommunityShare} from '../../feature-community-list/community-share/community-share';
 import {Store} from '@ngrx/store';
-import {CommunityCreate} from '@tt/community';
+import {CommunityCreate} from '../../feature-community-list/community-create/community-create';
 
 @Component({
   selector: "tt-community-page",
   imports: [
-    RouterLink,
     PostFeed,
-    ImgUrlPipe,
     CommunityHeader,
     SvgIconComponent,
-    ImgUrlPipe,
-    ImgUrlPipe,
-    BannerUrlPipe
+    BannerUrlPipe,
+    SubscriberCircle
   ],
   templateUrl: "./community-page.html",
   styleUrl: "./community-page.scss",
@@ -64,9 +61,10 @@ export class CommunityPage implements AfterViewInit{
     )
   }
 
-  showModal(component: any) {
-    this.modalService.show(component, {community: this.community()})
+  showModal(component: Type<unknown>, input: Record<string, unknown>) {
+    this.modalService.show(component, input)
   }
 
   protected readonly CommunityCreate = CommunityCreate;
+  protected readonly SharePost = CommunityShare;
 }

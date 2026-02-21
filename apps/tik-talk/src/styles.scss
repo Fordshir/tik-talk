@@ -255,3 +255,55 @@ body {
 .black-btn:hover {
   background: var(--dark-hover-color);
 }
+
+.to-subscribers-search {
+  border-radius: 50%;
+  background-color: var(--light-color);
+  width: 14px;
+  height: 14px;
+  position: relative;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 8px;
+    background-color: var(--dark-color);
+    top: 50%;
+    left: 50%;
+  }
+
+  &:before {
+    transform: translateY(-50%) translateX(-50%);
+  }
+
+  &:after {
+    transform: translateY(-50%) translateX(-50%) rotate(90deg);
+  }
+
+  &:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+  }
+}
+
+.subscriber-avatar-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.subscriber-avatar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.subscribers-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

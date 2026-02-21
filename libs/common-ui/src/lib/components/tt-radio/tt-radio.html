@@ -1,0 +1,13 @@
+@if (radioList(); as radio){
+  <div class="radio-wrapper">
+    @for (value of radio; track value) {
+      <div
+        class="radio-option"
+        (click)="onClick($event)"
+        [ngClass]="{'selected-option': selectedValue === value}"
+      >
+        {{value}}
+      </div>
+    }
+  </div>
+}

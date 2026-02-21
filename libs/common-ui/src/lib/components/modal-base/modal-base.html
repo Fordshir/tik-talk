@@ -1,4 +1,9 @@
 <div class="container">
-  <svg icon="cross" class="svg16 close-svg" (click)="close()"></svg>
+  <div class="header-wrapper">
+    @if (header().trim().length > 0){
+      <p class="header-word">{{header()}}</p>
+    }
+    <svg icon="cross" class="svg16 close-svg" (click)="close()"></svg>
+  </div>
   <ng-content></ng-content>
 </div>

@@ -8,7 +8,6 @@ import {outputToObservable} from '@angular/core/rxjs-interop';
 export class ModalService {
   #container?: ViewContainerRef
 
-
   registerContainer(vcr: ViewContainerRef) {
     this.#container = vcr;
   }

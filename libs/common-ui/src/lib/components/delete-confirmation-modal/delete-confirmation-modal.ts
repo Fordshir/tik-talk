@@ -1,8 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, inject, output, Output} from "@angular/core";
+import {ChangeDetectionStrategy, Component, output} from "@angular/core";
 import {ModalBase} from "@tt/common-ui";
-import {Store} from '@ngrx/store';
-import {Router} from '@angular/router';
-import {communityActions, ModalService, selectedCommunity} from '@tt/data-access';
 
 @Component({
   selector: "tt-delete-confirmation-modal",

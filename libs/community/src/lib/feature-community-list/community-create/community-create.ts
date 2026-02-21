@@ -1,25 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component, computed, inject,
-  input,
-} from "@angular/core";
-import {
-  DeleteConfirmationModal,
-  ModalBase,
-  Select,
-  StackInput,
-  SvgIconComponent,
-  TtInput,
-} from "@tt/common-ui";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import {
-  Community,
-  communityActions,
-  CommunityThemes,
-  ModalService,
-  UpdateCommunity,
-} from "@tt/data-access";
-import { Store } from "@ngrx/store";
+import {ChangeDetectionStrategy, Component, computed, inject, input,} from "@angular/core";
+import {DeleteConfirmationModal, ModalBase, Select, StackInput, SvgIconComponent, TtInput,} from "@tt/common-ui";
+import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Community, communityActions, CommunityThemes, ModalService, UpdateCommunity,} from "@tt/data-access";
+import {Store} from "@ngrx/store";
 import {defaultIfEmpty, firstValueFrom} from 'rxjs';
 import {Router} from '@angular/router';
 
