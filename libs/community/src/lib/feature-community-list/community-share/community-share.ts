@@ -1,11 +1,12 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, computed, inject, input, signal} from "@angular/core";
 import {ChatsService, postsActions, Profile, ProfileService} from '@tt/data-access';
-import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ChooseControl, ModalBase, SvgIconComponent, TtInput, TtRadio} from '@tt/common-ui';
 import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {from, mergeMap, switchMap} from 'rxjs';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: "tt-community-share",
@@ -15,7 +16,8 @@ import {from, mergeMap, switchMap} from 'rxjs';
     TtRadio,
     ChooseControl,
     SvgIconComponent,
-    TtInput
+    TtInput,
+    NgClass
   ],
   templateUrl: "./community-share.html",
   styleUrl: "./community-share.scss",
@@ -24,17 +26,18 @@ import {from, mergeMap, switchMap} from 'rxjs';
 export class CommunityShare implements AfterViewInit {
   fb = inject(FormBuilder);
   store = inject(Store);
+  router = inject(Router);
   profileService = inject(ProfileService);
   chatService = inject(ChatsService);
   subscribers = input<Profile[]>([]);
-  router = inject(Router);
-  link = signal<string>('')
+  link = signal<string>('');
+  submitted = signal<boolean>(false);
 
   shareForm = this.fb.nonNullable.group({
-    type: [''],
-    target: [],
+    type: ['', Validators.required],
+    target: [[], Validators.required],
     search: [''],
-    text: ['']
+    text: ['', Validators.required],
   })
 
   searchValue = toSignal(this.shareForm.controls.search.valueChanges)
@@ -52,6 +55,9 @@ export class CommunityShare implements AfterViewInit {
   onSubmit() {
     const type = this.shareForm.controls.type.value
     const text = this.shareForm.controls.text.value
+    this.shareForm.markAllAsTouched()
+    this.shareForm.updateValueAndValidity()
+
     if (type === 'На своей странице') {
       this.store.dispatch(postsActions.createPost({
         post: {
@@ -73,7 +79,7 @@ export class CommunityShare implements AfterViewInit {
         )
       ).subscribe();
     }
-
+    this.submitted.set(true)
   }
 
   ngAfterViewInit() {

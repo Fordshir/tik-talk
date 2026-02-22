@@ -24,4 +24,26 @@
 .comment {
   border: 1px dashed var(--light-color);
   border-radius: 4px;
+
+  &.invalid {
+    border-color: var(--red-primary-color) ;
+  }
+}
+
+.control-wrapper {
+  position: relative;
+}
+
+.validation-error {
+  position: absolute;
+  right: 0;
+  top: -15px;
+  color: var(--red-primary-color);
+}
+
+.submitted-successfully {
+  height: 100%;
+  display: grid;
+  place-content: center;
+  color: var(--green-primary-color);
 }
