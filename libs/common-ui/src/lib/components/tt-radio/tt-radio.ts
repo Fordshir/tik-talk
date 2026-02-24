@@ -21,16 +21,12 @@ import {NgClass} from '@angular/common';
 export class TtRadio implements ControlValueAccessor {
   cdr = inject(ChangeDetectorRef)
   selectedValue: string = ''
-  radioList = input<string[]>()
+  radioList = input<{ value:string, label: string }[]>()
 
-  onClick(event: Event) {
-    event.stopPropagation()
-    event.preventDefault()
-
-    const target = event.target as HTMLElement
-
-    if (!target.textContent?.trim()) return
-    this.onChange((this.selectedValue = target.textContent.trim()))
+  onClick(value: string) {
+    this.selectedValue = value;
+    this.onChange(value);
+    this.onTouched();
   }
 
   writeValue(value: string | null) {

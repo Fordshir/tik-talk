@@ -1,12 +1,19 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, computed, inject, input, signal} from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed, DestroyRef,
+  inject,
+  input,
+  signal
+} from "@angular/core";
 import {ChatsService, postsActions, Profile, ProfileService} from '@tt/data-access';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ChooseControl, ModalBase, SvgIconComponent, TtInput, TtRadio} from '@tt/common-ui';
+import {ChooseControl, ModalBase, SvgIconComponent, TtInput, TtRadio, TtTextarea} from '@tt/common-ui';
 import {Store} from '@ngrx/store';
-import {Router} from '@angular/router';
-import {toSignal} from '@angular/core/rxjs-interop';
+import {takeUntilDestroyed, toSignal} from '@angular/core/rxjs-interop';
 import {from, mergeMap, switchMap} from 'rxjs';
 import {NgClass} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: "tt-community-share",
@@ -17,25 +24,33 @@ import {NgClass} from '@angular/common';
     ChooseControl,
     SvgIconComponent,
     TtInput,
-    NgClass
+    NgClass,
+    TtTextarea
   ],
   templateUrl: "./community-share.html",
   styleUrl: "./community-share.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommunityShare implements AfterViewInit {
+export class CommunityShare {
   fb = inject(FormBuilder);
   store = inject(Store);
-  router = inject(Router);
   profileService = inject(ProfileService);
   chatService = inject(ChatsService);
   subscribers = input<Profile[]>([]);
   link = signal<string>('');
   submitted = signal<boolean>(false);
+  id = input<number>();
+  destroyRef = inject(DestroyRef);
+  router = inject(Router);
+
+  radioOptions = [
+    { value: 'wall', label: 'На своей странице' },
+    { value: 'message', label: 'В личном сообщении' }
+  ];
 
   shareForm = this.fb.nonNullable.group({
     type: ['', Validators.required],
-    target: [[], Validators.required],
+    target: [],
     search: [''],
     text: ['', Validators.required],
   })
@@ -52,37 +67,49 @@ export class CommunityShare implements AfterViewInit {
     )
   })
 
+  constructor() {
+    this.shareForm.controls.type.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe( () => {
+          if (this.shareForm.controls.type.value === 'wall') {
+            this.shareForm.controls.target.clearValidators()
+            this.shareForm.controls.target.updateValueAndValidity()
+          }
+          else if (this.shareForm.controls.type.value === 'message') {
+            this.shareForm.controls.target.setValidators(Validators.required)
+            this.shareForm.controls.target.updateValueAndValidity()
+          }
+      })
+  }
+
   onSubmit() {
-    const type = this.shareForm.controls.type.value
-    const text = this.shareForm.controls.text.value
     this.shareForm.markAllAsTouched()
     this.shareForm.updateValueAndValidity()
 
-    if (type === 'На своей странице') {
+    if (this.shareForm.invalid) return
+
+    if (this.shareForm.controls.type.value === 'wall') {
       this.store.dispatch(postsActions.createPost({
         post: {
           title: 'share post',
-          content: `${text}, ${this.link()}`,
+          content: `${this.shareForm.controls.text.value}, ${this.router.url}`,
           authorId: this.profileService.me()!.id
         }
       }))
+      this.submitted.set(true)
     }
-    else {
-      const ids = this.shareForm.controls.target.value;
-      from(ids).pipe(
+    else if (this.shareForm.controls.type.value === 'message') {
+      from(this.shareForm.controls.target.value).pipe(
         mergeMap(id =>
           this.chatService.createChat(id).pipe(
             switchMap(chat =>
-              this.chatService.sendMessage(text, chat.id)
+              this.chatService.sendMessage(this.shareForm.controls.text.value, chat.id)
             )
           )
-        )
+        ),
+        takeUntilDestroyed(this.destroyRef)
       ).subscribe();
+      this.submitted.set(true)
     }
-    this.submitted.set(true)
-  }
-
-  ngAfterViewInit() {
-    this.link.set(`https://${this.profileService.me()?.username}.icherniakov.ru${this.router.url}`)
   }
 }

@@ -9,7 +9,7 @@
       <div class="share-choice">
         <div class="control-wrapper">
           <tt-radio
-            [radioList]="['На своей странице','В личном сообщении']"
+            [radioList]="radioOptions"
             formControlName="type"
           ></tt-radio>
           @if (shareForm.controls.type.touched && shareForm.controls.type.invalid) {
@@ -17,7 +17,7 @@
           }
         </div>
 
-        @if (shareForm.controls.type.value === 'В личном сообщении'){
+        @if (shareForm.controls.type.value === 'message'){
           <tt-input type="text" placeholder="Выберите" formControlName="search">
             <span class="tt-form-label__text">Подписчики</span>
             <svg icon="search" class="svg16 input-icon"></svg>
@@ -34,7 +34,12 @@
           </div>
         }
 
-        <tt-input type="comment" class="comment" [ngClass]="{'invalid': shareForm.controls.text.touched && shareForm.controls.text.invalid}" formControlName="text"></tt-input>
+        <tt-textarea
+          class="comment"
+          [ngClass]="{'invalid': shareForm.controls.text.touched && shareForm.controls.text.invalid}"
+          formControlName="text"
+          placeholder="Напишите комментарий"
+        ></tt-textarea>
 
         <div class="button-wrapper">
           <button type="submit" class="black-btn">

@@ -12,6 +12,7 @@ import {SubscriberCircle} from "./subscriber-circle/subscriber-circle";
 import {Portal} from "./portal/portal";
 import {PortalService} from "./portal/portal.service";
 import {ChooseControl} from "./choose-control/choose-control";
+import { TtTextarea } from "./tt-textarea/tt-textarea";
 
 export {
   AvatarCircle,
@@ -27,5 +28,6 @@ export {
   SubscriberCircle,
   Portal,
   PortalService,
-  ChooseControl
+  ChooseControl,
+  TtTextarea
 };

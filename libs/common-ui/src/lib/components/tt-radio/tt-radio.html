@@ -1,12 +1,12 @@
 @if (radioList(); as radio){
   <div class="radio-wrapper">
-    @for (value of radio; track value) {
+    @for (item of radio; track item) {
       <div
         class="radio-option"
-        (click)="onClick($event)"
-        [ngClass]="{'selected-option': selectedValue === value}"
+        (click)="onClick(item.value)"
+        [ngClass]="{'selected-option': selectedValue === item.value}"
       >
-        {{value}}
+        {{item.label}}
       </div>
     }
   </div>

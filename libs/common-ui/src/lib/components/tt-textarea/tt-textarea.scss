@@ -16,6 +16,18 @@
 
   &:hover,
   &:focus-visible{
-      outline: 1px solid var(--primary-color);
+    outline: 1px solid var(--primary-color);
   }
+}
+
+.comment-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textarea-icon {
+  position: absolute;
+  right: 28px;
 }

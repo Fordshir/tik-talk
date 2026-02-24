@@ -1,22 +1,24 @@
-import {ChangeDetectionStrategy, Component, forwardRef, input, signal} from '@angular/core'
-import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms'
+import {ChangeDetectionStrategy, Component, forwardRef, input, signal} from "@angular/core";
+import {SvgIconComponent} from "@tt/common-ui";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
-  selector: 'tt-input',
-  imports: [FormsModule, ReactiveFormsModule],
-  templateUrl: './tt-input.html',
-  styleUrl: './tt-input.scss',
+  selector: "tt-textarea",
+	imports: [
+		SvgIconComponent
+	],
+  templateUrl: "./tt-textarea.html",
+  styleUrl: "./tt-textarea.scss",
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => TtInput)
+      useExisting: forwardRef(()=> TtTextarea)
     }
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TtInput implements ControlValueAccessor {
-  type = input<'text' | 'password'>('text')
+export class TtTextarea implements ControlValueAccessor {
   placeholder = input<string>()
 
   value = signal<string>('')

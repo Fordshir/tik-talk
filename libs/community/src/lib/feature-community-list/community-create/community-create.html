@@ -11,15 +11,13 @@
       <span class="tt-form-label__text">Тэги</span>
       <svg icon="search" class="svg16 input-icon" right></svg>
     </tt-stack-input>
-    <label class="tt-form-label">
+    <tt-textarea
+      class="description"
+      placeholder="Введите описание"
+      formControlName="description"
+    >
       <span class="tt-form-label__text">Описание</span>
-      <textarea
-        class="tt-form-input tt-textarea"
-        placeholder="Введите описание"
-        formControlName="description"
-        rows="5"
-      ></textarea>
-    </label>
+    </tt-textarea>
     <div class="btn-wrapper">
       <button class="black-btn" (click)="onDelete()"><svg class="svg16" icon="delete"></svg></button>
       <button class="black-btn" (click)="onCancel()">Отмена</button>
