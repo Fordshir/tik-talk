@@ -1,44 +1,39 @@
-import {ChangeDetectionStrategy, Component, forwardRef, inject, signal} from "@angular/core";
-import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
-import {DadataService} from '@tt/data-access';
-import {debounceTime, switchMap, tap} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
+import {ChangeDetectionStrategy, Component, forwardRef, inject, signal} from '@angular/core'
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms'
+import {DadataService} from '@tt/data-access'
+import {debounceTime, switchMap, tap} from 'rxjs'
+import {AsyncPipe} from '@angular/common'
 
 @Component({
-  selector: "tt-address-input",
-  imports: [
-    AsyncPipe,
-    ReactiveFormsModule
-  ],
-  templateUrl: "./address-input.html",
-  styleUrl: "./address-input.scss",
+  selector: 'tt-address-input',
+  imports: [AsyncPipe, ReactiveFormsModule],
+  templateUrl: './address-input.html',
+  styleUrl: './address-input.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => AddressInput),
+      useExisting: forwardRef(() => AddressInput)
     }
-    ],
+  ]
 })
-export class AddressInput implements ControlValueAccessor{
-  innerSearchControl = new FormControl();
+export class AddressInput implements ControlValueAccessor {
+  innerSearchControl = new FormControl()
   #dadataService = inject(DadataService)
 
   isDropdownOpened = signal<boolean>(true)
 
-  suggestions$ = this.innerSearchControl.valueChanges
-    .pipe(
-      debounceTime(500),
-      switchMap((value) => {
-        return this.#dadataService.getSuggestion(value)
-          .pipe(
-            tap(res => {
-              this.isDropdownOpened.set(!!res.length);
-            })
-          )
-      })
-    )
+  suggestions$ = this.innerSearchControl.valueChanges.pipe(
+    debounceTime(500),
+    switchMap((value) => {
+      return this.#dadataService.getSuggestion(value).pipe(
+        tap((res) => {
+          this.isDropdownOpened.set(!!res.length)
+        })
+      )
+    })
+  )
 
   writeValue(city: string | null): void {
     this.innerSearchControl.patchValue(city, {
@@ -55,15 +50,12 @@ export class AddressInput implements ControlValueAccessor{
   }
 
   setDisabledState?(isDisabled: boolean): void {
-
   }
 
   onChange(value: any) {
-
   }
 
   onTouched() {
-
   }
 
   onSuggestionPick(city: string) {
@@ -73,5 +65,4 @@ export class AddressInput implements ControlValueAccessor{
     })
     this.onChange(city)
   }
-
 }

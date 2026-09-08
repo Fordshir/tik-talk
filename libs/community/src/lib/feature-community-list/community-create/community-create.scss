@@ -1,0 +1,25 @@
+.community-create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn-wrapper {
+  display: flex;
+  gap: 20px;
+  margin-top: 23px;
+}
+
+.black-btn:first-child {
+  margin-right: 65px;
+  padding: 14px;
+}
+
+.btn {
+  width: fit-content;
+  border-radius: 2px;
+}
+
+.description {
+  border-bottom: 1px solid var(--light-color);
+}

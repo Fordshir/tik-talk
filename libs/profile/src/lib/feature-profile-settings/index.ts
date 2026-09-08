@@ -1,5 +1,3 @@
-import {SettingsPage} from './settings-page/settings-page';
+import {SettingsPage} from './settings-page/settings-page'
 
-export {
-  SettingsPage
-}
+export {SettingsPage}

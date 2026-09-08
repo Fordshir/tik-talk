@@ -1,70 +1,67 @@
 import {
+  AfterViewChecked,
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
   inject,
+  input,
   Input,
   Output,
   Renderer2,
-} from "@angular/core";
-import {debounceTime, fromEvent} from "rxjs";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {PostComponent} from '../post/post';
-import {PostInput} from '../../ui';
-import {GlobalStoreService, postsActions, selectedPosts} from '@tt/data-access';
-import {Store} from '@ngrx/store';
+  signal
+} from '@angular/core'
+import {debounceTime, fromEvent} from 'rxjs'
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop'
+import {PostComponent} from '../post/post'
+import {PostInput} from '../../ui'
+import {Community, GlobalStoreService, Post} from '@tt/data-access'
+import {Store} from '@ngrx/store'
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: "tt-post-feed",
+  selector: 'tt-post-feed',
   imports: [PostInput, PostComponent],
-  templateUrl: "./post-feed.html",
-  styleUrl: "./post-feed.scss",
+  templateUrl: './post-feed.html',
+  styleUrl: './post-feed.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostFeed {
-  hostElement = inject(ElementRef);
-  r2 = inject(Renderer2);
-  profile = inject (GlobalStoreService).me;
+export class PostFeed implements AfterViewChecked, AfterViewInit {
+  hostElement = inject(ElementRef)
+  r2 = inject(Renderer2)
+  profile = inject(GlobalStoreService).me
+  community = input<Community | null>(null)
+  isMyCommunity = signal<boolean>(false)
   store = inject(Store)
+  route = inject(ActivatedRoute)
 
-  feed = this.store.selectSignal(selectedPosts);
+  feed = input<Post[]>([])
 
-  @Input() postId: number = 0;
-  @Input() isCommentInput = false;
-  @Output() created = new EventEmitter<void>();
+  @Input() postId: number = 0
+  @Input() isCommentInput = false
+  @Output() created = new EventEmitter<string>()
 
   constructor() {
-    fromEvent(window, "resize")
+    fromEvent(window, 'resize')
       .pipe(debounceTime(50), takeUntilDestroyed())
       .subscribe(() => {
-        this.resizeFeed();
-      });
+        this.resizeFeed()
+      })
   }
 
-  ngOnInit() {
-    this.store.dispatch(postsActions.postsGet())
+  ngAfterViewChecked() {
+    this.isMyCommunity.set(this.community()?.admin.id === this.profile()?.id)
   }
 
   ngAfterViewInit() {
-    this.resizeFeed();
+    this.resizeFeed()
   }
 
   resizeFeed() {
-    const { top } = this.hostElement.nativeElement.getBoundingClientRect();
+    const {top} = this.hostElement.nativeElement.getBoundingClientRect()
 
-    const height = window.innerHeight - top - 24 - 24;
-    this.r2.setStyle(this.hostElement.nativeElement, "height", `${height}px`);
-  }
-
-  onCreatePost(postText: string) {
-    if (!postText) return;
-    this.store.dispatch(postsActions.createPost({
-      post: {
-        title: 'клёвый пост',
-        content: postText,
-        authorId: this.profile()!.id
-      }
-    }))
+    const height = window.innerHeight - top - 24 - 24
+    this.r2.setStyle(this.hostElement.nativeElement, 'height', `${height}px`)
   }
 }

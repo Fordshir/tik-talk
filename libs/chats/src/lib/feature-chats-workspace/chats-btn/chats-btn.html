@@ -1,8 +1,7 @@
-@if (chat(); as chat) {
+@if (chat (); as chat) {
   <tt-avatar-circle
     class="size32"
-    [avatarUrl]="chat.userFrom.avatarUrl"
-  ></tt-avatar-circle>
+    [avatarUrl]="chat.userFrom.avatarUrl"></tt-avatar-circle>
 
   <div class="last-message__wrapper">
     <div class="user-wrapper">
@@ -16,7 +15,7 @@
     <div class="message-wrapper">
       <div class="medium-text">{{ chat.message ?? "..." }}</div>
       @if (chat.unreadMessages > 0) {
-      <div class="medium-text unread-counter">{{ chat.unreadMessages }}</div>
+        <div class="medium-text unread-counter">{{ chat.unreadMessages }}</div>
       }
     </div>
   </div>

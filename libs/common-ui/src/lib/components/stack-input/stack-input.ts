@@ -1,28 +1,23 @@
-import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, HostListener} from "@angular/core";
-import { SvgIconComponent } from "../svg-icon/svg-icon";
-import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {AsyncPipe} from '@angular/common';
-import {BehaviorSubject} from 'rxjs';
+import {ChangeDetectionStrategy, Component, forwardRef, HostBinding, HostListener, input} from '@angular/core'
+import {SvgIconComponent} from '../svg-icon/svg-icon'
+import {ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR} from '@angular/forms'
+import {AsyncPipe} from '@angular/common'
+import {BehaviorSubject} from 'rxjs'
 
 @Component({
-  selector: "tt-stack-input",
-  imports: [
-    SvgIconComponent,
-    FormsModule,
-    AsyncPipe
-  ],
-  templateUrl: "./stack-input.html",
-  styleUrl: "./stack-input.scss",
+  selector: 'tt-stack-input',
+  imports: [SvgIconComponent, FormsModule, AsyncPipe],
+  templateUrl: './stack-input.html',
+  styleUrl: './stack-input.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => StackInput),
+      useExisting: forwardRef(() => StackInput)
     }
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class StackInput implements ControlValueAccessor {
   value$ = new BehaviorSubject<string[]>([])
 
@@ -30,21 +25,25 @@ export class StackInput implements ControlValueAccessor {
 
   #disabled = false
 
+  placeholder = input<string>()
+
   @HostBinding('class.disabled')
   get disabled() {
     return this.#disabled
   }
 
-  @HostListener ('keydown.enter', ['$event'])
-  onEnter (event: Event) {
-    event.stopPropagation();
-    event.preventDefault();
+  @HostListener('keydown.enter', ['$event'])
+  onEnter(event: Event) {
+    event.stopPropagation()
+    event.preventDefault()
 
     if (!this.innerInput) return
 
-    this.value$.next([...this.value$.value, this.innerInput])
-    this.innerInput = ''
-    this.onChange(this.value$.value)
+    if (!this.value$.value.includes(this.innerInput)) {
+      this.value$.next([...this.value$.value, this.innerInput])
+      this.innerInput = ''
+      this.onChange(this.value$.value)
+    }
   }
 
   writeValue(stack: string[] | null) {
@@ -69,15 +68,13 @@ export class StackInput implements ControlValueAccessor {
   }
 
   onChange(value: string[] | null) {
-
   }
 
   onTouched() {
-
   }
 
   onTagDelete(i: number) {
-    const tags = this.value$.value
+    const tags = [...this.value$.value]
     tags.splice(i, 1)
     this.value$.next(tags)
     this.onChange(this.value$.value)

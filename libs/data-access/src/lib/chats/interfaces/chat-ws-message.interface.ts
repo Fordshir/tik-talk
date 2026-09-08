@@ -29,4 +29,8 @@ export interface ChatWSSendMessage {
   chat_id: number
 }
 
-export type ChatWSMessage = ChatWSUnreadMessage | ChatWSNewMessage | ChatWSError | ChatWSSendMessage
+export type ChatWSMessage =
+  | ChatWSUnreadMessage
+  | ChatWSNewMessage
+  | ChatWSError
+  | ChatWSSendMessage

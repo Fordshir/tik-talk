@@ -1,0 +1,18 @@
+.confirmation-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 30px;
+  text-align: center;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.black-btn:first-child:hover {
+  background-color: var(--red-primary-color);
+}

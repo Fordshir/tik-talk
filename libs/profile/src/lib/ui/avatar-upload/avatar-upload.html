@@ -1,16 +1,14 @@
-<img [src]="preview()" alt="avatar" class="avatar" />
+<img [src]="preview()" alt="avatar" class="avatar"/>
 
 <div
   dnd
   class="dropzone"
   tabindex="0"
   (keyup.enter)="fileDrop.click()"
-  (fileDropped)="onFileDropped($event)"
->
+  (fileDropped)="onFileDropped($event)">
   <div class="dropzone-content">
     <svg class="dropzone-content__svg" icon="upload"></svg>
-    <span class="medium-text">Перетащите изображение или Загрузите</span>
-    <span class="medium-text">(разрешение до 5,000 x 5,000 px)</span>
+    <span class="medium-text">Перетащите изображение или Загрузите</span> <span class="medium-text">(разрешение до 5,000 x 5,000 px)</span>
   </div>
 
   <input
@@ -18,6 +16,5 @@
     tabindex="-1"
     type="file"
     #fileDrop
-    (change)="fileBrowserHandler($event)"
-  />
+    (change)="fileBrowserHandler($event)"/>
 </div>

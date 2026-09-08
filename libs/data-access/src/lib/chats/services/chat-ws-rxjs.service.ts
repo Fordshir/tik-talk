@@ -1,31 +1,30 @@
-import {ChatConnectionWSParams, ChatWsService} from '../interfaces/chat-ws-service.interface';
-import {WebSocketSubject} from 'rxjs/internal/observable/dom/WebSocketSubject';
-import {ChatWSMessage} from '../interfaces/chat-ws-message.interface';
-import {webSocket} from 'rxjs/webSocket';
-import {finalize, Observable, tap} from 'rxjs';
+import {ChatConnectionWSParams, ChatWsService} from '../interfaces/chat-ws-service.interface'
+import {WebSocketSubject} from 'rxjs/internal/observable/dom/WebSocketSubject'
+import {ChatWSMessage} from '../interfaces/chat-ws-message.interface'
+import {webSocket} from 'rxjs/webSocket'
+import {finalize, Observable, tap} from 'rxjs'
 
 export class ChatWsRxjsService implements ChatWsService {
-  #socket: WebSocketSubject<ChatWSMessage> | null = null;
+  #socket: WebSocketSubject<ChatWSMessage> | null = null
 
   connect(params: ChatConnectionWSParams): Observable<ChatWSMessage> {
     if (this.#socket) {
-      this.#socket.complete();
-      this.#socket = null;
+      this.#socket.complete()
+      this.#socket = null
     }
 
     this.#socket = webSocket({
       url: params.url,
       protocol: [params.token]
-    });
+    })
 
-    return this.#socket.asObservable()
-      .pipe(
-        tap(message => params.handleMessage(message)),
-        finalize(() => {
-          console.log('WebSocket closed');
-          this.#socket = null;
-        })
-      );
+    return this.#socket.asObservable().pipe(
+      tap((message) => params.handleMessage(message)),
+      finalize(() => {
+        console.log('WebSocket closed')
+        this.#socket = null
+      })
+    )
   }
 
   disconnect(): void {
@@ -38,5 +37,4 @@ export class ChatWsRxjsService implements ChatWsService {
       chat_id: chatId
     })
   }
-
 }

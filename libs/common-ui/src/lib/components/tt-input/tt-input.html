@@ -1,0 +1,11 @@
+<label class="tt-form-label">
+  <ng-content></ng-content>
+  <input
+    [value]="value()"
+    (input)="onInput($event)"
+    [type]="type()"
+    class="tt-form-input"
+    [placeholder]="placeholder()"
+  />
+  <ng-content select="[right]"></ng-content>
+</label>

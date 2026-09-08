@@ -1,0 +1,94 @@
+.community-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.header-banner {
+  width: 100%;
+  height: 150px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.to-settings-btn {
+  width: 190px;
+  margin-right: 160px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  &:hover,
+  &:hover .to-settings-icon {
+    color: var(--light-color);
+  }
+}
+
+.to-settings-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--dark-color);
+}
+
+.community-page__body {
+  padding: 24px;
+  display: grid;
+  grid-gap: 64px;
+  grid-template-columns: 1fr 350px;
+}
+
+.stack-wrapper {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.banner-wrapper {
+  position: relative;
+
+  &:hover {
+    .edit-banner{
+      display: flex;
+    }
+  }
+}
+
+.edit-banner {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  align-items: center;
+  gap: 10px;
+  background: var(--dark-transparent-color);
+  border: 1px solid var(--light-color);
+  padding: 8px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--dark-hover-color);
+  }
+}
+
+.subs-counter-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.subs-counter {
+  padding: 1px 5px;
+  align-self: flex-start;
+  color: var(--dark-color);
+  background: var(--green-primary-color);
+  font-family: "JetBrains Mono", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.body-info {
+  padding: 0 24px;
+}

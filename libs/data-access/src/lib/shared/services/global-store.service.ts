@@ -1,10 +1,11 @@
-import {Injectable, signal} from '@angular/core';
-import {Profile} from '../../profile/interfaces';
+import {Injectable, signal} from '@angular/core'
+import {Profile} from '../../profile/interfaces'
+import {Community} from '@tt/data-access';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class GlobalStoreService {
   me = signal<Profile | null>(null)
+  community = signal<Community | null>(null)
 }

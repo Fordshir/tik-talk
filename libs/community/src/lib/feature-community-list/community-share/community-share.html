@@ -1,0 +1,56 @@
+<tt-modal-base header="Поделиться">
+  @if (submitted()) {
+    <div class="submitted-successfully">
+      Успешно отправлено!
+    </div>
+  }
+  @else {
+    <form class="share-form" [formGroup]="shareForm" (submit)="onSubmit()">
+      <div class="share-choice">
+        <div class="control-wrapper">
+          <tt-radio
+            [radioList]="radioOptions"
+            formControlName="type"
+          ></tt-radio>
+          @if (shareForm.controls.type.touched && shareForm.controls.type.invalid) {
+            <small class="validation-error">*Выберите значение</small>
+          }
+        </div>
+
+        @if (shareForm.controls.type.value === 'message'){
+          <tt-input type="text" placeholder="Выберите" formControlName="search">
+            <span class="tt-form-label__text">Подписчики</span>
+            <svg icon="search" class="svg16 input-icon"></svg>
+          </tt-input>
+
+          <div class="control-wrapper">
+            <tt-choose-control
+              [subscribers]="filteredSubscribers()"
+              formControlName="target"
+            ></tt-choose-control>
+            @if (shareForm.controls.target.touched && shareForm.controls.target.invalid) {
+              <small class="validation-error">*Выберите значение</small>
+            }
+          </div>
+        }
+
+        <tt-textarea
+          class="comment"
+          [ngClass]="{'invalid': shareForm.controls.text.touched && shareForm.controls.text.invalid}"
+          formControlName="text"
+          placeholder="Напишите комментарий"
+        ></tt-textarea>
+
+        <div class="button-wrapper">
+          <button type="submit" class="black-btn">
+            Отмена
+          </button>
+          <button type="submit" class="btn">
+            Отправить
+            <svg icon="send-message" class="svg16"></svg>
+          </button>
+        </div>
+      </div>
+    </form>
+  }
+</tt-modal-base>

@@ -1,0 +1,52 @@
+@if (community(); as community) {
+  <div class="banner-wrapper">
+    <img class="header-banner" [src]="community.bannerUrl | bannerUrl">
+    @if (community.admin.id === myId()){
+      <div class="edit-banner medium-text">
+        Изменить фотографию
+        <svg class="svg16" icon="pencil"></svg>
+      </div>
+    }
+  </div>
+  <header class="community-page__header">
+    <tt-community-header
+      [community]="community"
+      [myId]="myId()"
+    ></tt-community-header>
+
+    @if (community.admin.id === myId()) {
+      <button class="btn to-settings-btn" (click)="showModal(CommunityCreate, {community: community})">
+        Редактировать
+        <svg icon="settings" class="to-settings-icon"></svg>
+      </button>
+    }
+  </header>
+
+  <main class="community-page__body">
+    <tt-post-feed [community]="community" [feed]="feed()" (created)="onCreatePost($event)"></tt-post-feed>
+
+    <div class="body-info">
+      <div class="subs-counter-wrapper">
+        <h3 class="h6 mb16">Подписчики</h3>
+        <div class="subs-counter">{{community.subscribersAmount}}</div>
+      </div>
+
+      <div class="subscribers-wrapper mb32">
+        @for (profile of subscribers(); track profile.id) {
+          <tt-subscriber-circle [profile]="profile"></tt-subscriber-circle>
+        }
+        <a class="to-subscribers-search" (click)="showModal(SharePost, {subscribers: subscribers()})"> </a>
+      </div>
+
+      <h3 class="h6 mb16">Тема</h3>
+      <div class="stack-wrapper mb32">
+        @for (theme of community.themes; track theme) {
+          <div class="skill-tag">{{ theme }}</div>
+        }
+      </div>
+
+      <h3 class="h6 mb16">Описание</h3>
+      <p class="medium-text">{{ community.description }}</p>
+    </div>
+  </main>
+}

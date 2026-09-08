@@ -1,7 +1,7 @@
-import {ChatConnectionWSParams, ChatWsService} from '../interfaces/chat-ws-service.interface';
+import {ChatConnectionWSParams, ChatWsService} from '../interfaces/chat-ws-service.interface'
 
 export class chatWSNativeService implements ChatWsService {
-  #socket: WebSocket | null = null;
+  #socket: WebSocket | null = null
 
   connect(params: ChatConnectionWSParams) {
     if (this.#socket) return
@@ -9,13 +9,12 @@ export class chatWSNativeService implements ChatWsService {
     this.#socket = new WebSocket(params.url, [params.token])
 
     this.#socket.onmessage = (event: MessageEvent) => {
-      params.handleMessage(JSON.parse(event.data));
+      params.handleMessage(JSON.parse(event.data))
     }
 
     this.#socket.onclose = () => {
       console.log('WebSocket closed')
     }
-
   }
 
   sendMessage(text: string, chatId: number) {
@@ -30,5 +29,4 @@ export class chatWSNativeService implements ChatWsService {
   disconnect() {
     this.#socket?.close()
   }
-
 }

@@ -1,10 +1,9 @@
-import {createFeature, createReducer, on} from '@ngrx/store';
-import {postsActions} from './actions';
-import { Post } from "../interfaces/post.interface";
-
+import {createFeature, createReducer, on} from '@ngrx/store'
+import {postsActions} from './actions'
+import {Post} from '../interfaces/post.interface'
 
 export interface PostsState {
-  posts: Post[]
+  posts: Post[],
 }
 
 export const initialStatePosts: PostsState = {
@@ -17,7 +16,7 @@ export const postsFeature = createFeature({
     initialStatePosts,
     on(postsActions.postsLoaded, (state, payload) => ({
       ...state,
-      posts: payload.posts,
+      posts: payload.posts
     }))
   )
 })

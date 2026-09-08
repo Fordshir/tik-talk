@@ -1,6 +1,6 @@
 <div class="settings-header">
   @if (profile$ | async; as profile) {
-   <tt-profile-header [profile]="profile"></tt-profile-header>
+  <tt-profile-header [profile]="profile"></tt-profile-header>
   }
 </div>
 
@@ -37,20 +37,20 @@
       <tt-avatar-upload></tt-avatar-upload>
     </label>
 
-    <tt-stack-input formControlName="stack"></tt-stack-input>
+    <tt-stack-input formControlName="stack" placeholder="Введите навык">
+    </tt-stack-input>
 
     <tt-address-input formControlName="city"></tt-address-input>
-
   </div>
   <div>
     <div class="btn-wrapper">
       <div class="btn-wrapper__left">
-        <a (click)="authService.logout()" class="logout-btn"
-          ><svg class="logout-btn__icon" icon="logout"></svg
-        ></a>
-        <a [routerLink]="'/experimental'" class="logout-btn"
-          ><svg class="logout-btn__icon" icon="form"></svg
-        ></a>
+        <a (click)="authService.logout()" class="logout-btn">
+          <svg class="logout-btn__icon" icon="logout"></svg>
+        </a>
+        <a [routerLink]="'/experimental'" class="logout-btn">
+          <svg class="logout-btn__icon" icon="form"></svg>
+        </a>
       </div>
       <button class="btn settings-btn" (click)="onSave()">Сохранить</button>
     </div>

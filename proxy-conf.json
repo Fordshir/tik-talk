@@ -4,7 +4,6 @@
     "secure": false,
     "changeOrigin": true
   },
-
   "/yt-course/chat/ws": {
     "target": "https://icherniakov.ru",
     "secure": false,

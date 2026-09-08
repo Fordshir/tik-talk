@@ -1,34 +1,34 @@
-import {ChangeDetectionStrategy, Component, inject, signal} from "@angular/core";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators,} from "@angular/forms";
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core'
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms'
 
-import {Router} from "@angular/router";
-import {Auth} from '@tt/data-access';
+import {Router} from '@angular/router'
+import {Auth} from '@tt/data-access'
 
 @Component({
-  selector: "tt-login-page",
+  selector: 'tt-login-page',
   imports: [ReactiveFormsModule],
-  templateUrl: "./login-page.html",
-  styleUrl: "./login-page.scss",
+  templateUrl: './login-page.html',
+  styleUrl: './login-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPage {
-  authService = inject(Auth);
-  router = inject(Router);
+  authService = inject(Auth)
+  router = inject(Router)
 
-  isPasswordVisible = signal<boolean>(false);
+  isPasswordVisible = signal<boolean>(false)
 
   form = new FormGroup({
     username: new FormControl<string | null>(null, Validators.required),
-    password: new FormControl<string | null>(null, Validators.required),
-  });
+    password: new FormControl<string | null>(null, Validators.required)
+  })
 
   onSubmit() {
     if (this.form.valid) {
       //@ts-ignore
       this.authService.login(this.form.value).subscribe((res) => {
-        this.router.navigate([""]);
-        console.log(res);
-      });
+        this.router.navigate([''])
+        console.log(res)
+      })
     }
   }
 }

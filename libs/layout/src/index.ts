@@ -1,11 +1,7 @@
-import { Layout } from "./lib/layout/layout";
-import { Sidebar } from './lib/sidebar/sidebar';
-import { SubscriberCard } from "./lib/subscriber-card/subscriber-card";
+import {Layout} from './lib/layout/layout'
+import {Sidebar} from './lib/sidebar/sidebar'
+import {SubscriberCard} from './lib/subscriber-card/subscriber-card'
 
-export * from "./lib/layout/layout";
+export * from './lib/layout/layout'
 
-export {
-  Sidebar,
-  SubscriberCard,
-  Layout
-}
+export {Sidebar, SubscriberCard, Layout}

@@ -1,0 +1,11 @@
+<label class="tt-form-label">
+  <ng-content></ng-content>
+  <div class="comment-area tt-textarea">
+      <textarea
+        class="hidden-textarea"
+        (input)="onInput($event)"
+        [placeholder]="placeholder()"
+      ></textarea>
+    <svg icon="smile" class="svg16 textarea-icon"></svg>
+  </div>
+</label>

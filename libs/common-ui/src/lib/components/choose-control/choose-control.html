@@ -1,0 +1,5 @@
+<div class="subscribers-wrapper__share">
+  @for (profile of subscribers(); track profile.id) {
+    <tt-subscriber-circle [profile]="profile" [isDisabled]="true" (click)="onClick(profile.id)"></tt-subscriber-circle>
+  }
+</div>

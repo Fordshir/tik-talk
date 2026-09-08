@@ -1,19 +1,19 @@
-import {Profile} from '@tt/data-access';
-import {createFeature, createReducer, on} from '@ngrx/store';
-import {profileActions} from './actions';
+import {Profile} from '@tt/data-access'
+import {createFeature, createReducer, on} from '@ngrx/store'
+import {profileActions} from './actions'
 
 export interface ProfileState {
-  profiles: Profile[],
-  profileFilters: Record<string, any>,
-  page: number,
-  size: number,
+  profiles: Profile[]
+  profileFilters: Record<string, any>
+  page: number
+  size: number
 }
 
 export const initialStateProfile: ProfileState = {
   profiles: [],
   profileFilters: {},
   page: 1,
-  size: 10,
+  size: 10
 }
 
 export const profileFeature = createFeature({

@@ -1,0 +1,23 @@
+<div class="community-header">
+  <h1 class="h4">Сообщества</h1>
+  <button class="btn create-community-btn" (click)="showModal(CommunityCreate)">
+    Создать сообщество
+    <svg class="svg16" icon="communities"></svg>
+  </button>
+</div>
+
+<tt-community-filters></tt-community-filters>
+
+<div class="community-card__wrapper">
+  @for (community of communities (); track community.id) {
+    <tt-community-card [community]="community"></tt-community-card>
+    @if ($last) {
+      @defer (on viewport) {
+        <tt-infinite-scroll-trigger
+          (loaded)="timeToFetch()"></tt-infinite-scroll-trigger>
+      } @placeholder {
+        <div></div>
+      }
+    }
+  }
+</div>
