@@ -1,0 +1,25 @@
+<!--task1-->
+<button (click)="loadCards()">Загрузить карточки</button>
+<ul>
+  @for(card of cards(); track card.id){
+
+  }
+</ul>
+
+<!--task2-->
+
+<button (click)="loadCard()">Загрузить карточку</button>
+@if (card(); as c){
+  <div>
+    {{ c.question }} - {{ c.answer }}
+  </div>
+}
+
+<!--task3 - task4-->
+
+<button (click)="loadCardsIds()">Загрузить карточки</button>
+<ul>
+  @for(card of cardsFromIds(); track card.id)  {
+
+  }
+</ul>

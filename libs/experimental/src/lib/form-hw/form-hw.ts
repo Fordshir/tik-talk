@@ -5,6 +5,7 @@ import {Address, Feature, MockService} from './mock.service'
 import {KeyValuePipe} from '@angular/common'
 import {RouterLink} from '@angular/router'
 import {SvgIconComponent} from '@tt/common-ui'
+import {buffer, debounceTime, exhaustMap, filter, fromEvent, pairwise, throttleTime} from 'rxjs';
 
 enum receiverType {
   PERSON = 'PERSON',
@@ -33,6 +34,8 @@ export class FormHw {
   mockService = inject(MockService)
 
   features: Feature[] = []
+
+  clicks$ = fromEvent(document.body, 'click')
 
   form = new FormGroup({
     type: new FormControl<receiverType>(receiverType.PERSON),
